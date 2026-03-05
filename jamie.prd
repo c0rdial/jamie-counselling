@@ -1,0 +1,222 @@
+# Product Requirements Document
+## Counselling Practice Website for Jamie
+
+**New Build · From Scratch**
+
+| Field | Details |
+|-------|---------|
+| Client | Jamie (via Kim referral) |
+| Prepared by | Adam |
+| Date | March 2026 |
+| Status | Draft — Pending Discovery Call |
+| Location | Canada (likely British Columbia) |
+
+---
+
+## 1. Project Overview
+
+Jamie is a brand new counsellor looking for a basic, professional website to establish an online presence and attract potential clients. The site will be built from scratch with no existing assets, branding, or content to migrate.
+
+Based on Jamie's reference sites, the target is a clean, warm, modern design with static imagery (no animations or moving elements). Content scope will be similar to a simple solo-practitioner counselling site with approximately 4–6 pages.
+
+---
+
+## 2. Reference Site Analysis
+
+Jamie provided four reference sites. Here's what each tells us about scope and preferences:
+
+### Lisa Kratz Counselling — Content Benchmark
+
+**lisakratzcounselling.ca** — This is the content scope reference. It's a simple, static site for a solo counsellor in Victoria, BC with roughly 5 pages: Home, About, Services, Resources/Links, and Contact. Content includes a professional bio, list of specialties (grief, anxiety, relationships, etc.), credentials, a crisis resources section, and contact information with a booking link via SimplePractice. This is the right size target for Jamie's initial launch.
+
+### Take Care Therapy — Style Reference
+
+**takecaretherapy.ca** — Built on Squarespace. Modern, warm aesthetic with bold typography, earthy/muted color palette, and generous white space. Features include therapy specialty pages, team bios with professional photos, a "Book Session" CTA linking to JaneApp, and a contact page. Good reference for layout structure and how to present services with personality. Note: this is a multi-practitioner practice, so the team/scaling aspect won't apply to Jamie.
+
+### Dr. Deborah MacNamara — Style Reference (No Animations)
+
+**macnamara.ca** — Built on Showit. Very visual and organic with soft colors, rounded shapes, and layered imagery. Uses a lot of animated/moving elements which Jamie explicitly does not want. However, the overall warm, approachable, hand-crafted feel is appealing. Takeaway: draw from the color warmth and organic shapes, but keep everything static.
+
+### Jenna Leigh Pottery — Style Reference
+
+**jennaleigh.ca** — Built on Shopify. Clean, minimal, elegant. Simple navigation, beautiful hero imagery, lots of breathing room. Not a counselling site (it's pottery/e-commerce), but the minimal aesthetic and clean layout clearly appeal to Jamie. Takeaway: less is more; prioritize clarity and calm over busy design.
+
+---
+
+## 3. Design Direction Synthesis
+
+Combining signals from all four references, the design direction is:
+
+| Attribute | Direction |
+|-----------|-----------|
+| Overall Feel | Warm, calm, professional, approachable |
+| Layout | Generous white space, wide/open sections, simple grid |
+| Typography | Clean sans-serif for body, potentially a warm serif or humanist font for headings |
+| Color Palette | Muted earth tones — soft greens, warm neutrals, cream/off-white backgrounds. To be finalized during branding. |
+| Imagery | Static only. High-quality lifestyle/nature photography. No animations, no video backgrounds, no carousels. |
+| Navigation | Simple top nav with 4–6 items. Mobile hamburger menu. |
+| Tone | Welcoming, human, non-clinical. Similar to Take Care Therapy's casual-but-professional voice. |
+
+---
+
+## 4. Sitemap & Page Breakdown
+
+Estimated 5 core pages, with content scope modeled on Lisa Kratz's site:
+
+### 4.1 Home Page
+
+- Hero section with a welcoming headline, brief tagline, and a primary CTA (e.g., "Book a Free Consultation")
+- Brief intro paragraph — who Jamie is and who they help
+- 2–3 key therapy areas / service highlights (cards or simple grid)
+- A warm, inviting static image (nature, calm environment, or professional portrait)
+- Footer with contact info, location, and links
+
+### 4.2 About Page
+
+- Professional bio — background, education, credentials, approach
+- Personal touch — why Jamie became a counsellor, values, philosophy
+- Professional headshot / portrait photo
+- Credentials and designations (e.g., CCC, RCC, or equivalent)
+
+### 4.3 Services Page
+
+- List of therapy specialties / areas of focus (e.g., anxiety, grief, relationships, life transitions)
+- Brief description of each specialty
+- Session format info (in-person, virtual, or both)
+- Optional: fee information or a note about insurance
+
+### 4.4 Contact Page
+
+- Contact form (name, email, message)
+- Email address and/or phone number
+- Office location or general area served
+- CTA to book a free consultation (links to external booking tool if applicable)
+- Optional: embedded Google Map
+
+### 4.5 Resources Page (Optional / Phase 2)
+
+- Crisis hotline numbers and links (e.g., provincial crisis line)
+- Recommended reading or external resources
+- FAQ section about therapy process, confidentiality, what to expect
+
+---
+
+## 5. Functional Requirements
+
+### 5.1 Must-Have (MVP)
+
+- Responsive design (mobile, tablet, desktop)
+- Contact form with email delivery (e.g., via Resend, Formspree, or native form handler)
+- SEO basics: meta titles, descriptions, Open Graph tags, sitemap.xml
+- Fast page loads (target < 2s on mobile)
+- Accessibility (WCAG 2.1 AA baseline — alt text, keyboard nav, contrast ratios)
+- SSL / HTTPS
+- Google Analytics or simple analytics integration
+- CMS for Jamie to update text content without developer help
+
+### 5.2 Nice-to-Have (Post-Launch)
+
+- Blog / articles section
+- Online booking integration (JaneApp, SimplePractice, Calendly, etc.)
+- Testimonials section (with consent workflow)
+- Newsletter signup (Mailchimp, ConvertKit, etc.)
+
+---
+
+## 6. Recommended Tech Stack
+
+Given the budget and timeline, Astro + Sanity is the move — reuse patterns from the Ethos Imagery project and ship fast.
+
+| Layer | Tool |
+|-------|------|
+| Framework | Astro 5 (static site generation, zero JS by default) |
+| CMS | Sanity Studio — free tier covers this scale easily |
+| Styling | Tailwind CSS |
+| Hosting | Vercel or Netlify (free tier) |
+| Forms | Formspree or Netlify Forms |
+| Domain | Jamie's .ca domain (they'll need to purchase) |
+
+**Why this stack:** You already have Astro + Sanity wired up from Kim's project, so you're not starting from zero on the architecture. Zero JS output by default means fast loads with no optimization effort. Sanity gives Jamie a clean editing UI for self-managing content post-launch. Free-tier hosting keeps Jamie's ongoing costs near zero (just domain renewal).
+
+---
+
+## 7. Estimated Timeline
+
+Tight 1–2 week turnaround. Assumes Jamie has content and photos ready (or near-ready) at kickoff, and we skip a formal design/mockup phase in favor of building directly and iterating.
+
+| Phase | Tasks | Duration |
+|-------|-------|----------|
+| Kickoff | Quick call with Jamie, lock in scope, gather all content/photos, pick colors/fonts | Day 1–2 |
+| Build | Set up Astro + Sanity, build all pages, contact form, responsive styling | Day 3–8 |
+| Review & Revisions | Jamie reviews staging site, 1 round of revisions | Day 9–11 |
+| Launch | Domain setup, DNS, go-live, hand off CMS access | Day 12–14 |
+
+**Total estimated timeline: 1–2 weeks from kickoff.** This is achievable if Jamie provides content promptly. Any delays on content push the timeline out accordingly.
+
+---
+
+## 8. Pricing & Scope Boundaries
+
+**Quoted price: CAD $500–$600 (flat project fee)**
+
+At this price point, scope is kept tight. Here's what's included and what's not:
+
+### Included
+
+- 5-page site (Home, About, Services, Contact, Resources)
+- Astro + Sanity CMS setup (reusing patterns from existing projects)
+- Responsive design (mobile, tablet, desktop)
+- Contact form with email delivery
+- SEO basics (meta tags, sitemap.xml, Open Graph)
+- CMS handoff so Jamie can edit text content independently
+- 1 round of revisions on the staging site
+- Domain/DNS setup and go-live
+
+### Not Included (billed separately if needed)
+
+- Logo design or branding work — Jamie provides or sources separately
+- Copywriting — Jamie provides all written content
+- Professional photography — Jamie provides photos (stock placeholders used if not ready)
+- Additional revision rounds beyond the first (quoted at $75/hr CAD)
+- Blog setup, booking integration, newsletter — deferred to post-launch phase
+- Ongoing maintenance (can discuss a small monthly retainer separately)
+
+### Dependencies on Jamie
+
+- All written content (bio, service descriptions, credentials) provided before build starts
+- At least 1 professional headshot and any preferred stock imagery
+- Color/style preferences confirmed on kickoff call
+- Timely feedback on staging review (24–48 hr turnaround) to hit the 1–2 week timeline
+
+---
+
+## 9. Open Questions for Discovery Call
+
+Items to clarify with Jamie before finalizing scope and quote:
+
+1. What is Jamie's counselling specialty/focus area? (Affects content structure and SEO strategy)
+2. Does Jamie have professional photos, or do they need guidance on getting headshots taken?
+3. Does Jamie have a logo or any existing branding? Or is that part of the scope?
+4. In-person, virtual, or both? And what province/city? (Important for local SEO)
+5. Does Jamie already have a booking/scheduling tool, or do they need a recommendation?
+6. Does Jamie have a domain name in mind or already purchased?
+7. Budget range — what feels comfortable? (Helps you calibrate scope)
+8. Will Jamie be writing their own copy, or do they want copywriting support?
+9. Any regulatory requirements for counsellor websites in their province? (e.g., displaying registration numbers)
+
+---
+
+## 10. Risks & Assumptions
+
+### Assumptions
+
+- Jamie will provide all written content (bio, service descriptions, etc.)
+- Jamie will source professional photography (or we'll use curated stock as a placeholder)
+- Scope is limited to a static informational site — no client portal, no payments, no complex integrations
+- One round of design revisions, one round of development revisions included
+
+### Risks
+
+- **Content delays** — this is the #1 risk to the 1–2 week timeline. New practitioners often underestimate how long it takes to write their bio and service descriptions. Send Jamie a content template/worksheet on the kickoff call so they can fill in the blanks.
+- **Scope creep** — at $500–600, there's zero margin for "just one more thing" additions. Mitigate with a clear SOW referencing this PRD and the included/not-included list.
+- **Branding decisions** — if Jamie doesn't have a logo/colors, keep it simple: pick a Google Font pair and a 3-color palette on the kickoff call and move on. Don't let this become a rabbit hole.
