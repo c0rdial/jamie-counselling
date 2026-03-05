@@ -1,7 +1,7 @@
 ---
-import { client } from "../lib/sanity";
+import { safeFetch } from "../lib/sanity";
 
-const settings = await client.fetch(`*[_type == "siteSettings"][0]{ navItems, title }`);
+const settings = await safeFetch(`*[_type == "siteSettings"][0]{ navItems, title }`);
 const navItems = settings?.navItems ?? [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },

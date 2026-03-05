@@ -1,11 +1,11 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { client } from "../lib/sanity";
+import { safeFetch } from "../lib/sanity";
 import { PortableText } from "astro-portabletext";
 
-const services = await client.fetch(
+const services = await safeFetch(
   `*[_type == "service"] | order(order asc){ title, shortDescription, description, slug }`
-);
+) ?? [];
 ---
 
 <BaseLayout title="Services" description="Counselling services and areas of focus">

@@ -1,7 +1,7 @@
 ---
-import { client } from "../lib/sanity";
+import { safeFetch } from "../lib/sanity";
 
-const settings = await client.fetch(
+const settings = await safeFetch(
   `*[_type == "siteSettings"][0]{ contactEmail, contactPhone, location, socialLinks, footerText, title }`
 );
 const year = new Date().getFullYear();

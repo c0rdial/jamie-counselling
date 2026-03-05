@@ -2,16 +2,16 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SanityImage from "../components/SanityImage.astro";
 import ServiceCard from "../components/ServiceCard.astro";
-import { client } from "../lib/sanity";
+import { safeFetch } from "../lib/sanity";
 
-const settings = await client.fetch(`*[_type == "siteSettings"][0]{
+const settings = await safeFetch(`*[_type == "siteSettings"][0]{
   title, description, heroHeading, heroTagline, heroCta, heroImage,
   introHeading, introText, aboutSnippet, aboutImage, ctaHeading, ctaText
 }`);
 
-const services = await client.fetch(
+const services = await safeFetch(
   `*[_type == "service"] | order(order asc) [0...3]{ title, shortDescription }`
-);
+) ?? [];
 ---
 
 <BaseLayout title={settings?.title ?? "Jamie Counselling"} description={settings?.description}>

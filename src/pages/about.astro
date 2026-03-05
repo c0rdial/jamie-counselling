@@ -1,9 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { client } from "../lib/sanity";
+import { safeFetch } from "../lib/sanity";
 import { PortableText } from "astro-portabletext";
 
-const page = await client.fetch(
+const page = await safeFetch(
   `*[_type == "page" && slug.current == "about"][0]{ title, body, seoTitle, seoDescription }`
 );
 ---
