@@ -1,0 +1,35 @@
+---
+import { urlFor, srcSet } from "../lib/sanity";
+import type { SanityImageSource } from "@sanity/image-url";
+
+interface Props {
+  image: SanityImageSource;
+  alt: string;
+  sizes?: string;
+  widths?: number[];
+  class?: string;
+  loading?: "lazy" | "eager";
+}
+
+const {
+  image,
+  alt,
+  sizes = "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw",
+  widths = [400, 800, 1200, 1600],
+  class: className = "",
+  loading = "lazy",
+} = Astro.props;
+
+const src = urlFor(image).width(800).auto("format").url();
+const srcset = srcSet(image, widths);
+---
+
+<img
+  src={src}
+  srcset={srcset}
+  sizes={sizes}
+  alt={alt}
+  loading={loading}
+  decoding="async"
+  class={className}
+/>

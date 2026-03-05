@@ -1,0 +1,58 @@
+---
+import { client } from "../lib/sanity";
+
+const settings = await client.fetch(
+  `*[_type == "siteSettings"][0]{ contactEmail, contactPhone, location, socialLinks, footerText, title }`
+);
+const year = new Date().getFullYear();
+const siteTitle = settings?.title ?? "Jamie Counselling";
+---
+
+<footer class="bg-surface border-t border-border">
+  <div class="max-w-5xl mx-auto px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Brand -->
+      <div>
+        <p class="font-heading text-xl text-text-primary mb-2">{siteTitle}</p>
+        {settings?.location && (
+          <p class="text-sm text-text-muted">{settings.location}</p>
+        )}
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <p class="text-sm font-medium text-text-primary mb-2">Contact</p>
+        {settings?.contactEmail && (
+          <a href={`mailto:${settings.contactEmail}`} class="block text-sm text-text-muted hover:text-accent transition-colors">
+            {settings.contactEmail}
+          </a>
+        )}
+        {settings?.contactPhone && (
+          <a href={`tel:${settings.contactPhone}`} class="block text-sm text-text-muted hover:text-accent transition-colors mt-1">
+            {settings.contactPhone}
+          </a>
+        )}
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <p class="text-sm font-medium text-text-primary mb-2">Quick Links</p>
+        <nav class="flex flex-col gap-1">
+          <a href="/about" class="text-sm text-text-muted hover:text-accent transition-colors">About</a>
+          <a href="/services" class="text-sm text-text-muted hover:text-accent transition-colors">Services</a>
+          <a href="/resources" class="text-sm text-text-muted hover:text-accent transition-colors">Resources</a>
+          <a href="/contact" class="text-sm text-text-muted hover:text-accent transition-colors">Contact</a>
+        </nav>
+      </div>
+    </div>
+
+    {settings?.footerText && (
+      <p class="text-xs text-text-muted leading-relaxed mt-8 max-w-xl">
+        {settings.footerText}
+      </p>
+    )}
+
+    <p class="text-xs text-text-muted mt-4">&copy; {year} {siteTitle}</p>
+  </div>
+</footer>

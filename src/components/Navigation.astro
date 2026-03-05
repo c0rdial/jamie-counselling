@@ -1,0 +1,86 @@
+---
+import { client } from "../lib/sanity";
+
+const settings = await client.fetch(`*[_type == "siteSettings"][0]{ navItems, title }`);
+const navItems = settings?.navItems ?? [
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
+];
+const siteTitle = settings?.title ?? "Jamie Counselling";
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-bg/95 backdrop-blur-sm border-b border-border">
+  <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="font-heading text-xl text-text-primary">
+      {siteTitle}
+    </a>
+
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-8">
+      {navItems.map((item: { label: string; href: string }) => (
+        <li>
+          <a
+            href={item.href}
+            class:list={[
+              "text-sm tracking-wide transition-colors duration-200",
+              currentPath === item.href
+                ? "text-accent-dark font-medium"
+                : "text-text-muted hover:text-text-primary",
+            ]}
+          >
+            {item.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Mobile hamburger -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden text-text-primary"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+  </nav>
+</header>
+
+<!-- Mobile menu -->
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-bg flex flex-col items-center justify-center gap-8">
+  <button id="mobile-menu-close" class="absolute top-4 right-6 text-text-primary">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+    </svg>
+  </button>
+  {navItems.map((item: { label: string; href: string }) => (
+    <a href={item.href} class="font-heading text-2xl text-text-primary">
+      {item.label}
+    </a>
+  ))}
+</div>
+
+<script>
+  function initMobileMenu() {
+    const btn = document.getElementById("mobile-menu-btn");
+    const close = document.getElementById("mobile-menu-close");
+    const menu = document.getElementById("mobile-menu");
+    btn?.addEventListener("click", () => {
+      menu?.classList.remove("hidden");
+      menu?.classList.add("flex");
+      btn.setAttribute("aria-expanded", "true");
+    });
+    close?.addEventListener("click", () => {
+      menu?.classList.add("hidden");
+      menu?.classList.remove("flex");
+      btn?.setAttribute("aria-expanded", "false");
+    });
+  }
+  initMobileMenu();
+  document.addEventListener("astro:page-load", initMobileMenu);
+</script>
