@@ -1,0 +1,17 @@
+---
+interface Props {
+  service: {
+    title: string;
+    shortDescription?: string;
+  };
+}
+
+const { service } = Astro.props;
+---
+
+<div class="p-6 bg-white rounded-lg border border-border hover:border-accent/30 transition-colors duration-200">
+  <h3 class="font-heading text-xl text-text-primary mb-2">{service.title}</h3>
+  {service.shortDescription && (
+    <p class="text-sm text-text-body leading-relaxed">{service.shortDescription}</p>
+  )}
+</div>

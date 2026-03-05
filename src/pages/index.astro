@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SanityImage from "../components/SanityImage.astro";
+import ServiceCard from "../components/ServiceCard.astro";
+import { client } from "../lib/sanity";
+
+const settings = await client.fetch(`*[_type == "siteSettings"][0]{
+  title, description, heroHeading, heroTagline, heroCta, heroImage,
+  introHeading, introText, aboutSnippet, aboutImage, ctaHeading, ctaText
+}`);
+
+const services = await client.fetch(
+  `*[_type == "service"] | order(order asc) [0...3]{ title, shortDescription }`
+);
+---
+
+<BaseLayout title={settings?.title ?? "Jamie Counselling"} description={settings?.description}>
+
+  <!-- Hero -->
+  <section class="max-w-5xl mx-auto px-6 py-20 md:py-28 text-center">
+    <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-text-primary leading-tight mb-6">
+      {settings?.heroHeading ?? "Welcome"}
+    </h1>
+    {settings?.heroTagline && (
+      <p class="text-lg text-text-body max-w-2xl mx-auto mb-8">{settings.heroTagline}</p>
+    )}
+    <a
+      href="/contact"
+      class="inline-block bg-accent text-white px-8 py-3 rounded-md text-sm font-medium hover:bg-accent-dark transition-colors duration-200"
+    >
+      {settings?.heroCta ?? "Book a Free Consultation"}
+    </a>
+    {settings?.heroImage && (
+      <div class="mt-12">
+        <SanityImage
+          image={settings.heroImage}
+          alt={settings.heroImage?.alt ?? ""}
+          sizes="(max-width: 768px) 100vw, 80vw"
+          class="w-full max-w-3xl mx-auto rounded-lg object-cover"
+          loading="eager"
+        />
+      </div>
+    )}
+  </section>
+
+  <!-- Intro -->
+  {(settings?.introHeading || settings?.introText) && (
+    <section class="bg-surface py-16">
+      <div class="max-w-3xl mx-auto px-6 text-center">
+        {settings.introHeading && (
+          <h2 class="font-heading text-3xl text-text-primary mb-4">{settings.introHeading}</h2>
+        )}
+        {settings.introText && (
+          <p class="text-text-body leading-relaxed">{settings.introText}</p>
+        )}
+      </div>
+    </section>
+  )}
+
+  <!-- Services preview -->
+  {services.length > 0 && (
+    <section class="max-w-5xl mx-auto px-6 py-16">
+      <h2 class="font-heading text-3xl text-text-primary text-center mb-10">Areas of Focus</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {services.map((service: any) => (
+          <ServiceCard service={service} />
+        ))}
+      </div>
+      <div class="text-center mt-8">
+        <a href="/services" class="text-sm text-accent hover:text-accent-dark transition-colors">
+          View all services &rarr;
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- About preview -->
+  {(settings?.aboutSnippet || settings?.aboutImage) && (
+    <section class="bg-surface py-16">
+      <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        {settings.aboutImage && (
+          <SanityImage
+            image={settings.aboutImage}
+            alt={settings.aboutImage?.alt ?? "About Jamie"}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            class="w-full rounded-lg object-cover aspect-[4/5]"
+          />
+        )}
+        <div>
+          <h2 class="font-heading text-3xl text-text-primary mb-4">About Me</h2>
+          {settings.aboutSnippet && (
+            <p class="text-text-body leading-relaxed mb-6">{settings.aboutSnippet}</p>
+          )}
+          <a href="/about" class="text-sm text-accent hover:text-accent-dark transition-colors">
+            Learn more &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- CTA -->
+  {(settings?.ctaHeading || settings?.ctaText) && (
+    <section class="max-w-3xl mx-auto px-6 py-20 text-center">
+      {settings.ctaHeading && (
+        <h2 class="font-heading text-3xl text-text-primary mb-4">{settings.ctaHeading}</h2>
+      )}
+      {settings.ctaText && (
+        <p class="text-text-body mb-8">{settings.ctaText}</p>
+      )}
+      <a
+        href="/contact"
+        class="inline-block bg-accent text-white px-8 py-3 rounded-md text-sm font-medium hover:bg-accent-dark transition-colors duration-200"
+      >
+        Get in Touch
+      </a>
+    </section>
+  )}
+
+</BaseLayout>

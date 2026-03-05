@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { client } from "../lib/sanity";
+import { PortableText } from "astro-portabletext";
+
+const page = await client.fetch(
+  `*[_type == "page" && slug.current == "about"][0]{ title, body, seoTitle, seoDescription }`
+);
+---
+
+<BaseLayout
+  title={page?.seoTitle ?? page?.title ?? "About"}
+  description={page?.seoDescription}
+>
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <h1 class="font-heading text-4xl text-text-primary mb-8">{page?.title ?? "About"}</h1>
+    {page?.body ? (
+      <div class="prose prose-neutral max-w-none text-text-body leading-relaxed">
+        <PortableText value={page.body} />
+      </div>
+    ) : (
+      <p class="text-text-muted">Content coming soon.</p>
+    )}
+  </section>
+</BaseLayout>

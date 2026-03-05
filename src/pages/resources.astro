@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { client } from "../lib/sanity";
+
+const resources = await client.fetch(
+  `*[_type == "resource"] | order(order asc){ title, description, url, category }`
+);
+
+const grouped = resources.reduce((acc: Record<string, any[]>, r: any) => {
+  const cat = r.category ?? "other";
+  if (!acc[cat]) acc[cat] = [];
+  acc[cat].push(r);
+  return acc;
+}, {} as Record<string, any[]>);
+
+const categoryLabels: Record<string, string> = {
+  crisis: "Crisis Lines",
+  reading: "Recommended Reading",
+  faq: "Frequently Asked Questions",
+};
+---
+
+<BaseLayout title="Resources" description="Mental health resources and crisis support">
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <h1 class="font-heading text-4xl text-text-primary mb-10">Resources</h1>
+
+    {Object.keys(grouped).length > 0 ? (
+      Object.entries(grouped).map(([category, items]) => (
+        <div class="mb-12">
+          <h2 class="font-heading text-2xl text-text-primary mb-6">
+            {categoryLabels[category] ?? category}
+          </h2>
+          <div class="space-y-4">
+            {(items as any[]).map((resource) => (
+              <div class="p-4 bg-white rounded-lg border border-border">
+                <h3 class="font-medium text-text-primary">
+                  {resource.url ? (
+                    <a href={resource.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+                      {resource.title} &nearr;
+                    </a>
+                  ) : (
+                    resource.title
+                  )}
+                </h3>
+                {resource.description && (
+                  <p class="text-sm text-text-body mt-1">{resource.description}</p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      ))
+    ) : (
+      <p class="text-text-muted">Resources coming soon.</p>
+    )}
+  </section>
+</BaseLayout>

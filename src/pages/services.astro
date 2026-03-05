@@ -1,0 +1,35 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { client } from "../lib/sanity";
+import { PortableText } from "astro-portabletext";
+
+const services = await client.fetch(
+  `*[_type == "service"] | order(order asc){ title, shortDescription, description, slug }`
+);
+---
+
+<BaseLayout title="Services" description="Counselling services and areas of focus">
+  <section class="max-w-3xl mx-auto px-6 py-16">
+    <h1 class="font-heading text-4xl text-text-primary mb-10">Services</h1>
+
+    {services.length > 0 ? (
+      <div class="space-y-12">
+        {services.map((service: any) => (
+          <div class="pb-12 border-b border-border last:border-0">
+            <h2 class="font-heading text-2xl text-text-primary mb-3">{service.title}</h2>
+            {service.shortDescription && (
+              <p class="text-text-body mb-4">{service.shortDescription}</p>
+            )}
+            {service.description && (
+              <div class="text-text-body leading-relaxed">
+                <PortableText value={service.description} />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    ) : (
+      <p class="text-text-muted">Services information coming soon.</p>
+    )}
+  </section>
+</BaseLayout>
