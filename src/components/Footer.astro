@@ -2,10 +2,16 @@
 import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(
-  `*[_type == "siteSettings"][0]{ contactEmail, contactPhone, location, socialLinks, footerText, title }`
+  `*[_type == "siteSettings"][0]{ contactEmail, contactPhone, location, socialLinks, footerText, title, navItems }`
 );
 const year = new Date().getFullYear();
 const siteTitle = settings?.title ?? "Jamie Counselling";
+const navItems = settings?.navItems ?? [
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Resources", href: "/resources" },
+  { label: "Contact", href: "/contact" },
+];
 ---
 
 <footer class="bg-surface border-t border-border">
@@ -39,13 +45,24 @@ const siteTitle = settings?.title ?? "Jamie Counselling";
       <div>
         <p class="text-sm font-medium text-text-primary mb-2">Quick Links</p>
         <nav class="flex flex-col gap-1">
-          <a href="/about" class="text-sm text-text-muted hover:text-accent transition-colors">About</a>
-          <a href="/services" class="text-sm text-text-muted hover:text-accent transition-colors">Services</a>
-          <a href="/resources" class="text-sm text-text-muted hover:text-accent transition-colors">Resources</a>
-          <a href="/contact" class="text-sm text-text-muted hover:text-accent transition-colors">Contact</a>
+          {navItems.map((item: { label: string; href: string }) => (
+            <a href={item.href} class="text-sm text-text-muted hover:text-accent transition-colors">
+              {item.label}
+            </a>
+          ))}
         </nav>
       </div>
     </div>
+
+    {settings?.socialLinks && settings.socialLinks.length > 0 && (
+      <div class="flex gap-4 mt-8">
+        {settings.socialLinks.map((link: { platform: string; url: string }) => (
+          <a href={link.url} target="_blank" rel="noopener noreferrer" class="text-sm text-text-muted hover:text-accent transition-colors">
+            {link.platform}
+          </a>
+        ))}
+      </div>
+    )}
 
     {settings?.footerText && (
       <p class="text-xs text-text-muted leading-relaxed mt-8 max-w-xl">
