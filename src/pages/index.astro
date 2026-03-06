@@ -5,7 +5,7 @@ import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(`*[_type == "siteSettings"][0]{
   title, description, heroHeading, heroTagline, heroCta, heroImage,
-  introHeading, introText, aboutSnippet, aboutImage, ctaHeading, ctaText
+  introHeading, introText, aboutSnippet, aboutImage
 }`);
 
 const services = await safeFetch(
@@ -18,8 +18,6 @@ const heroCta = settings?.heroCta ?? "Book a Free Consultation";
 const introHeading = settings?.introHeading ?? "You don't have to carry it alone";
 const introText = settings?.introText ?? "Therapy is a place to be heard without judgement — to untangle what feels overwhelming and reconnect with the parts of yourself that feel lost. Whether you're working through a specific challenge or seeking deeper self-understanding, I'm here to walk alongside you.";
 const aboutSnippet = settings?.aboutSnippet ?? "I'm Jamie — a Registered Clinical Counsellor based in beautiful British Columbia. My approach is warm, collaborative, and rooted in evidence-based practices. I believe that everyone deserves a space where they can show up exactly as they are.";
-const ctaHeading = settings?.ctaHeading ?? "Ready to take the first step?";
-const ctaText = settings?.ctaText ?? "Reaching out can feel vulnerable — and that's completely okay. Let's start with a free 15-minute consultation to see if we're a good fit.";
 
 const placeholderServices = services.length > 0 ? services : [
   { title: "Anxiety & Stress", shortDescription: "Learn to manage overwhelming thoughts and build sustainable coping strategies that honour your unique nervous system." },
@@ -246,32 +244,5 @@ const placeholderServices = services.length > 0 ? services : [
     </div>
   </section>
 
-  <!-- ══════════ CTA ══════════ -->
-  <section class="relative overflow-hidden">
-    <div class="bg-gradient-to-r from-accent-pale/40 via-terra-pale/30 to-accent-pale/40 py-14 md:py-16">
-      <div class="max-w-2xl mx-auto px-6 text-center">
-        <svg class="w-6 h-6 text-terra mx-auto mb-4 reveal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
-        </svg>
-        <h2 class="font-heading text-3xl md:text-[2.4rem] text-text-primary mb-4 leading-snug reveal" style="transition-delay:80ms">
-          {ctaHeading}
-        </h2>
-        <p class="text-text-body text-[16px] leading-relaxed mb-8 reveal" style="transition-delay:160ms">
-          {ctaText}
-        </p>
-        <div class="reveal" style="transition-delay:240ms">
-          <a
-            href="/contact"
-            class="group inline-flex items-center gap-2.5 bg-accent text-white pl-8 pr-6 py-3.5 rounded-full text-sm font-bold hover:bg-accent-dark transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:gap-3.5"
-          >
-            Get in Touch
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
 
 </BaseLayout>
