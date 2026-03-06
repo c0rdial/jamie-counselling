@@ -6,30 +6,107 @@ import { PortableText } from "astro-portabletext";
 const services = await safeFetch(
   `*[_type == "service"] | order(order asc){ title, shortDescription, description, slug }`
 ) ?? [];
+
+const placeholderServices = services.length > 0 ? services : [
+  {
+    title: "Anxiety & Stress",
+    shortDescription: "Racing thoughts, tightness in your chest, trouble sleeping — anxiety shows up in so many ways. Together, we'll explore what's driving it and build strategies that actually work for your life.",
+  },
+  {
+    title: "Grief & Loss",
+    shortDescription: "Grief isn't just about death — it's about any loss that changes the shape of your world. A relationship, a career, a version of yourself you've outgrown. There's no timeline for grief, and there's no 'getting over it.' But there is a way through.",
+  },
+  {
+    title: "Relationships",
+    shortDescription: "Whether it's a romantic partner, a family member, or a friend — relationship patterns often run deeper than we think. We'll explore the dynamics that keep showing up and find new ways to connect.",
+  },
+  {
+    title: "Life Transitions",
+    shortDescription: "Moving cities, changing careers, becoming a parent, navigating retirement, coming out — big life shifts can feel exciting and terrifying at the same time. You don't have to figure it out alone.",
+  },
+  {
+    title: "Self-Esteem & Identity",
+    shortDescription: "If you've spent your life meeting everyone else's expectations, it can be hard to know who you actually are underneath it all. Let's find out together.",
+  },
+  {
+    title: "Burnout & Work Stress",
+    shortDescription: "When 'pushing through' has become your default mode and you've forgotten what rest feels like, it's time to recalibrate. We'll explore boundaries, values, and sustainable ways of showing up.",
+  },
+];
+
+const iconPaths = [
+  "M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z",
+  "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",
+  "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
+  "M12 3v18M3 12h18M7.5 7.5l9 9M16.5 7.5l-9 9",
+  "M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM12 8v4M12 16h.01",
+  "M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z",
+];
 ---
 
-<BaseLayout title="Services" description="Counselling services and areas of focus">
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <h1 class="font-heading text-4xl text-text-primary mb-10">Services</h1>
+<BaseLayout title="Services — Jamie Counselling" description="Counselling services and areas of focus">
+  <section class="max-w-4xl mx-auto px-6 py-12 md:py-16">
+    <!-- Header -->
+    <div class="text-center mb-6">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3 reveal">Services</p>
+      <h1 class="font-heading text-4xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay: 80ms;">
+        How I can help
+      </h1>
+    </div>
+    <p class="text-center text-text-body text-[17px] max-w-2xl mx-auto mb-10 leading-relaxed reveal" style="transition-delay: 160ms;">
+      I work with adults across a range of concerns. Every person's experience is unique — these are just starting points for the conversations we might have.
+    </p>
 
-    {services.length > 0 ? (
-      <div class="space-y-12">
-        {services.map((service: any) => (
-          <div class="pb-12 border-b border-border last:border-0">
-            <h2 class="font-heading text-2xl text-text-primary mb-3">{service.title}</h2>
-            {service.shortDescription && (
-              <p class="text-text-body mb-4">{service.shortDescription}</p>
-            )}
-            {service.description && (
-              <div class="text-text-body leading-relaxed">
-                <PortableText value={service.description} />
-              </div>
-            )}
+    <!-- Services list -->
+    <div class="space-y-6 reveal-stagger">
+      {placeholderServices.map((service: any, i: number) => (
+        <div class="reveal group p-8 rounded-2xl bg-white/60 border border-border/50 card-hover">
+          <div class="flex items-start gap-5">
+            <div class="shrink-0 w-10 h-10 rounded-xl bg-accent-pale/60 flex items-center justify-center mt-0.5">
+              <svg class="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={iconPaths[i % iconPaths.length]} />
+              </svg>
+            </div>
+            <div>
+              <h2 class="font-heading text-2xl text-text-primary mb-3">{service.title}</h2>
+              {service.shortDescription && (
+                <p class="text-[15px] text-text-body leading-[1.75]">{service.shortDescription}</p>
+              )}
+              {service.description && (
+                <div class="text-[15px] text-text-body leading-[1.75] mt-3">
+                  <PortableText value={service.description} />
+                </div>
+              )}
+            </div>
           </div>
-        ))}
+        </div>
+      ))}
+    </div>
+
+    <!-- Approach section -->
+    <div class="mt-14">
+      <div class="divider-line max-w-xs mx-auto mb-10" />
+
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="font-heading text-2xl text-text-primary mb-6 reveal">My approach</h2>
+        <p class="text-[17px] text-text-body leading-[1.8] mb-6 reveal" style="transition-delay: 80ms;">
+          I draw from evidence-based practices including Cognitive Behavioural Therapy (CBT), Acceptance and Commitment Therapy (ACT), and Person-Centered Therapy — always tailored to what feels right for you.
+        </p>
+        <p class="text-[17px] text-text-body leading-[1.8] mb-10 reveal" style="transition-delay: 160ms;">
+          Sessions are 50 minutes and are available online via secure video. I offer a free 15-minute consultation so we can get to know each other before committing.
+        </p>
+        <div class="reveal" style="transition-delay: 240ms;">
+          <a
+            href="/contact"
+            class="group inline-flex items-center gap-2 bg-accent text-white px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-accent-dark transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
+          >
+            Get in touch
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
       </div>
-    ) : (
-      <p class="text-text-muted">Services information coming soon.</p>
-    )}
+    </div>
   </section>
 </BaseLayout>
