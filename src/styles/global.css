@@ -2,29 +2,68 @@
 
 @theme {
   --font-heading: "Lora", serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Nunito", sans-serif;
 
-  /* Warm off-white backgrounds */
-  --color-bg: #FAF8F5;
-  --color-surface: #F0EBE3;
+  /* Warm parchment backgrounds */
+  --color-bg: #FAF7F2;
+  --color-surface: #F0EBE1;
+  --color-surface-warm: #E8E0D4;
+
+  /* Deep forest section */
+  --color-forest: #2C3E2D;
+  --color-forest-light: #3A5039;
 
   /* Text */
-  --color-text-primary: #2B2B2B;
-  --color-text-body: #4A4A4A;
-  --color-text-muted: #7A7A7A;
+  --color-text-primary: #2A2621;
+  --color-text-body: #4D4842;
+  --color-text-muted: #8A8279;
 
-  /* Sage green accent */
-  --color-accent: #6B8F71;
-  --color-accent-dark: #4A6B50;
-  --color-accent-light: #8BAF91;
+  /* Rich sage accent */
+  --color-accent: #5B8C65;
+  --color-accent-dark: #3D6B47;
+  --color-accent-light: #8BB894;
+  --color-accent-pale: #D1E4D5;
+
+  /* Warm terracotta secondary */
+  --color-terra: #C47D5A;
+  --color-terra-light: #E8B99A;
+  --color-terra-pale: #F5E3D5;
+
+  /* Blush (subtle) */
+  --color-rose: #D4A0A0;
+  --color-rose-light: #EDD5D5;
+  --color-rose-pale: #F5EBEB;
+
+  /* Gold */
+  --color-gold: #BFA36E;
+  --color-gold-light: #E2D1AA;
 
   /* Borders */
-  --color-border: #E2DCD4;
-  --color-border-dark: #C8C1B8;
+  --color-border: #E0D8CC;
+  --color-border-dark: #CCC3B5;
 
   /* Functional */
   --color-error: #C45D4D;
   --color-success: #5C8A6B;
+
+  /* Animations */
+  --animate-fade-up: fade-up 0.8s ease-out forwards;
+  --animate-fade-in: fade-in 0.6s ease-out forwards;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes gentle-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
 }
 
 html {
@@ -37,4 +76,147 @@ html {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 400;
+}
+
+/* Scroll reveals */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-stagger > .reveal:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger > .reveal:nth-child(2) { transition-delay: 100ms; }
+.reveal-stagger > .reveal:nth-child(3) { transition-delay: 200ms; }
+.reveal-stagger > .reveal:nth-child(4) { transition-delay: 300ms; }
+.reveal-stagger > .reveal:nth-child(5) { transition-delay: 400ms; }
+.reveal-stagger > .reveal:nth-child(6) { transition-delay: 500ms; }
+
+/* Organic divider */
+.divider-leaf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.divider-leaf::before,
+.divider-leaf::after {
+  content: "";
+  height: 1px;
+  width: 40px;
+  background: var(--color-accent-light);
+}
+
+/* Grain overlay */
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+}
+
+/* Card interactions */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.35s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px -8px rgba(43, 92, 50, 0.12);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  background-color: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 8px 24px -6px rgba(43, 92, 50, 0.08);
+}
+
+/* Arch shape clip */
+.arch-frame {
+  border-radius: 999px 999px 24px 24px;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-accent-pale);
+  color: var(--color-text-primary);
+}
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Decorative botanical dot */
+.dot-accent,
+.botanical-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* Simple line divider */
+.divider-line {
+  height: 1px;
+  background: var(--color-border);
+  border: none;
+}
+
+/* Leaf icon used in multiple places */
+.leaf-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}
+
+/* Gentle floating animation */
+.float-gentle {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+/* FAQ Accordion */
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary::marker {
+  display: none;
+}
+.faq-item .faq-chevron {
+  transition: transform 0.3s ease;
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+.faq-item .faq-answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+}
+.faq-item[open] .faq-answer {
+  grid-template-rows: 1fr;
+}
+.faq-item .faq-answer > div {
+  overflow: hidden;
 }

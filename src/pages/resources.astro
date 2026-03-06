@@ -6,7 +6,19 @@ const resources = await safeFetch(
   `*[_type == "resource"] | order(order asc){ title, description, url, category }`
 ) ?? [];
 
-const grouped = resources.reduce((acc: Record<string, any[]>, r: any) => {
+const placeholderResources = resources.length > 0 ? resources : [
+  { title: "Crisis Centre BC", description: "24/7 crisis support line for British Columbia residents", url: "https://crisiscentre.bc.ca", category: "crisis" },
+  { title: "988 Suicide & Crisis Lifeline", description: "Call or text 988 for immediate support (Canada-wide)", url: "https://988.ca", category: "crisis" },
+  { title: "Kids Help Phone", description: "24/7 support for young people — call 1-800-668-6868 or text CONNECT to 686868", url: "https://kidshelpphone.ca", category: "crisis" },
+  { title: "The Body Keeps the Score", description: "Bessel van der Kolk's groundbreaking exploration of how trauma lives in the body — and how to heal", category: "reading" },
+  { title: "Set Boundaries, Find Peace", description: "Nedra Glover Tawwab's practical guide to setting boundaries in all areas of life", category: "reading" },
+  { title: "Burnout: The Secret to Unlocking the Stress Cycle", description: "Emily and Amelia Nagoski on why rest alone isn't enough — and what actually helps", category: "reading" },
+  { title: "What should I expect in a first session?", description: "We'll spend the time getting to know each other. I'll ask about what brought you to counselling and what you're hoping for. There's no pressure to share more than you're comfortable with.", category: "faq" },
+  { title: "How many sessions will I need?", description: "It depends on your goals and circumstances. Some people find 6-8 sessions helpful; others prefer ongoing support. We'll check in regularly about what's working.", category: "faq" },
+  { title: "Do you offer sliding scale?", description: "Yes — I keep a limited number of reduced-fee spots available. Please reach out to discuss options.", category: "faq" },
+];
+
+const grouped = placeholderResources.reduce((acc: Record<string, any[]>, r: any) => {
   const cat = r.category ?? "other";
   if (!acc[cat]) acc[cat] = [];
   acc[cat].push(r);
@@ -14,44 +26,147 @@ const grouped = resources.reduce((acc: Record<string, any[]>, r: any) => {
 }, {} as Record<string, any[]>);
 
 const categoryLabels: Record<string, string> = {
-  crisis: "Crisis Lines",
+  crisis: "Crisis Support",
   reading: "Recommended Reading",
   faq: "Frequently Asked Questions",
 };
+
+const categoryIcons: Record<string, string> = {
+  crisis: "M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z",
+  reading: "M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z",
+  faq: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 8v4M12 16h.01",
+};
+
+const categoryOrder = ["crisis", "faq", "reading"];
 ---
 
-<BaseLayout title="Resources" description="Mental health resources and crisis support">
-  <section class="max-w-3xl mx-auto px-6 py-16">
-    <h1 class="font-heading text-4xl text-text-primary mb-10">Resources</h1>
+<BaseLayout title="Resources — Jamie Counselling" description="Mental health resources, crisis support, and FAQs">
+  <section class="max-w-4xl mx-auto px-6 py-12 md:py-16">
+    <!-- Header -->
+    <div class="text-center mb-12">
+      <p class="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3 reveal">Resources</p>
+      <h1 class="font-heading text-4xl md:text-5xl text-text-primary leading-tight mb-5 reveal" style="transition-delay: 80ms;">
+        Support & information
+      </h1>
+      <p class="text-text-body text-[17px] max-w-xl mx-auto leading-relaxed reveal" style="transition-delay: 160ms;">
+        Whether you're in crisis, curious about therapy, or looking for something good to read — these resources are here for you.
+      </p>
+    </div>
 
-    {Object.keys(grouped).length > 0 ? (
-      Object.entries(grouped).map(([category, items]) => (
-        <div class="mb-12">
-          <h2 class="font-heading text-2xl text-text-primary mb-6">
+    <!-- Crisis banner -->
+    {grouped["crisis"] && (
+      <div class="mb-12 p-6 rounded-2xl bg-rose-pale/50 border border-rose/20 reveal">
+        <div class="flex items-center gap-2 mb-2">
+          <svg class="w-4 h-4 text-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d={categoryIcons["crisis"]} />
+          </svg>
+          <p class="text-sm font-semibold text-text-primary">If you're in crisis</p>
+        </div>
+        <p class="text-[14px] text-text-body mb-4">
+          If you or someone you know is in immediate danger, please call 911. For crisis support, these services are available 24/7:
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {grouped["crisis"].map((resource: any) => (
+            <a
+              href={resource.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block p-4 rounded-xl bg-white/80 border border-rose/10 hover:border-rose/30 transition-colors"
+            >
+              <p class="text-sm font-semibold text-text-primary mb-1">{resource.title}</p>
+              <p class="text-xs text-text-muted">{resource.description}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <!-- Other sections -->
+    {categoryOrder.filter(cat => cat !== "crisis" && grouped[cat]).map((category) => (
+      <div class="mb-14 reveal">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-8 h-8 rounded-lg bg-accent-pale/60 flex items-center justify-center">
+            <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d={categoryIcons[category] ?? ""} />
+            </svg>
+          </div>
+          <h2 class="font-heading text-2xl text-text-primary">
             {categoryLabels[category] ?? category}
           </h2>
-          <div class="space-y-4">
-            {(items as any[]).map((resource) => (
-              <div class="p-4 bg-white rounded-lg border border-border">
-                <h3 class="font-medium text-text-primary">
+        </div>
+
+        {category === "faq" ? (
+          <div class="space-y-3 reveal-stagger">
+            {(grouped[category] as any[]).map((resource: any) => (
+              <details class="reveal faq-item rounded-xl bg-white/60 border border-border/50 card-hover">
+                <summary class="p-5 flex items-center justify-between gap-4">
+                  <h3 class="font-medium text-text-primary text-[15px]">{resource.title}</h3>
+                  <svg class="faq-chevron w-4 h-4 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="faq-answer">
+                  <div>
+                    <p class="px-5 pb-5 text-[14px] text-text-body leading-relaxed">{resource.description}</p>
+                  </div>
+                </div>
+              </details>
+            ))}
+          </div>
+        ) : (
+          <div class="space-y-3 reveal-stagger">
+            {(grouped[category] as any[]).map((resource: any) => (
+              <div class="reveal p-5 rounded-xl bg-white/60 border border-border/50 card-hover">
+                <h3 class="font-medium text-text-primary text-[15px]">
                   {resource.url ? (
-                    <a href={resource.url} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
-                      {resource.title} &nearr;
+                    <a href={resource.url} target="_blank" rel="noopener noreferrer" class="group inline-flex items-center gap-1.5 hover:text-accent transition-colors">
+                      {resource.title}
+                      <svg class="w-3.5 h-3.5 text-text-muted group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                      </svg>
                     </a>
                   ) : (
                     resource.title
                   )}
                 </h3>
                 {resource.description && (
-                  <p class="text-sm text-text-body mt-1">{resource.description}</p>
+                  <p class="text-[14px] text-text-body mt-1.5 leading-relaxed">{resource.description}</p>
                 )}
               </div>
             ))}
           </div>
-        </div>
-      ))
-    ) : (
-      <p class="text-text-muted">Resources coming soon.</p>
-    )}
+        )}
+      </div>
+    ))}
+
+    <!-- CTA -->
+    <div class="text-center mt-8 reveal">
+      <div class="divider-line max-w-xs mx-auto mb-8" />
+      <p class="text-text-body text-[17px] mb-6">Have a question that's not listed here?</p>
+      <a
+        href="/contact"
+        class="group inline-flex items-center gap-2 text-sm text-accent font-medium hover:text-accent-dark transition-colors"
+      >
+        Get in touch
+        <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+    </div>
   </section>
+  <script>
+    function initFaqAccordion() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      faqItems.forEach(item => {
+        item.addEventListener('toggle', () => {
+          if ((item as HTMLDetailsElement).open) {
+            faqItems.forEach(other => {
+              if (other !== item) (other as HTMLDetailsElement).open = false;
+            });
+          }
+        });
+      });
+    }
+    document.addEventListener('astro:page-load', initFaqAccordion);
+  </script>
 </BaseLayout>
