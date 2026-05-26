@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow: string;
+  align?: "left" | "center";
+  headingClass?: string;
+}
+
+const { eyebrow, align = "left", headingClass = "" } = Astro.props;
+const isCenter = align === "center";
+---
+
+<div class:list={["flex items-center gap-2 mb-3 reveal", isCenter && "justify-center"]}>
+  <span class="dot-accent" />
+  <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">{eyebrow}</span>
+</div>
+<h2
+  class:list={[
+    "font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal",
+    headingClass,
+  ]}
+  style="transition-delay:80ms"
+>
+  <slot />
+</h2>

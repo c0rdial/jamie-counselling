@@ -1,4 +1,5 @@
 ---
+import LeafMark from "./LeafMark.astro";
 import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(
@@ -34,9 +35,7 @@ const socialIconPaths: Record<string, string> = {
       <div class="md:col-span-5">
         <div class="flex items-center gap-2.5 mb-4">
           <div class="w-8 h-8 rounded-full bg-white/8 flex items-center justify-center">
-            <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <LeafMark class="w-4 h-4 text-sage" />
           </div>
           <p class="font-heading text-xl text-white font-medium">{siteTitle}</p>
         </div>

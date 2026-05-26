@@ -1,4 +1,6 @@
 ---
+import ArrowRight from "./ArrowRight.astro";
+import LeafMark from "./LeafMark.astro";
 import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(`*[_type == "siteSettings"][0]{ navItems, title }`);
@@ -17,9 +19,7 @@ const currentPath = Astro.url.pathname;
     <a href="/" class="group flex items-center gap-2.5">
       <!-- Leaf mark -->
       <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center group-hover:bg-accent-light transition-colors duration-300">
-        <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <LeafMark class="w-4 h-4 text-sage" />
       </div>
       <span class="font-heading text-lg text-text-primary font-medium tracking-tight">{siteTitle}</span>
     </a>
@@ -44,13 +44,11 @@ const currentPath = Astro.url.pathname;
     <!-- CTA + mobile button -->
     <div class="flex items-center gap-3">
       <a
-        href="/#schedule"
+        href="/book"
         class="hidden md:inline-flex items-center gap-1.5 bg-accent text-white pl-4 pr-3 py-2 pill font-label text-[12px] font-semibold uppercase tracking-wider hover:bg-accent-light transition-colors duration-200"
       >
         Book a call
-        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-        </svg>
+        <ArrowRight class="w-3.5 h-3.5" strokeWidth={2.5} />
       </a>
 
       <!-- Mobile hamburger -->
@@ -92,13 +90,11 @@ const currentPath = Astro.url.pathname;
       </a>
     ))}
     <a
-      href="/#schedule"
+      href="/book"
       class="mt-6 inline-flex items-center justify-center gap-2 bg-accent text-white py-4 pill font-label text-sm font-semibold w-fit px-7"
     >
       Book a call
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-      </svg>
+      <ArrowRight strokeWidth={2.5} />
     </a>
   </div>
 </div>

@@ -1,13 +1,13 @@
 ---
+import ArrowRight from "../components/ArrowRight.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import LeafMark from "../components/LeafMark.astro";
+import SectionHeader from "../components/SectionHeader.astro";
 import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(`*[_type == "siteSettings"][0]{
   title, description
 }`);
-
-// Placeholder Calendly URL — swap when client provides their account
-const CALENDLY_URL = "https://calendly.com/jamie-counselling/intro-call";
 
 const services = [
   {
@@ -97,13 +97,11 @@ const galleryItems = [
           </p>
           <div class="flex flex-wrap items-center gap-5 reveal" style="transition-delay:240ms">
             <a
-              href="#schedule"
+              href="/book"
               class="group inline-flex items-center gap-2.5 bg-accent text-white pl-7 pr-5 py-3.5 pill font-label text-sm font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:gap-3.5"
             >
               Book a free consultation
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-              </svg>
+              <ArrowRight strokeWidth={2.5} />
             </a>
             <a href="/about" class="font-label text-sm text-text-muted font-semibold hover:text-accent transition-colors">
               Learn about my approach
@@ -116,10 +114,7 @@ const galleryItems = [
           <div class="relative w-72 md:w-80 lg:w-[22rem] float-gentle">
             <div class="arch-frame aspect-[3/4] bg-gradient-to-br from-sage-pale via-surface-warm to-terra-pale overflow-hidden relative shadow-xl shadow-accent/5">
               <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
-                <svg class="w-12 h-12 text-accent/20 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                  <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-                  <path d="M12 3v18" stroke-linecap="round"/>
-                </svg>
+                <LeafMark class="w-12 h-12 text-accent/20 mb-3" strokeWidth={1} showStem />
                 <p class="font-label text-[11px] text-accent/45 font-semibold uppercase tracking-wider">Portrait coming soon</p>
               </div>
             </div>
@@ -148,17 +143,13 @@ const galleryItems = [
     <div class="max-w-6xl mx-auto px-6">
       <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
         <div>
-          <div class="flex items-center gap-2 mb-3 reveal">
-            <span class="dot-accent" />
-            <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">How I can help</span>
-          </div>
-          <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal max-w-xl" style="transition-delay:80ms">
+          <SectionHeader eyebrow="How I can help" headingClass="max-w-xl">
             A practice rooted in <span class="italic-emph text-accent">presence</span> and care
-          </h2>
+          </SectionHeader>
         </div>
         <a href="/services" class="font-label text-sm text-accent font-semibold hover:text-accent-light transition-colors flex items-center gap-2 reveal" style="transition-delay:160ms">
           See all services
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <ArrowRight />
         </a>
       </div>
 
@@ -202,10 +193,7 @@ const galleryItems = [
         <div class="relative">
           <div class="aspect-[4/5] arch-frame bg-gradient-to-br from-surface-warm via-sage-pale to-accent-pale overflow-hidden">
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-              <svg class="w-12 h-12 text-accent/25 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-                <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 3v18" stroke-linecap="round"/>
-              </svg>
+              <LeafMark class="w-12 h-12 text-accent/25 mb-3" strokeWidth={1} showStem />
               <p class="font-label text-xs text-accent/40 font-semibold">Photo coming soon</p>
             </div>
           </div>
@@ -215,13 +203,9 @@ const galleryItems = [
 
       <!-- Text -->
       <div class="md:col-span-7">
-        <div class="flex items-center gap-2 mb-3 reveal">
-          <span class="dot-accent" />
-          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">A safe space</span>
-        </div>
-        <h2 class="font-heading text-3xl md:text-5xl text-text-primary mb-6 leading-tight reveal" style="transition-delay:80ms">
+        <SectionHeader eyebrow="A safe space" headingClass="mb-6">
           Your safe space for <span class="italic-emph text-accent">calm and clarity</span>
-        </h2>
+        </SectionHeader>
         <p class="text-[17px] text-text-body leading-[1.8] mb-6 reveal" style="transition-delay:160ms">
           Therapy is a place to be heard without judgement — to untangle what feels overwhelming and reconnect with the parts of yourself that feel lost. Whether you're working through a specific challenge or seeking deeper self-understanding, I'm here to walk alongside you.
         </p>
@@ -240,7 +224,7 @@ const galleryItems = [
         <div class="reveal" style="transition-delay:280ms">
           <a href="/services" class="group inline-flex items-center gap-2.5 border border-accent text-accent pl-6 pr-4 py-3 pill font-label text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300">
             Explore services
-            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            <ArrowRight class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>
       </div>
@@ -251,21 +235,17 @@ const galleryItems = [
   <section class="py-16 md:py-24 bg-surface-warm/30">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center max-w-2xl mx-auto mb-12">
-        <div class="flex items-center justify-center gap-2 mb-3 reveal">
-          <span class="dot-accent" />
-          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Moments along the way</span>
-        </div>
-        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+        <SectionHeader eyebrow="Moments along the way" align="center">
           Your journey, <span class="italic-emph text-accent">your moments</span>
-        </h2>
+        </SectionHeader>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 reveal-stagger">
         {galleryItems.map((item, i) => (
           <div class:list={[
-            "reveal relative overflow-hidden bg-gradient-to-br",
+            "reveal relative overflow-hidden bg-gradient-to-br aspect-[3/4] rounded-[24px]",
             item.tone,
-            i % 2 === 0 ? "aspect-[3/4] rounded-[24px]" : "aspect-[3/4] rounded-[24px] md:mt-10",
+            i % 2 !== 0 && "md:mt-10",
           ]}>
             <div class="absolute inset-0 flex items-end p-4">
               <p class="font-label text-[11px] text-accent/60 font-semibold uppercase tracking-wider">{item.label}</p>
@@ -275,9 +255,9 @@ const galleryItems = [
       </div>
 
       <div class="text-center mt-12 reveal">
-        <a href="#schedule" class="group inline-flex items-center gap-2.5 bg-accent text-white pl-6 pr-4 py-3 pill font-label text-sm font-semibold hover:bg-accent-light transition-all duration-300">
+        <a href="/book" class="group inline-flex items-center gap-2.5 bg-accent text-white pl-6 pr-4 py-3 pill font-label text-sm font-semibold hover:bg-accent-light transition-all duration-300">
           Book a free consultation
-          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          <ArrowRight class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
         </a>
       </div>
     </div>
@@ -286,13 +266,9 @@ const galleryItems = [
   <!-- ══════════ TESTIMONIALS (marquee) ══════════ -->
   <section class="py-16 md:py-24 overflow-hidden">
     <div class="max-w-6xl mx-auto px-6 text-center mb-12">
-      <div class="flex items-center justify-center gap-2 mb-3 reveal">
-        <span class="dot-accent" />
-        <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">From clients</span>
-      </div>
-      <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+      <SectionHeader eyebrow="From clients" align="center">
         Words from the <span class="italic-emph text-accent">heart</span>
-      </h2>
+      </SectionHeader>
     </div>
 
     <div class="marquee reveal">
@@ -324,13 +300,9 @@ const galleryItems = [
   <section class="py-16 md:py-24 bg-surface/40">
     <div class="max-w-3xl mx-auto px-6">
       <div class="text-center mb-12">
-        <div class="flex items-center justify-center gap-2 mb-3 reveal">
-          <span class="dot-accent" />
-          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Questions</span>
-        </div>
-        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+        <SectionHeader eyebrow="Questions" align="center">
           Questions? <span class="italic-emph text-accent">I'm here to help</span>
-        </h2>
+        </SectionHeader>
       </div>
 
       <div class="space-y-3 reveal-stagger">
@@ -360,39 +332,6 @@ const galleryItems = [
     </div>
   </section>
 
-  <!-- ══════════ CALENDLY ══════════ -->
-  <section id="schedule" class="py-16 md:py-24">
-    <div class="max-w-5xl mx-auto px-6">
-      <div class="text-center mb-10">
-        <div class="flex items-center justify-center gap-2 mb-3 reveal">
-          <span class="dot-accent" />
-          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Schedule a call</span>
-        </div>
-        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight mb-4 reveal" style="transition-delay:80ms">
-          Find a time that <span class="italic-emph text-accent">feels right</span>
-        </h2>
-        <p class="text-text-body text-[17px] max-w-xl mx-auto leading-relaxed reveal" style="transition-delay:160ms">
-          Pick a free 15-minute consultation below. No pressure — it's a chance to ask anything and see if we're a good fit.
-        </p>
-      </div>
-
-      <!-- Calendly inline widget -->
-      <div class="reveal bg-surface rounded-3xl border border-border/60 overflow-hidden p-2 md:p-3 shadow-sm" style="transition-delay:200ms">
-        <div
-          class="calendly-inline-widget rounded-2xl"
-          data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=ffffff&text_color=312b24&primary_color=1a312a`}
-          style="min-width:320px;height:680px;"
-        />
-      </div>
-
-      <p class="text-center mt-6 font-label text-[12px] text-text-muted reveal">
-        Prefer to message instead?{" "}
-        <a href="/contact" class="text-accent font-semibold hover:underline">Send a note via the contact form</a>.
-      </p>
-    </div>
-    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-  </section>
-
   <!-- ══════════ FINAL CTA ══════════ -->
   <section class="relative bg-forest text-white grain overflow-hidden">
     <!-- Decorative circles -->
@@ -412,13 +351,11 @@ const galleryItems = [
       </p>
       <div class="reveal" style="transition-delay:240ms">
         <a
-          href="#schedule"
+          href="/book"
           class="group inline-flex items-center gap-2.5 bg-sage text-accent-dark pl-7 pr-5 py-3.5 pill font-label text-sm font-bold hover:bg-sage-light transition-all duration-300 hover:gap-3.5"
         >
           Book a meeting with me
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
+          <ArrowRight strokeWidth={2.5} />
         </a>
       </div>
     </div>

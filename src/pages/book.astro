@@ -1,0 +1,89 @@
+---
+import ArrowRight from "../components/ArrowRight.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/SectionHeader.astro";
+
+// Placeholder Calendly URL — swap when client provides their account
+const CALENDLY_URL = "https://calendly.com/jamie-counselling/intro-call";
+---
+
+<BaseLayout
+  title="Book a call — Jamie Counselling"
+  description="Schedule a free 15-minute consultation with Jamie."
+>
+  <section class="max-w-5xl mx-auto px-6 py-12 md:py-16">
+    <!-- Header -->
+    <div class="text-center mb-10">
+      <div class="flex items-center justify-center gap-2 mb-3 reveal">
+        <span class="dot-accent" />
+        <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Schedule a call</span>
+      </div>
+      <h1 class="font-heading text-4xl md:text-5xl text-text-primary leading-tight mb-5 reveal" style="transition-delay:80ms">
+        Find a time that <span class="italic-emph text-accent">feels right</span>
+      </h1>
+      <p class="text-text-body text-[17px] max-w-xl mx-auto leading-relaxed reveal" style="transition-delay:160ms">
+        Pick a free 15-minute consultation below. No pressure — it's a chance to ask anything and see if we're a good fit.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+      <!-- Calendly inline widget -->
+      <div class="lg:col-span-8 reveal" style="transition-delay:200ms">
+        <div class="bg-surface rounded-3xl border border-border/60 overflow-hidden p-2 md:p-3 shadow-sm">
+          <div
+            class="calendly-inline-widget rounded-2xl"
+            data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=ffffff&text_color=312b24&primary_color=1a312a`}
+            style="min-width:320px;height:680px;"
+          />
+        </div>
+      </div>
+
+      <!-- Sidebar: what to expect -->
+      <aside class="lg:col-span-4 space-y-6 reveal" style="transition-delay:280ms">
+        <div class="p-6 rounded-2xl bg-sage-pale/60 border border-sage/30">
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+            </svg>
+            <p class="font-label text-sm font-semibold text-accent-dark uppercase tracking-wider">What to expect</p>
+          </div>
+          <ul class="space-y-2.5 text-[14px] text-text-body">
+            <li class="flex items-start gap-2">
+              <span class="botanical-dot mt-1.5 shrink-0" />
+              A free, no-pressure 15-minute call
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="botanical-dot mt-1.5 shrink-0" />
+              We'll talk about what's bringing you here
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="botanical-dot mt-1.5 shrink-0" />
+              You can ask anything — fees, approach, fit
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="botanical-dot mt-1.5 shrink-0" />
+              Zero commitment to book a full session
+            </li>
+          </ul>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-surface border border-border/60">
+          <p class="font-label text-[11px] uppercase tracking-[0.18em] text-text-muted font-bold mb-3">Prefer to message?</p>
+          <p class="text-[14px] text-text-body leading-relaxed mb-4">
+            If picking a time feels like too much right now, that's okay. Send a note and I'll reply within 24–48 hours.
+          </p>
+          <a href="/contact" class="font-label text-sm text-accent font-semibold hover:text-accent-light transition-colors inline-flex items-center gap-1.5">
+            Use the contact form
+            <ArrowRight class="w-3.5 h-3.5" />
+          </a>
+        </div>
+
+        <p class="font-label text-[11px] text-text-muted leading-relaxed px-1">
+          If you're in immediate crisis, please call <strong class="text-text-primary">988</strong> (Canada-wide) or visit your nearest emergency room.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</BaseLayout>
