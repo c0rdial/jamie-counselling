@@ -1,83 +1,141 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ServiceCard from "../components/ServiceCard.astro";
 import { safeFetch } from "../lib/sanity";
 
 const settings = await safeFetch(`*[_type == "siteSettings"][0]{
-  title, description, heroHeading, heroTagline, heroCta, heroImage,
-  introHeading, introText, aboutSnippet, aboutImage
+  title, description
 }`);
 
-const services = await safeFetch(
-  `*[_type == "service"] | order(order asc) [0...3]{ title, shortDescription }`
-) ?? [];
+// Placeholder Calendly URL — swap when client provides their account
+const CALENDLY_URL = "https://calendly.com/jamie-counselling/intro-call";
 
-const heroHeading = settings?.heroHeading ?? "A safe space to begin healing";
-const heroTagline = settings?.heroTagline ?? "Compassionate, client-centered counselling for adults navigating anxiety, grief, relationships, and life transitions in British Columbia.";
-const heroCta = settings?.heroCta ?? "Get in Touch";
-const introHeading = settings?.introHeading ?? "You don't have to carry it alone";
-const introText = settings?.introText ?? "Therapy is a place to be heard without judgement — to untangle what feels overwhelming and reconnect with the parts of yourself that feel lost. Whether you're working through a specific challenge or seeking deeper self-understanding, I'm here to walk alongside you.";
-const aboutSnippet = settings?.aboutSnippet ?? "I'm Jamie — a Registered Clinical Counsellor based in beautiful British Columbia. My approach is warm, collaborative, and rooted in evidence-based practices. I believe that everyone deserves a space where they can show up exactly as they are.";
+const services = [
+  {
+    title: "Mindfulness",
+    description: "Breathwork, presence, and learning to soften the noise inside.",
+    iconPath: "M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13zM12 3v18",
+  },
+  {
+    title: "Wellness Coaching",
+    description: "One-on-one sessions tailored to where you are, not where you should be.",
+    iconPath: "M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z",
+  },
+  {
+    title: "Emotional Healing",
+    description: "A compassionate space to feel what you've been carrying.",
+    iconPath: "M12 22s-8-4.5-8-12a5 5 0 019-3 5 5 0 019 3c0 7.5-8 12-8 12z",
+  },
+  {
+    title: "Transformational Growth",
+    description: "Move through transitions with clarity, patience, and kindness.",
+    iconPath: "M12 2v6M12 16v6M2 12h6M16 12h6M5.6 5.6l4.2 4.2M14.2 14.2l4.2 4.2M5.6 18.4l4.2-4.2M14.2 9.8l4.2-4.2",
+  },
+  {
+    title: "Community",
+    description: "Group circles and workshops for shared, intentional growth.",
+    iconPath: "M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75",
+  },
+  {
+    title: "Balance & Longevity",
+    description: "Rituals and habits that keep you well across a lifetime.",
+    iconPath: "M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zM12 6v6l4 2",
+  },
+];
 
-const placeholderServices = services.length > 0 ? services : [
-  { title: "Anxiety & Stress", shortDescription: "Learn to manage overwhelming thoughts and build sustainable coping strategies that honour your unique nervous system." },
-  { title: "Grief & Loss", shortDescription: "Find gentle support as you navigate loss — whether it's a loved one, a relationship, a job, or an identity you've outgrown." },
-  { title: "Life Transitions", shortDescription: "Moving, career changes, becoming a parent, retirement — big shifts deserve space to process, grieve, and grow." },
+const stats = [
+  { number: "500", suffix: "+", label: "Sessions held" },
+  { number: "98", suffix: "%", label: "Feel heard" },
+  { number: "10", suffix: "yrs", label: "Of practice" },
+];
+
+const testimonials = [
+  { quote: "I'd been putting off therapy for years. From the very first session, I felt safe enough to be honest. That changed everything.", name: "Sarah J.", role: "Client in BC" },
+  { quote: "What surprised me was how natural it felt. No pressure, no script — just real conversation that gently moved me forward.", name: "David K.", role: "Client in BC" },
+  { quote: "I came in feeling lost. I'm leaving with a clearer sense of who I am and what I want next.", name: "Marcus T.", role: "Client in BC" },
+  { quote: "The first space I've been in where I didn't feel like I had to perform. That alone was healing.", name: "Elena R.", role: "Client in BC" },
+  { quote: "Compassionate, patient, and never preachy. The kind of support I didn't know I'd been missing.", name: "Priya S.", role: "Client in BC" },
+];
+
+const faqs = [
+  { q: "Do I need any prior experience to start?", a: "Not at all. Whether you've been in therapy for years or this is your very first conversation about it, we'll start exactly where you are." },
+  { q: "What should I expect in a first session?", a: "We'll spend the time getting to know each other. I'll ask what brought you here and what you're hoping for. There's no pressure to share more than feels comfortable." },
+  { q: "How long is each session?", a: "Standard sessions are 50 minutes. I offer a free 15-minute consultation first so we can get a feel for whether we're a good fit." },
+  { q: "Are sessions online or in person?", a: "Sessions are currently online via secure video, available across British Columbia. This makes it easier to find a time that works for your life." },
+  { q: "How many sessions will I need?", a: "It depends on your goals. Some people find 6–8 sessions helpful; others prefer ongoing support. We check in regularly about what's working." },
+];
+
+const galleryItems = [
+  { label: "Quiet morning", tone: "from-sage-pale via-surface to-terra-pale" },
+  { label: "Open conversation", tone: "from-surface-warm via-cream to-sage-pale" },
+  { label: "Forest walk", tone: "from-accent-pale via-surface to-cream" },
+  { label: "Stillness", tone: "from-terra-pale via-cream to-sage-pale" },
 ];
 ---
 
-<BaseLayout title={settings?.title ?? "Jamie Counselling"} description={settings?.description ?? "Compassionate counselling services in British Columbia"}>
+<BaseLayout
+  title={settings?.title ?? "Jamie Counselling — A safe space to begin healing"}
+  description={settings?.description ?? "Compassionate, client-centered counselling for adults in British Columbia."}
+>
 
   <!-- ══════════ HERO ══════════ -->
-  <section class="relative overflow-hidden bg-gradient-to-b from-accent-pale/25 via-bg to-bg">
-    <div class="max-w-6xl mx-auto px-6 pt-12 pb-10 md:pt-16 md:pb-14">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+  <section class="relative overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 pt-12 pb-16 md:pt-20 md:pb-24">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-14 items-center">
         <!-- Left: Text -->
-        <div class="order-2 md:order-1">
-          <div class="flex items-center gap-2 mb-4 reveal">
+        <div class="order-2 md:order-1 md:col-span-7">
+          <div class="flex items-center gap-2 mb-6 reveal">
             <span class="dot-accent" />
-            <span class="text-[11px] uppercase tracking-[0.2em] text-accent font-bold">Jamie Counselling</span>
+            <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Jamie Counselling</span>
           </div>
-          <h1 class="font-heading text-[2.5rem] md:text-[3.2rem] leading-[1.1] text-text-primary mb-5 reveal" style="transition-delay:80ms">
-            A safe space<br/>to <em class="text-accent-dark">begin healing</em>
+          <h1 class="font-heading text-[2.6rem] sm:text-[3rem] md:text-[3.6rem] lg:text-[4.2rem] leading-[1.05] text-text-primary mb-7 reveal" style="transition-delay:80ms">
+            Embrace your<br/>
+            <span class="italic-emph text-accent">inner peace</span>,<br/>
+            on your own terms
           </h1>
-          <p class="text-[16px] text-text-body leading-[1.75] mb-7 max-w-md reveal" style="transition-delay:160ms">
-            {heroTagline}
+          <p class="text-[17px] text-text-body leading-[1.75] mb-9 max-w-lg reveal" style="transition-delay:160ms">
+            Compassionate, client-centered counselling for adults navigating anxiety, grief, relationships, and life's quieter transitions — all from across British Columbia.
           </p>
-          <div class="flex flex-wrap items-center gap-4 reveal" style="transition-delay:240ms">
+          <div class="flex flex-wrap items-center gap-5 reveal" style="transition-delay:240ms">
             <a
-              href="/contact"
-              class="group inline-flex items-center gap-2.5 bg-accent text-white pl-7 pr-5 py-3 rounded-full text-sm font-bold hover:bg-accent-dark transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:gap-3.5"
+              href="#schedule"
+              class="group inline-flex items-center gap-2.5 bg-accent text-white pl-7 pr-5 py-3.5 pill font-label text-sm font-semibold hover:bg-accent-light transition-all duration-300 hover:shadow-lg hover:shadow-accent/25 hover:gap-3.5"
             >
-              {heroCta}
+              Book a free consultation
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
               </svg>
             </a>
-            <a href="/about" class="text-sm text-text-muted font-medium hover:text-accent transition-colors">
+            <a href="/about" class="font-label text-sm text-text-muted font-semibold hover:text-accent transition-colors">
               Learn about my approach
             </a>
           </div>
         </div>
 
-        <!-- Right: Arch image placeholder -->
-        <div class="order-1 md:order-2 flex justify-center reveal" style="transition-delay:100ms">
-          <div class="relative w-64 md:w-72 lg:w-80 float-gentle">
-            <div class="arch-frame aspect-[3/4] bg-gradient-to-br from-accent-pale via-surface-warm to-terra-pale overflow-hidden relative">
-              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-                <svg class="w-10 h-10 text-accent/20 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+        <!-- Right: Arch portrait placeholder -->
+        <div class="order-1 md:order-2 md:col-span-5 flex justify-center reveal" style="transition-delay:100ms">
+          <div class="relative w-72 md:w-80 lg:w-[22rem] float-gentle">
+            <div class="arch-frame aspect-[3/4] bg-gradient-to-br from-sage-pale via-surface-warm to-terra-pale overflow-hidden relative shadow-xl shadow-accent/5">
+              <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-8">
+                <svg class="w-12 h-12 text-accent/20 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                   <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M12 3v18" stroke-linecap="round"/>
                 </svg>
-                <p class="text-xs text-accent/35 font-semibold">Photo coming soon</p>
+                <p class="font-label text-[11px] text-accent/45 font-semibold uppercase tracking-wider">Portrait coming soon</p>
               </div>
             </div>
             <!-- Decorative offset border -->
-            <div class="absolute -bottom-3 -right-3 w-full h-full arch-frame border-2 border-terra-light/40 -z-10" />
-            <!-- Small floating badge -->
-            <div class="absolute -bottom-2 -left-4 bg-white rounded-xl shadow-lg shadow-black/5 px-4 py-2.5 border border-border/60">
-              <p class="text-[11px] text-text-muted font-semibold uppercase tracking-wider">RCC, BCACC</p>
-              <p class="text-[13px] text-accent-dark font-bold">Registered Counsellor</p>
+            <div class="absolute -bottom-3 -right-3 w-full h-full arch-frame border-2 border-sage/40 -z-10" />
+            <!-- Credentials badge -->
+            <div class="absolute -bottom-3 -left-5 bg-surface rounded-2xl shadow-lg shadow-black/5 px-4 py-2.5 border border-border/60">
+              <p class="font-label text-[10px] text-text-muted font-bold uppercase tracking-[0.15em]">RCC · BCACC</p>
+              <p class="font-heading text-[14px] text-accent font-medium">Registered Counsellor</p>
+            </div>
+            <!-- Availability pill -->
+            <div class="absolute -top-4 right-2 md:-right-4 bg-sage text-accent-dark rounded-full px-3.5 py-1.5 shadow-md">
+              <span class="flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                <span class="font-label text-[11px] font-bold uppercase tracking-wider">Accepting clients</span>
+              </span>
             </div>
           </div>
         </div>
@@ -85,170 +143,285 @@ const placeholderServices = services.length > 0 ? services : [
     </div>
   </section>
 
-  <!-- ══════════ INTRO ══════════ -->
-  <section class="py-16 md:py-24">
-    <div class="max-w-3xl mx-auto px-6 text-center">
-      <div class="divider-leaf mb-6 reveal">
-        <svg class="w-4 h-4 text-accent-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 3v18" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <h2 class="font-heading text-3xl md:text-[2.4rem] text-text-primary mb-5 leading-snug reveal" style="transition-delay:80ms">
-        {introHeading}
-      </h2>
-      <p class="text-text-body text-[16px] leading-[1.8] reveal" style="transition-delay:160ms">
-        {introText}
-      </p>
-    </div>
-  </section>
-
-  <!-- ══════════ TESTIMONIAL ══════════ -->
-  <section class="py-14 md:py-20">
-    <div class="max-w-3xl mx-auto px-6">
-      <div class="divider-leaf mb-10 reveal">
-        <svg class="w-4 h-4 text-accent-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 3v18" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="relative p-8 md:p-12 rounded-[2rem] bg-surface/60 border border-border/40 text-center reveal" style="border-radius: 999px 999px 2rem 2rem;">
-        <span class="absolute top-4 left-6 md:top-6 md:left-10 font-heading text-[5rem] md:text-[7rem] leading-none text-accent/10 select-none" aria-hidden="true">&ldquo;</span>
-        <blockquote class="relative">
-          <p class="font-heading text-xl md:text-2xl text-text-primary leading-relaxed italic">
-            I'd been putting off therapy for years. From the very first session, Jamie made me feel safe enough to actually be honest. That changed everything.
-          </p>
-          <footer class="mt-6">
-            <div class="flex items-center justify-center gap-2">
-              <span class="w-6 h-px bg-accent-light"></span>
-              <cite class="text-sm text-text-muted font-body not-italic tracking-wide">Client in BC</cite>
-              <span class="w-6 h-px bg-accent-light"></span>
-            </div>
-          </footer>
-        </blockquote>
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════ SERVICES ══════════ -->
-  <section class="relative bg-forest py-16 md:py-24 grain overflow-hidden">
-    <!-- Decorative circles -->
-    <div class="absolute top-8 right-12 w-32 h-32 rounded-full border border-white/5" />
-    <div class="absolute -bottom-10 -left-10 w-40 h-40 rounded-full border border-white/5" />
-
-    <div class="relative max-w-5xl mx-auto px-6">
-      <div class="text-center mb-10">
-        <div class="flex items-center justify-center gap-2 mb-3 reveal">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent-light" />
-          <span class="text-[11px] uppercase tracking-[0.2em] text-accent-light font-bold">How I can help</span>
+  <!-- ══════════ SERVICES GRID (6 tiles) ══════════ -->
+  <section class="py-16 md:py-24 bg-surface/40">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
+        <div>
+          <div class="flex items-center gap-2 mb-3 reveal">
+            <span class="dot-accent" />
+            <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">How I can help</span>
+          </div>
+          <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal max-w-xl" style="transition-delay:80ms">
+            A practice rooted in <span class="italic-emph text-accent">presence</span> and care
+          </h2>
         </div>
-        <h2 class="font-heading text-3xl md:text-[2.4rem] text-white reveal" style="transition-delay:80ms">Areas of Focus</h2>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 reveal-stagger">
-        {placeholderServices.map((service: any) => (
-          <ServiceCard service={service} variant="dark" />
-        ))}
-      </div>
-      <div class="text-center mt-8 reveal">
-        <a href="/services" class="group inline-flex items-center gap-2 text-sm text-accent-light font-semibold hover:text-white transition-colors">
-          View all services
-          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-          </svg>
+        <a href="/services" class="font-label text-sm text-accent font-semibold hover:text-accent-light transition-colors flex items-center gap-2 reveal" style="transition-delay:160ms">
+          See all services
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
         </a>
       </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 reveal-stagger">
+        {services.map((s) => (
+          <div class="reveal card-lift group p-7 rounded-3xl bg-surface border border-border/60 hover:border-accent/20">
+            <div class="w-12 h-12 rounded-2xl bg-sage-pale flex items-center justify-center mb-5 group-hover:bg-sage transition-colors duration-300">
+              <svg class="w-5 h-5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d={s.iconPath} />
+              </svg>
+            </div>
+            <h3 class="font-heading text-2xl text-text-primary mb-2">{s.title}</h3>
+            <p class="text-[15px] text-text-body leading-relaxed">{s.description}</p>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- ══════════ ABOUT PREVIEW ══════════ -->
+  <!-- ══════════ STATS BAR ══════════ -->
+  <section class="py-14 md:py-20">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-6 reveal-stagger">
+        {stats.map((stat, i) => (
+          <div class:list={["reveal text-center md:text-left relative", i > 0 ? "md:pl-10 md:border-l md:border-border" : ""]}>
+            <p class="stat-number text-accent">
+              {stat.number}<span class="stat-suffix text-accent-light">{stat.suffix}</span>
+            </p>
+            <p class="font-label text-[13px] text-text-muted font-semibold uppercase tracking-[0.15em] mt-2">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ SAFE SPACE / ABOUT ══════════ -->
   <section class="py-16 md:py-24">
-    <div class="max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
+    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-center">
       <!-- Image -->
-      <div class="md:col-span-2 reveal">
+      <div class="md:col-span-5 reveal">
         <div class="relative">
-          <div class="aspect-[3/4] arch-frame bg-gradient-to-br from-accent-pale via-surface to-terra-pale overflow-hidden">
+          <div class="aspect-[4/5] arch-frame bg-gradient-to-br from-surface-warm via-sage-pale to-accent-pale overflow-hidden">
             <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-6">
-              <svg class="w-10 h-10 text-accent/20 mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+              <svg class="w-12 h-12 text-accent/25 mb-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
                 <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
                 <path d="M12 3v18" stroke-linecap="round"/>
               </svg>
-              <p class="text-xs text-accent/35 font-semibold">Photo coming soon</p>
+              <p class="font-label text-xs text-accent/40 font-semibold">Photo coming soon</p>
             </div>
           </div>
-          <div class="absolute -bottom-2 -right-2 w-full h-full arch-frame border-2 border-accent-pale -z-10" />
+          <div class="absolute -bottom-3 -right-3 w-full h-full arch-frame border-2 border-accent-pale -z-10" />
         </div>
       </div>
 
       <!-- Text -->
-      <div class="md:col-span-3">
+      <div class="md:col-span-7">
         <div class="flex items-center gap-2 mb-3 reveal">
           <span class="dot-accent" />
-          <span class="text-[11px] uppercase tracking-[0.2em] text-accent font-bold">About me</span>
+          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">A safe space</span>
         </div>
-        <h2 class="font-heading text-3xl md:text-[2.2rem] text-text-primary mb-5 leading-snug reveal" style="transition-delay:80ms">
-          Warm, collaborative,<br/>and <em class="text-accent-dark">rooted in evidence</em>
+        <h2 class="font-heading text-3xl md:text-5xl text-text-primary mb-6 leading-tight reveal" style="transition-delay:80ms">
+          Your safe space for <span class="italic-emph text-accent">calm and clarity</span>
         </h2>
-        <p class="text-text-body text-[16px] leading-[1.8] mb-6 reveal" style="transition-delay:160ms">
-          {aboutSnippet}
+        <p class="text-[17px] text-text-body leading-[1.8] mb-6 reveal" style="transition-delay:160ms">
+          Therapy is a place to be heard without judgement — to untangle what feels overwhelming and reconnect with the parts of yourself that feel lost. Whether you're working through a specific challenge or seeking deeper self-understanding, I'm here to walk alongside you.
         </p>
-        <div class="reveal" style="transition-delay:240ms">
-          <a href="/about" class="group inline-flex items-center gap-2.5 text-sm text-accent font-bold hover:text-accent-dark transition-colors">
-            Learn more about my approach
-            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+
+        <!-- Hours badge -->
+        <div class="inline-flex items-center gap-3 bg-sage-pale border border-sage/40 rounded-full pl-3 pr-5 py-2 mb-8 reveal" style="transition-delay:200ms">
+          <span class="w-7 h-7 rounded-full bg-sage flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 6v6l4 2"/>
             </svg>
+          </span>
+          <span class="font-label text-[13px] font-semibold text-accent-dark uppercase tracking-wider">7:00 AM – 6:00 PM PST</span>
+        </div>
+
+        <div class="reveal" style="transition-delay:280ms">
+          <a href="/services" class="group inline-flex items-center gap-2.5 border border-accent text-accent pl-6 pr-4 py-3 pill font-label text-sm font-semibold hover:bg-accent hover:text-white transition-all duration-300">
+            Explore services
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
           </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ══════════ HOW IT WORKS ══════════ -->
-  <section class="py-16 md:py-24 bg-surface/40">
-    <div class="max-w-4xl mx-auto px-6">
-      <div class="text-center mb-12">
+  <!-- ══════════ GALLERY / JOURNEY ══════════ -->
+  <section class="py-16 md:py-24 bg-surface-warm/30">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12">
         <div class="flex items-center justify-center gap-2 mb-3 reveal">
           <span class="dot-accent" />
-          <span class="text-[11px] uppercase tracking-[0.2em] text-accent font-bold">Getting started</span>
+          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Moments along the way</span>
         </div>
-        <h2 class="font-heading text-3xl md:text-[2.4rem] text-text-primary leading-snug reveal" style="transition-delay:80ms">
-          Three simple steps
+        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+          Your journey, <span class="italic-emph text-accent">your moments</span>
         </h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-0 reveal-stagger">
-        <!-- Step 1 -->
-        <div class="reveal relative text-center px-6">
-          <div class="w-14 h-14 rounded-full bg-accent-pale/60 border-2 border-accent/20 flex items-center justify-center mx-auto mb-5">
-            <span class="font-heading text-2xl text-accent">1</span>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 reveal-stagger">
+        {galleryItems.map((item, i) => (
+          <div class:list={[
+            "reveal relative overflow-hidden bg-gradient-to-br",
+            item.tone,
+            i % 2 === 0 ? "aspect-[3/4] rounded-[24px]" : "aspect-[3/4] rounded-[24px] md:mt-10",
+          ]}>
+            <div class="absolute inset-0 flex items-end p-4">
+              <p class="font-label text-[11px] text-accent/60 font-semibold uppercase tracking-wider">{item.label}</p>
+            </div>
           </div>
-          <h3 class="font-heading text-xl text-text-primary mb-2">Reach out</h3>
-          <p class="text-[15px] text-text-body leading-relaxed">Send a message or book a free 15-minute consultation. No pressure, no commitment.</p>
-          <!-- Connector line (hidden on mobile) -->
-          <div class="hidden md:block absolute top-7 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px border-t-2 border-dashed border-accent/20" />
-        </div>
+        ))}
+      </div>
 
-        <!-- Step 2 -->
-        <div class="reveal relative text-center px-6">
-          <div class="w-14 h-14 rounded-full bg-accent-pale/60 border-2 border-accent/20 flex items-center justify-center mx-auto mb-5">
-            <span class="font-heading text-2xl text-accent">2</span>
-          </div>
-          <h3 class="font-heading text-xl text-text-primary mb-2">Get matched</h3>
-          <p class="text-[15px] text-text-body leading-relaxed">We'll talk about your needs and create a plan that feels right for you.</p>
-          <div class="hidden md:block absolute top-7 left-[calc(50%+40px)] w-[calc(100%-80px)] h-px border-t-2 border-dashed border-accent/20" />
-        </div>
-
-        <!-- Step 3 -->
-        <div class="reveal text-center px-6">
-          <div class="w-14 h-14 rounded-full bg-accent-pale/60 border-2 border-accent/20 flex items-center justify-center mx-auto mb-5">
-            <span class="font-heading text-2xl text-accent">3</span>
-          </div>
-          <h3 class="font-heading text-xl text-text-primary mb-2">Begin healing</h3>
-          <p class="text-[15px] text-text-body leading-relaxed">Start your journey with regular sessions — at a pace that works for you.</p>
-        </div>
+      <div class="text-center mt-12 reveal">
+        <a href="#schedule" class="group inline-flex items-center gap-2.5 bg-accent text-white pl-6 pr-4 py-3 pill font-label text-sm font-semibold hover:bg-accent-light transition-all duration-300">
+          Book a free consultation
+          <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- ══════════ TESTIMONIALS (marquee) ══════════ -->
+  <section class="py-16 md:py-24 overflow-hidden">
+    <div class="max-w-6xl mx-auto px-6 text-center mb-12">
+      <div class="flex items-center justify-center gap-2 mb-3 reveal">
+        <span class="dot-accent" />
+        <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">From clients</span>
+      </div>
+      <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+        Words from the <span class="italic-emph text-accent">heart</span>
+      </h2>
+    </div>
+
+    <div class="marquee reveal">
+      <div class="marquee-track">
+        {[...testimonials, ...testimonials].map((t) => (
+          <figure class="w-[320px] md:w-[400px] shrink-0 p-7 rounded-3xl bg-surface border border-border/60">
+            <svg class="w-7 h-7 text-sage-dark mb-3" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9.5 7C6.5 7 4 9.5 4 12.5V17h5.5v-4.5H7V12c0-1.4 1.1-2.5 2.5-2.5V7zM18.5 7c-3 0-5.5 2.5-5.5 5.5V17h5.5v-4.5H16V12c0-1.4 1.1-2.5 2.5-2.5V7z"/>
+            </svg>
+            <blockquote class="font-heading text-[17px] md:text-[19px] text-text-primary leading-snug italic-emph mb-5">
+              "{t.quote}"
+            </blockquote>
+            <figcaption class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-gradient-to-br from-sage-pale to-accent-pale flex items-center justify-center font-heading text-accent text-sm">
+                {t.name.charAt(0)}
+              </div>
+              <div>
+                <p class="font-label text-[13px] font-semibold text-text-primary">{t.name}</p>
+                <p class="font-label text-[12px] text-text-muted">{t.role}</p>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ FAQ ══════════ -->
+  <section class="py-16 md:py-24 bg-surface/40">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <div class="flex items-center justify-center gap-2 mb-3 reveal">
+          <span class="dot-accent" />
+          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Questions</span>
+        </div>
+        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight reveal" style="transition-delay:80ms">
+          Questions? <span class="italic-emph text-accent">I'm here to help</span>
+        </h2>
+      </div>
+
+      <div class="space-y-3 reveal-stagger">
+        {faqs.map((item) => (
+          <details class="reveal faq-item rounded-2xl bg-surface border border-border/60 card-hover">
+            <summary class="p-6 flex items-center justify-between gap-4">
+              <h3 class="font-heading text-[18px] md:text-[20px] text-text-primary">{item.q}</h3>
+              <svg class="faq-chevron w-4 h-4 text-text-muted shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <div>
+                <p class="px-6 pb-6 text-[15px] text-text-body leading-[1.8]">{item.a}</p>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <p class="text-center mt-10 text-[15px] text-text-body reveal">
+        Have a different question?{" "}
+        <a href="/contact" class="font-semibold text-accent hover:text-accent-light underline underline-offset-4 decoration-sage transition-colors">
+          Get in touch with me →
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════ CALENDLY ══════════ -->
+  <section id="schedule" class="py-16 md:py-24">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-10">
+        <div class="flex items-center justify-center gap-2 mb-3 reveal">
+          <span class="dot-accent" />
+          <span class="font-label text-[11px] uppercase tracking-[0.22em] text-accent font-semibold">Schedule a call</span>
+        </div>
+        <h2 class="font-heading text-3xl md:text-5xl text-text-primary leading-tight mb-4 reveal" style="transition-delay:80ms">
+          Find a time that <span class="italic-emph text-accent">feels right</span>
+        </h2>
+        <p class="text-text-body text-[17px] max-w-xl mx-auto leading-relaxed reveal" style="transition-delay:160ms">
+          Pick a free 15-minute consultation below. No pressure — it's a chance to ask anything and see if we're a good fit.
+        </p>
+      </div>
+
+      <!-- Calendly inline widget -->
+      <div class="reveal bg-surface rounded-3xl border border-border/60 overflow-hidden p-2 md:p-3 shadow-sm" style="transition-delay:200ms">
+        <div
+          class="calendly-inline-widget rounded-2xl"
+          data-url={`${CALENDLY_URL}?hide_gdpr_banner=1&background_color=ffffff&text_color=312b24&primary_color=1a312a`}
+          style="min-width:320px;height:680px;"
+        />
+      </div>
+
+      <p class="text-center mt-6 font-label text-[12px] text-text-muted reveal">
+        Prefer to message instead?{" "}
+        <a href="/contact" class="text-accent font-semibold hover:underline">Send a note via the contact form</a>.
+      </p>
+    </div>
+    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  </section>
+
+  <!-- ══════════ FINAL CTA ══════════ -->
+  <section class="relative bg-forest text-white grain overflow-hidden">
+    <!-- Decorative circles -->
+    <div class="absolute -top-10 -right-10 w-60 h-60 rounded-full border border-white/5" />
+    <div class="absolute -bottom-20 -left-20 w-80 h-80 rounded-full border border-white/5" />
+
+    <div class="relative max-w-4xl mx-auto px-6 py-20 md:py-28 text-center">
+      <div class="flex items-center justify-center gap-2 mb-4 reveal">
+        <span class="w-1.5 h-1.5 rounded-full bg-sage" />
+        <span class="font-label text-[11px] uppercase tracking-[0.22em] text-sage font-semibold">Take the first step</span>
+      </div>
+      <h2 class="font-heading text-4xl md:text-6xl leading-[1.05] mb-6 reveal" style="transition-delay:80ms">
+        Start your <span class="italic-emph text-sage">healing journey</span><br/>today
+      </h2>
+      <p class="text-white/70 text-[17px] max-w-xl mx-auto leading-relaxed mb-9 reveal" style="transition-delay:160ms">
+        Clarity, calm, and growth — all begin with one honest conversation. I'd love to be part of yours.
+      </p>
+      <div class="reveal" style="transition-delay:240ms">
+        <a
+          href="#schedule"
+          class="group inline-flex items-center gap-2.5 bg-sage text-accent-dark pl-7 pr-5 py-3.5 pill font-label text-sm font-bold hover:bg-sage-light transition-all duration-300 hover:gap-3.5"
+        >
+          Book a meeting with me
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
 </BaseLayout>

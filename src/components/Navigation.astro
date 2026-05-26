@@ -12,28 +12,28 @@ const siteTitle = settings?.title ?? "Jamie Counselling";
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-bg/92 backdrop-blur-lg border-b border-border/50">
+<header class="sticky top-0 z-50 bg-bg/90 backdrop-blur-lg border-b border-border/50">
   <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="group flex items-center gap-2">
+    <a href="/" class="group flex items-center gap-2.5">
       <!-- Leaf mark -->
-      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center group-hover:bg-accent-dark transition-colors duration-300">
-        <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center group-hover:bg-accent-light transition-colors duration-300">
+        <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
-      <span class="font-heading text-lg text-text-primary font-medium">{siteTitle}</span>
+      <span class="font-heading text-lg text-text-primary font-medium tracking-tight">{siteTitle}</span>
     </a>
 
-    <!-- Desktop -->
+    <!-- Desktop links -->
     <div class="hidden md:flex items-center gap-1">
       {navItems.map((item: { label: string; href: string }) => (
         <a
           href={item.href}
           class:list={[
-            "px-4 py-2 rounded-full text-[13px] font-semibold tracking-wide transition-all duration-200",
+            "px-4 py-2 rounded-full font-label text-[13px] font-semibold tracking-wide transition-all duration-200",
             currentPath === item.href
-              ? "bg-accent/10 text-accent-dark"
-              : "text-text-muted hover:text-text-primary hover:bg-surface/80",
+              ? "bg-accent/8 text-accent"
+              : "text-text-muted hover:text-text-primary hover:bg-surface",
           ]}
         >
           {item.label}
@@ -41,23 +41,35 @@ const currentPath = Astro.url.pathname;
       ))}
     </div>
 
-    <!-- Mobile hamburger -->
-    <button
-      id="mobile-menu-btn"
-      class="md:hidden w-9 h-9 rounded-full bg-surface flex items-center justify-center"
-      aria-label="Toggle menu"
-      aria-expanded="false"
-    >
-      <svg class="w-4 h-4 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h10M4 17h14"/>
-      </svg>
-    </button>
+    <!-- CTA + mobile button -->
+    <div class="flex items-center gap-3">
+      <a
+        href="/#schedule"
+        class="hidden md:inline-flex items-center gap-1.5 bg-accent text-white pl-4 pr-3 py-2 pill font-label text-[12px] font-semibold uppercase tracking-wider hover:bg-accent-light transition-colors duration-200"
+      >
+        Book a call
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+        </svg>
+      </a>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden w-9 h-9 rounded-full bg-surface flex items-center justify-center"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <svg class="w-4 h-4 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h10M4 17h14"/>
+        </svg>
+      </button>
+    </div>
   </nav>
 </header>
 
 <!-- Mobile menu -->
 <div id="mobile-menu" class="hidden fixed inset-0 z-[60] bg-bg flex flex-col">
-  <!-- Mobile header -->
   <div class="px-6 h-16 flex items-center justify-between border-b border-border/50">
     <span class="font-heading text-lg text-text-primary font-medium">{siteTitle}</span>
     <button id="mobile-menu-close" class="w-9 h-9 rounded-full bg-surface flex items-center justify-center">
@@ -67,19 +79,27 @@ const currentPath = Astro.url.pathname;
     </button>
   </div>
 
-  <!-- Mobile links -->
   <div class="flex-1 flex flex-col justify-center px-8 gap-2">
     {navItems.map((item: { label: string; href: string }) => (
       <a
         href={item.href}
         class:list={[
           "font-heading text-3xl py-2 transition-colors",
-          currentPath === item.href ? "text-accent-dark" : "text-text-primary"
+          currentPath === item.href ? "text-accent" : "text-text-primary"
         ]}
       >
         {item.label}
       </a>
     ))}
+    <a
+      href="/#schedule"
+      class="mt-6 inline-flex items-center justify-center gap-2 bg-accent text-white py-4 pill font-label text-sm font-semibold w-fit px-7"
+    >
+      Book a call
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+      </svg>
+    </a>
   </div>
 </div>
 

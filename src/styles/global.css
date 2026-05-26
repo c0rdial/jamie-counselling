@@ -1,54 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: "Lora", serif;
-  --font-body: "Nunito", sans-serif;
+  /* Font families per DESIGN.md */
+  --font-heading: "Lora", "Times New Roman", serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-label: "Manrope", system-ui, -apple-system, sans-serif;
 
-  /* Warm parchment backgrounds */
-  --color-bg: #FAF7F2;
-  --color-surface: #F0EBE1;
-  --color-surface-warm: #E8E0D4;
+  /* Core palette — Serenya / wellness */
+  --color-cream: #f8f6e8;
+  --color-bg: #f8f6e8;
+  --color-surface: #ffffff;
+  --color-surface-warm: #f0ecd9;
+  --color-surface-soft: #fbfaf3;
 
-  /* Deep forest section */
-  --color-forest: #2C3E2D;
-  --color-forest-light: #3A5039;
+  /* Dark forest section background */
+  --color-forest: #1a312a;
+  --color-forest-light: #254a3f;
+  --color-forest-dark: #0f211c;
 
   /* Text */
-  --color-text-primary: #2A2621;
-  --color-text-body: #4D4842;
-  --color-text-muted: #8A8279;
+  --color-text-primary: #312b24;
+  --color-text-body: #4f4f4f;
+  --color-text-muted: #8a847b;
+  --color-text-strong: #000000;
 
-  /* Rich sage accent */
-  --color-accent: #5B8C65;
-  --color-accent-dark: #3D6B47;
-  --color-accent-light: #8BB894;
-  --color-accent-pale: #D1E4D5;
+  /* Sage accent (highlights / chips) */
+  --color-sage: #d1ea67;
+  --color-sage-light: #e4f3a0;
+  --color-sage-pale: #f1f8d4;
+  --color-sage-dark: #b3cf4d;
 
-  /* Warm terracotta secondary */
-  --color-terra: #C47D5A;
-  --color-terra-light: #E8B99A;
-  --color-terra-pale: #F5E3D5;
+  /* Forest used as accent / button bg */
+  --color-accent: #1a312a;
+  --color-accent-dark: #0f211c;
+  --color-accent-light: #254a3f;
+  --color-accent-pale: #d4e4dd;
 
-  /* Blush (subtle) */
-  --color-rose: #D4A0A0;
-  --color-rose-light: #EDD5D5;
-  --color-rose-pale: #F5EBEB;
-
-  /* Gold */
-  --color-gold: #BFA36E;
-  --color-gold-light: #E2D1AA;
+  /* Warm terracotta (very sparingly) */
+  --color-terra: #b8704d;
+  --color-terra-light: #d9a07e;
+  --color-terra-pale: #f0e0d2;
 
   /* Borders */
-  --color-border: #E0D8CC;
-  --color-border-dark: #CCC3B5;
+  --color-border: #e3ddc8;
+  --color-border-dark: #cfc7a8;
 
   /* Functional */
-  --color-error: #C45D4D;
-  --color-success: #5C8A6B;
+  --color-error: #b8553f;
+  --color-success: #4a7a5a;
 
   /* Animations */
   --animate-fade-up: fade-up 0.8s ease-out forwards;
   --animate-fade-in: fade-in 0.6s ease-out forwards;
+  --animate-marquee: marquee 40s linear infinite;
 
   @keyframes fade-up {
     from { opacity: 0; transform: translateY(20px); }
@@ -64,6 +68,11 @@
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-6px); }
   }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
 }
 
 html {
@@ -71,11 +80,26 @@ html {
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   scroll-behavior: smooth;
+  letter-spacing: -0.01em;
+}
+
+body {
+  font-family: var(--font-body);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
   font-weight: 400;
+  letter-spacing: -0.02em;
+}
+
+h1 { letter-spacing: -0.035em; }
+h2 { letter-spacing: -0.03em; }
+
+.font-label,
+.label {
+  font-family: var(--font-label);
+  letter-spacing: 0.02em;
 }
 
 /* Scroll reveals */
@@ -109,7 +133,7 @@ h1, h2, h3, h4, h5, h6 {
   content: "";
   height: 1px;
   width: 40px;
-  background: var(--color-accent-light);
+  background: var(--color-border-dark);
 }
 
 /* Grain overlay */
@@ -132,7 +156,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card-lift:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px -8px rgba(43, 92, 50, 0.12);
+  box-shadow: 0 12px 32px -8px rgba(26, 49, 42, 0.12);
 }
 
 .card-hover {
@@ -140,18 +164,23 @@ h1, h2, h3, h4, h5, h6 {
 }
 .card-hover:hover {
   transform: translateY(-2px);
-  background-color: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 8px 24px -6px rgba(43, 92, 50, 0.08);
+  background-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 8px 24px -6px rgba(26, 49, 42, 0.08);
 }
 
-/* Arch shape clip */
+/* Arch shape clip — organic per DESIGN.md */
 .arch-frame {
-  border-radius: 999px 999px 24px 24px;
+  border-radius: 999px 999px 28px 28px;
+}
+
+/* Pill */
+.pill {
+  border-radius: 999px;
 }
 
 /* Selection */
 ::selection {
-  background-color: var(--color-accent-pale);
+  background-color: var(--color-sage);
   color: var(--color-text-primary);
 }
 
@@ -165,8 +194,8 @@ h1, h2, h3, h4, h5, h6 {
 /* Decorative botanical dot */
 .dot-accent,
 .botanical-dot {
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
   background-color: var(--color-accent);
   display: inline-block;
@@ -180,16 +209,32 @@ h1, h2, h3, h4, h5, h6 {
   border: none;
 }
 
-/* Leaf icon used in multiple places */
+/* Leaf icon */
 .leaf-icon {
   display: inline-block;
   width: 1em;
   height: 1em;
 }
 
-/* Gentle floating animation */
+/* Gentle floating */
 .float-gentle {
   animation: gentle-float 6s ease-in-out infinite;
+}
+
+/* Marquee — testimonials */
+.marquee {
+  display: flex;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0, #000 80px, #000 calc(100% - 80px), transparent 100%);
+}
+.marquee-track {
+  display: flex;
+  gap: 1.5rem;
+  animation: marquee 40s linear infinite;
+  width: max-content;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
 /* FAQ Accordion */
@@ -218,5 +263,33 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-rows: 1fr;
 }
 .faq-item .faq-answer > div {
+  overflow: hidden;
+}
+
+/* Italic display emphasis used in hero/headlines */
+.italic-emph {
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Stat number */
+.stat-number {
+  font-family: var(--font-heading);
+  font-weight: 400;
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.stat-suffix {
+  font-family: var(--font-heading);
+  font-size: 0.5em;
+  font-style: italic;
+  margin-left: 0.05em;
+  vertical-align: 0.4em;
+}
+
+/* Calendly iframe wrapper override */
+.calendly-inline-widget {
+  border-radius: 24px;
   overflow: hidden;
 }

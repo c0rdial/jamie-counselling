@@ -55,9 +55,9 @@ const categoryOrder = ["crisis", "faq", "reading"];
 
     <!-- Crisis banner -->
     {grouped["crisis"] && (
-      <div class="mb-12 p-6 rounded-2xl bg-rose-pale/50 border border-rose/20 reveal">
+      <div class="mb-12 p-6 rounded-2xl bg-terra-pale/40 border border-terra/20 reveal">
         <div class="flex items-center gap-2 mb-2">
-          <svg class="w-4 h-4 text-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg class="w-4 h-4 text-terra" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d={categoryIcons["crisis"]} />
           </svg>
           <p class="text-sm font-semibold text-text-primary">If you're in crisis</p>
@@ -71,7 +71,7 @@ const categoryOrder = ["crisis", "faq", "reading"];
               href={resource.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="block p-4 rounded-xl bg-white/80 border border-rose/10 hover:border-rose/30 transition-colors"
+              class="block p-4 rounded-xl bg-white/80 border border-terra/10 hover:border-terra/30 transition-colors"
             >
               <p class="text-sm font-semibold text-text-primary mb-1">{resource.title}</p>
               <p class="text-xs text-text-muted">{resource.description}</p>

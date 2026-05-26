@@ -4,14 +4,51 @@ interface Props {
     title: string;
     shortDescription?: string;
   };
+  variant?: "light" | "dark";
 }
 
-const { service } = Astro.props;
+const { service, variant = "light" } = Astro.props;
+const isDark = variant === "dark";
+
+const iconMap: Record<string, string> = {
+  "Anxiety & Stress": "M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z",
+  "Grief & Loss": "M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z",
+  "Life Transitions": "M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5",
+};
+
+const colorMap: Record<string, { bg: string; icon: string }> = {
+  "Anxiety & Stress": { bg: isDark ? "bg-accent/20" : "bg-accent-pale/70", icon: isDark ? "text-accent-light" : "text-accent" },
+  "Grief & Loss": { bg: isDark ? "bg-terra/20" : "bg-terra-pale/70", icon: isDark ? "text-terra-light" : "text-terra" },
+  "Life Transitions": { bg: isDark ? "bg-sage/20" : "bg-sage-pale", icon: isDark ? "text-sage" : "text-accent" },
+};
+
+const iconPath = iconMap[service.title] ?? "M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z";
+const colors = colorMap[service.title] ?? { bg: isDark ? "bg-white/10" : "bg-accent-pale/70", icon: isDark ? "text-accent-light" : "text-accent" };
 ---
 
-<div class="p-6 bg-white rounded-lg border border-border hover:border-accent/30 transition-colors duration-200">
-  <h3 class="font-heading text-xl text-text-primary mb-2">{service.title}</h3>
-  {service.shortDescription && (
-    <p class="text-sm text-text-body leading-relaxed">{service.shortDescription}</p>
-  )}
+<div class:list={[
+  "reveal card-lift group relative p-6 rounded-2xl overflow-hidden border",
+  isDark
+    ? "bg-white/[0.06] backdrop-blur-sm border-white/10 hover:bg-white/[0.1]"
+    : "bg-white/80 border-border/60 hover:border-accent/20",
+]}>
+  <div class="relative">
+    <!-- Icon -->
+    <div class:list={["w-10 h-10 rounded-xl flex items-center justify-center mb-4", colors.bg]}>
+      <svg class:list={["w-5 h-5", colors.icon]} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d={iconPath} />
+      </svg>
+    </div>
+
+    <h3 class:list={[
+      "font-heading text-xl mb-2",
+      isDark ? "text-white" : "text-text-primary"
+    ]}>{service.title}</h3>
+    {service.shortDescription && (
+      <p class:list={[
+        "text-[14px] leading-relaxed",
+        isDark ? "text-white/65" : "text-text-body"
+      ]}>{service.shortDescription}</p>
+    )}
+  </div>
 </div>

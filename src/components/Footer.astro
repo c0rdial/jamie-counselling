@@ -32,25 +32,25 @@ const socialIconPaths: Record<string, string> = {
     <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10">
       <!-- Brand -->
       <div class="md:col-span-5">
-        <div class="flex items-center gap-2 mb-4">
-          <div class="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
-            <svg class="w-3.5 h-3.5 text-accent-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <div class="flex items-center gap-2.5 mb-4">
+          <div class="w-8 h-8 rounded-full bg-white/8 flex items-center justify-center">
+            <svg class="w-4 h-4 text-sage" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 3c-4 4-7 8-7 13a7 7 0 0014 0c0-5-3-9-7-13z" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <p class="font-heading text-lg text-white font-medium">{siteTitle}</p>
+          <p class="font-heading text-xl text-white font-medium">{siteTitle}</p>
         </div>
-        <p class="text-[14px] text-white/50 leading-relaxed max-w-sm">
+        <p class="text-[14px] text-white/55 leading-relaxed max-w-sm">
           {settings?.footerText ?? "Compassionate, client-centered counselling for adults in British Columbia. You deserve a space where you can show up exactly as you are."}
         </p>
       </div>
 
       <!-- Nav -->
       <div class="md:col-span-3">
-        <p class="text-[11px] uppercase tracking-[0.15em] text-white/35 font-bold mb-4">Navigate</p>
-        <nav class="flex flex-col gap-2">
+        <p class="font-label text-[11px] uppercase tracking-[0.18em] text-white/35 font-bold mb-4">Navigate</p>
+        <nav class="flex flex-col gap-2.5">
           {navItems.map((item: { label: string; href: string }) => (
-            <a href={item.href} class="text-[14px] text-white/60 hover:text-accent-light transition-colors duration-200">
+            <a href={item.href} class="font-label text-[14px] text-white/65 hover:text-sage transition-colors duration-200">
               {item.label}
             </a>
           ))}
@@ -59,25 +59,25 @@ const socialIconPaths: Record<string, string> = {
 
       <!-- Contact -->
       <div class="md:col-span-4">
-        <p class="text-[11px] uppercase tracking-[0.15em] text-white/35 font-bold mb-4">Get in touch</p>
+        <p class="font-label text-[11px] uppercase tracking-[0.18em] text-white/35 font-bold mb-4">Get in touch</p>
         <div class="space-y-2">
-          <a href={`mailto:${email}`} class="block text-[14px] text-white/60 hover:text-accent-light transition-colors">
+          <a href={`mailto:${email}`} class="block text-[14px] text-white/65 hover:text-sage transition-colors">
             {email}
           </a>
-          <a href={`tel:${phone}`} class="block text-[14px] text-white/60 hover:text-accent-light transition-colors">
+          <a href={`tel:${phone}`} class="block text-[14px] text-white/65 hover:text-sage transition-colors">
             {phone}
           </a>
-          <p class="text-[14px] text-white/40">{location}</p>
+          <p class="text-[14px] text-white/45">{location}</p>
         </div>
         {settings?.socialLinks && settings.socialLinks.length > 0 && (
-          <div class="flex gap-2 mt-4">
+          <div class="flex gap-2 mt-5">
             {settings.socialLinks.map((link: { platform: string; url: string }) => (
               <a
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.platform}
-                class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/50 hover:bg-accent hover:text-white transition-all duration-300"
+                class="w-9 h-9 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-sage hover:text-accent-dark transition-all duration-300"
               >
                 {socialIconPaths[link.platform.toLowerCase()] ? (
                   <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
@@ -95,8 +95,8 @@ const socialIconPaths: Record<string, string> = {
 
     <!-- Bottom -->
     <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p class="text-[12px] text-white/30">&copy; {year} {siteTitle}</p>
-      <p class="text-[12px] text-white/30">Registered Clinical Counsellor &middot; BCACC</p>
+      <p class="font-label text-[12px] text-white/35">&copy; {year} {siteTitle}</p>
+      <p class="font-label text-[12px] text-white/35">Registered Clinical Counsellor &middot; BCACC</p>
     </div>
   </div>
 </footer>
