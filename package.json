@@ -6,7 +6,6 @@
     "dev": "astro dev",
     "build": "astro build",
     "check": "astro check --minimumSeverity error",
-    "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
