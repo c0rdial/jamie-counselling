@@ -1,0 +1,45 @@
+:root {
+  /* Base palette — warm cream + deep forest, lime highlight */
+  --white: #FFFFFF;
+  --cream-25: #FCFAF3;
+  --cream-50: #F8F5EA;
+  --cream-100: #F1ECDC;
+  --sand-200: #E6DFCC;
+  --sand-300: #D3CAB4;
+  --sand-400: #C4BDAC;
+  --forest-500: #5E7068;
+  --forest-700: #3E534B;
+  --forest-800: #243B32;
+  --forest-900: #1B3129;
+  --lime-300: #E3F09A;
+  --lime-400: #D4E86A;
+  --sage-300: #C9CFB8;
+  --sage-500: #7F8F78;
+  --sage-700: #3E534B;
+  --ink-500: #66655C;
+  --ink-700: #45443B;
+  --ink-900: #2B2A22;
+
+  /* Semantic */
+  --bg-page: var(--cream-50);
+  --bg-subtle: var(--cream-100);
+  --bg-inverse: var(--forest-900);
+  --surface-card: var(--cream-25);
+  --surface-muted: var(--cream-100);
+  --surface-placeholder: var(--sand-200);
+  --fg-1: var(--ink-900);
+  --fg-2: var(--ink-700);
+  --fg-3: var(--ink-500);
+  --fg-inverse: var(--cream-50);
+  --fg-inverse-2: #B9C2BB;
+  --accent: var(--forest-700);
+  --accent-strong: var(--forest-900);
+  --accent-soft: var(--sage-300);
+  --accent-bright: var(--lime-400);
+  --border-1: rgba(43, 42, 34, 0.09);
+  --border-2: rgba(43, 42, 34, 0.16);
+  --border-strong: var(--forest-900);
+  --border-inverse: rgba(248, 245, 234, 0.16);
+  --line-decor: var(--sand-400);
+  --overlay-image: rgba(18, 32, 26, 0.40);
+}

@@ -1,0 +1,8 @@
+---
+import SanityImage from "./SanityImage.astro";
+interface Props { image?: any; label: string; ratio?: string; tone?: "sand" | "sage" | "forest"; class?: string; eager?: boolean }
+const { image, label, ratio = "4 / 5", tone = "sand", class: className = "", eager = false } = Astro.props;
+---
+<div class:list={["ds-media", `ds-media--${tone}`, className]} style={`--media-ratio: ${ratio}`}>
+  {image?.asset ? <SanityImage image={image} alt={image.alt || label} sizes="(max-width: 700px) 100vw, 50vw" loading={eager ? "eager" : "lazy"} /> : <span aria-label={label} role="img">{label}</span>}
+</div>

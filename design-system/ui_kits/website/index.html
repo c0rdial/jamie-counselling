@@ -1,0 +1,37 @@
+<!-- @dsCard group="Website" viewport="1440x900" name="Jamie Sulek website" subtitle="Home, About, Services, Contact — click-through" -->
+<!doctype html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jamie Sulek — UI kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>@keyframes sr-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } } .sr-marquee { animation: sr-marquee 60s linear infinite; }</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<script src="data.js"></script>
+</head><body><div id="root"></div>
+<script type="text/babel" src="Section.jsx"></script>
+<script type="text/babel" src="HomePage.jsx"></script>
+<script type="text/babel" src="AboutPage.jsx"></script>
+<script type="text/babel" src="ServicesPage.jsx"></script>
+<script type="text/babel" src="ContactPage.jsx"></script>
+<script type="text/babel">
+function App() {
+  const { Nav, Footer, CTABanner } = window.JamieDS;
+  const [page, setPage] = React.useState(() => localStorage.getItem('jamie-kit-page') || 'Home');
+  const go = (p) => {
+    const map = { Blogs: 'Home', Blog: 'Home' };
+    const next = map[p] || (['Home','About','Services','Contact'].includes(p) ? p : 'Home');
+    setPage(next); localStorage.setItem('jamie-kit-page', next); window.scrollTo(0, 0);
+  };
+  const Page = { Home: HomePage, About: AboutPage, Services: ServicesPage, Contact: ContactPage }[page];
+  return (<div data-screen-label={page}>
+    <Nav active={page} onNavigate={go} />
+    <Page go={go} />
+    <div style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '40px var(--gutter) var(--section-y)' }}><CTABanner onCta={() => go('Contact')} /></div>
+    <Footer onNavigate={go} />
+  </div>);
+}
+getJamieDS().then(() => ReactDOM.createRoot(document.getElementById('root')).render(<App />));
+</script>
+</body></html>

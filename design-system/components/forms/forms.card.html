@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" viewport="700x300" name="Forms" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<style>body{padding:24px;background:var(--bg-page)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+getJamieDS().then((DS) => {
+  const { Button, IconButton, Icon, Tag, Em, ImagePlaceholder, Nav, Footer, SectionHeading, FeatureCard, Stat, TestimonialCard, FAQItem, CTABanner, ServiceCard, OfferingRow, TimelineItem, Input } = DS;
+  function Demo() {
+    return (<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+      <Input label="Your Name" placeholder="Jane Smith" />
+      <Input label="Your Email" type="email" placeholder="jane@email.com" />
+      <div style={{ gridColumn: '1 / -1' }}><Input label="Message" multiline rows={3} placeholder="How can I help?" /></div>
+    </div>);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+});
+</script></body></html>

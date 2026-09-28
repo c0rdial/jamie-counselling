@@ -1,0 +1,20 @@
+<!-- @dsCard group="Components" viewport="700x380" name="Navigation" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<style>body{padding:24px;background:var(--bg-page)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+getJamieDS().then((DS) => {
+  const { Button, IconButton, Icon, Tag, Em, ImagePlaceholder, Nav, Footer, SectionHeading, FeatureCard, Stat, TestimonialCard, FAQItem, CTABanner, ServiceCard, OfferingRow, TimelineItem, Input } = DS;
+  function Demo() {
+    const [p, setP] = React.useState('Home');
+    return (<div style={{ display: 'grid', gap: 20, margin: -24 }}>
+      <Nav active={p} onNavigate={setP} />
+      <div style={{ transform: 'scale(0.62)', transformOrigin: 'top left', width: '161%' }}><Footer /></div>
+    </div>);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+});
+</script></body></html>

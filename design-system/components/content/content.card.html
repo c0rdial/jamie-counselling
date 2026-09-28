@@ -1,0 +1,25 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Content" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<style>body{padding:24px;background:var(--bg-page)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+getJamieDS().then((DS) => {
+  const { Button, IconButton, Icon, Tag, Em, ImagePlaceholder, ScrollSpinImage, Nav, Footer, SectionHeading, FeatureCard, Stat, TestimonialCard, FAQItem, CTABanner, ServiceCard, OfferingRow, TimelineItem, Timeline, Input } = DS;
+  function Demo() {
+    const [open, setOpen] = React.useState(0);
+    return (<div style={{ display: 'grid', gap: 22 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, alignItems: 'center' }}>
+        <FeatureCard icon="flower" title="Mindfulness" text="Learn to reconnect with the present moment through calming breath." />
+        <Stat label="Clients Guided" value="45" unit="K" minHeight={220} />
+      </div>
+      <div style={{ display: 'grid', gap: 10 }}>
+        {['Are sessions online or in-person?','How long is each session?'].map((q,i) => <FAQItem key={i} question={q} answer="Most sessions are 50–60 minutes." open={open===i} onToggle={() => setOpen(open===i?-1:i)} />)}
+      </div>
+    </div>);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+});
+</script></body></html>

@@ -1,0 +1,35 @@
+<!-- @dsCard group="Components" viewport="700x400" name="Core" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<style>body{padding:24px;background:var(--bg-page)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+getJamieDS().then((DS) => {
+  const { Button, IconButton, Icon, Tag, Em, ImagePlaceholder, ScrollSpinImage, Nav, Footer, SectionHeading, FeatureCard, Stat, TestimonialCard, FAQItem, CTABanner, ServiceCard, OfferingRow, TimelineItem, Timeline, Input } = DS;
+  function Demo() {
+    return (<div style={{ display: 'grid', gap: 20 }}>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+        <Button size="lg">Get in touch with me</Button>
+        <Button variant="secondary">Explore Services</Button>
+        <Button variant="link">Read more</Button>
+        <Button size="sm" disabled>Disabled</Button>
+      </div>
+      <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center', background: 'var(--bg-inverse)', borderRadius: 'var(--radius-md)', padding: 20 }}>
+        <Button variant="glass" size="sm">Book Free Consultation</Button>
+        <Button variant="light">Book A Meeting With Me</Button>
+      </div>
+      <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
+        <IconButton icon="arrow-left" label="Previous" /><IconButton icon="arrow-right" label="Next" variant="filled" />
+        <Tag>90 Minutes</Tag><Tag tone="sage">Online Workshop</Tag>
+        {['flower','person-standing','heart','sprout','hand-heart','infinity','circle-plus'].map(n => <Icon key={n} name={n} size={30} strokeWidth={1.25} />)}
+      </div>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 2fr', gap: 12, alignItems: 'end' }}>
+        <ImagePlaceholder label="Portrait" /><ImagePlaceholder label="Ritual" tone="sage" /><ScrollSpinImage size={120} label="Spin" /><ImagePlaceholder label="Landscape" ratio="16 / 9" tone="forest" />
+      </div>
+    </div>);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+});
+</script></body></html>

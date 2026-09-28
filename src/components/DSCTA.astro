@@ -1,0 +1,12 @@
+---
+import DSButton from "./DSButton.astro";
+import DSMedia from "./DSMedia.astro";
+interface Props { title?: string; text?: string; image?: any }
+const { title = "Start your healing journey today", text = "Let's take the first step together toward clarity, calm, and personal growth.", image } = Astro.props;
+---
+<section class="ds-section ds-cta-section"><div class="ds-container">
+  <div class="ds-cta">
+    <DSMedia image={image} label="Calm landscape" tone="forest" class="ds-cta__media" ratio="16 / 7" />
+    <div class="ds-cta__content"><h2>{title}</h2><p>{text}</p><DSButton href="/book" variant="light" size="lg">Book a free consultation</DSButton></div>
+  </div>
+</div></section>

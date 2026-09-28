@@ -1,101 +1,16 @@
 ---
-import LeafMark from "./LeafMark.astro";
 import { safeFetch } from "../lib/sanity";
-
-const settings = await safeFetch(
-  `*[_type == "siteSettings"][0]{ contactEmail, contactPhone, location, socialLinks, footerText, title, navItems }`
-);
-const year = new Date().getFullYear();
-const siteTitle = settings?.title ?? "Jamie Counselling";
-const navItems = settings?.navItems ?? [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Resources", href: "/resources" },
-  { label: "Contact", href: "/contact" },
-];
-const email = settings?.contactEmail ?? "hello@jamiecounselling.ca";
-const phone = settings?.contactPhone ?? "(604) 555-0123";
-const location = settings?.location ?? "British Columbia (online sessions)";
-
-const socialIconPaths: Record<string, string> = {
-  instagram: "M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z",
-  facebook: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z",
-  linkedin: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zM4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
-  twitter: "M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z",
-};
+const settings = await safeFetch(`*[_type == "siteSettings"][0]{ contactEmail, socialLinks }`);
+const email = settings?.contactEmail ?? "jamiesulek008@gmail.com";
+const socialLinks = settings?.socialLinks ?? [];
 ---
-
-<footer class="bg-forest text-white/80 grain relative overflow-hidden">
-  <!-- Decorative circle -->
-  <div class="absolute -top-20 -right-20 w-60 h-60 rounded-full border border-white/5" />
-
-  <div class="relative max-w-6xl mx-auto px-6 pt-14 pb-8">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 mb-10">
-      <!-- Brand -->
-      <div class="md:col-span-5">
-        <div class="flex items-center gap-2.5 mb-4">
-          <div class="w-8 h-8 rounded-full bg-white/8 flex items-center justify-center">
-            <LeafMark class="w-4 h-4 text-sage" />
-          </div>
-          <p class="font-heading text-xl text-white font-medium">{siteTitle}</p>
-        </div>
-        <p class="text-[14px] text-white/55 leading-relaxed max-w-sm">
-          {settings?.footerText ?? "Compassionate, client-centered counselling for adults in British Columbia. You deserve a space where you can show up exactly as you are."}
-        </p>
-      </div>
-
-      <!-- Nav -->
-      <div class="md:col-span-3">
-        <p class="font-label text-[11px] uppercase tracking-[0.18em] text-white/35 font-bold mb-4">Navigate</p>
-        <nav class="flex flex-col gap-2.5">
-          {navItems.map((item: { label: string; href: string }) => (
-            <a href={item.href} class="font-label text-[14px] text-white/65 hover:text-sage transition-colors duration-200">
-              {item.label}
-            </a>
-          ))}
-        </nav>
-      </div>
-
-      <!-- Contact -->
-      <div class="md:col-span-4">
-        <p class="font-label text-[11px] uppercase tracking-[0.18em] text-white/35 font-bold mb-4">Get in touch</p>
-        <div class="space-y-2">
-          <a href={`mailto:${email}`} class="block text-[14px] text-white/65 hover:text-sage transition-colors">
-            {email}
-          </a>
-          <a href={`tel:${phone}`} class="block text-[14px] text-white/65 hover:text-sage transition-colors">
-            {phone}
-          </a>
-          <p class="text-[14px] text-white/45">{location}</p>
-        </div>
-        {settings?.socialLinks && settings.socialLinks.length > 0 && (
-          <div class="flex gap-2 mt-5">
-            {settings.socialLinks.map((link: { platform: string; url: string }) => (
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={link.platform}
-                class="w-9 h-9 rounded-full bg-white/8 flex items-center justify-center text-white/60 hover:bg-sage hover:text-accent-dark transition-all duration-300"
-              >
-                {socialIconPaths[link.platform.toLowerCase()] ? (
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d={socialIconPaths[link.platform.toLowerCase()]} />
-                  </svg>
-                ) : (
-                  <span class="text-xs font-bold">{link.platform.charAt(0).toUpperCase()}</span>
-                )}
-              </a>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-
-    <!-- Bottom -->
-    <div class="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-      <p class="font-label text-[12px] text-white/35">&copy; {year} {siteTitle}</p>
-      <p class="font-label text-[12px] text-white/35">Registered Clinical Counsellor &middot; BCACC</p>
+<footer class="ds-footer"><div class="ds-footer__inner">
+  <div class="ds-footer__main">
+    <div><div class="ds-footer__brand">Jamie Sulek</div><div class="ds-footer__tag">Peace of mind.</div></div>
+    <div class="ds-footer__cols">
+      <nav class="ds-footer__col" aria-label="Footer navigation"><strong>Explore</strong><a href="/">Home</a><a href="/about">About</a><a href="/resources">Resources</a><a href="/services">Services</a><a href="/contact">Contact</a></nav>
+      <div class="ds-footer__col"><strong>Connect</strong><a href={`mailto:${email}`}>{email}</a>{socialLinks.map((link: any) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.platform}</a>)}</div>
     </div>
   </div>
-</footer>
+  <div class="ds-footer__bottom"><span>© {new Date().getFullYear()} Jamie Sulek</span><span>Peace of mind.</span></div>
+</div></footer>

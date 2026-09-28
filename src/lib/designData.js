@@ -1,0 +1,51 @@
+export const data = {
+  featureIcons: ['flower', 'person-standing', 'heart', 'sprout', 'hand-heart', 'infinity'],
+  features: [
+    ['Mindfulness', 'Learn to reconnect with the present moment through calming breath.'],
+    ['Wellness Coaching', 'One-on-one sessions tailored to your unique needs, helping you build.'],
+    ['Emotional Healing', 'Safe, compassionate space to explore emotions, release old.'],
+    ['Transformational Growth', 'Support through life transitions, identity shifts, or burnout recovery.'],
+    ['Community', 'Group circles, workshops, and guided practices to remind you.'],
+    ['Balance & Longevity', 'Wellness routines and rituals that promote long-term harmony.'],
+  ],
+  stats: [['Clients Guided', '45', 'K'], ['Success Rate', '60', '%'], ['Minutes of Mindfulness Delivered', '100', 'M']],
+  testimonials: [
+    { quote: 'After my sessions with Jamie, I felt a calm I hadn\u2019t experienced in years. Her guidance brought me back to myself\u2014gently and powerfully. Truly a transformative experience.', name: 'David K.', role: 'Artist' },
+    { quote: 'I came to Jamie feeling completely burnt out and disconnected. Today, I feel re-aligned with my purpose and equipped with actual tools to stay grounded during life\u2019s harder moments.', name: 'Sarah J.', role: 'Wellness Advocate' },
+    { quote: 'The clarity I\u2019ve gained through these sessions is unmatched. I\u2019m leading my team with more empathy and focus, and for the first time, I\u2019m not bringing work-stress home with me.', name: 'Marcus T.', role: 'Founder' },
+    { quote: 'Jamie\u2019s approach to mindfulness isn\u2019t just a practice\u2014it\u2019s a lifestyle shift. I\u2019ve finally found the stillness I\u2019ve been searching for amidst the chaos of my daily routine.', name: 'Elena R.', role: 'Creative Director' },
+  ],
+  faqs: [
+    ['Do I need prior experience with meditation or coaching?', 'Not at all. Sessions are designed for complete beginners and people with experience. We\u2019ll start where you are, keep things simple, and build practices that feel natural and doable.'],
+    ['What can I expect during a session?', 'A calm, supportive conversation focused on what you\u2019re dealing with right now. We\u2019ll explore what\u2019s been holding you back, clarify your next steps, and leave you with one or two practical tools to use immediately.'],
+    ['Are sessions online or in-person?', 'Most sessions are available online via video call, so you can join from anywhere. In-person sessions may be available depending on location and scheduling\u2014reach out and we\u2019ll confirm what\u2019s possible.'],
+    ['How long is each session?', 'Most sessions are 50\u201360 minutes. If you prefer something shorter, quick 30-minute check-ins can be arranged for specific goals or ongoing support.'],
+    ['What can I expect during a session?', 'Expect a mix of coaching and grounding practices\u2014like breathwork, reflection prompts, and mindset tools\u2014tailored to you. It\u2019s practical, judgment-free, and focused on helping you feel clearer and more in control.'],
+  ],
+  includes: [
+    { label: 'Initial Discovery Call', text: 'A 20-minute alignment session to set intentions and goals.' },
+    { label: 'Personalized Roadmap', text: 'A digital PDF summary of your custom practice and growth steps.' },
+    { label: 'Somatic Tool-kit', text: 'Access to a library of guided breathwork and nervous system regulation videos.' },
+    { label: 'Direct Support', text: 'Two weeks of asynchronous message support for any questions during your integration.' },
+  ],
+  audience: [
+    { label: 'The High-Performer', text: 'Ideal for founders, leaders, and creatives who are feeling the weight of burnout.' },
+    { label: 'The Seeker', text: 'Anyone looking to bridge the gap between their mental goals and their physical well-being.' },
+    { label: 'The Overwhelmed', text: 'Those who feel stuck in a cycle of \u201Cfight or flight\u201D and are ready for a sustainable change.' },
+    { label: 'The Intentional Leader', text: 'People who want to lead their teams and lives with more empathy and presence.' },
+  ],
+  services: [
+    { title: '1:1 Inner Compass Coaching', sub: 'Personalized Mentorship', description: 'A deep dive into your personal roadblocks to reconnect with your intuition.', duration: '90 Minutes', price: '$450.00' },
+    { title: 'Group Breathwork & Release', sub: 'Monthly Transformation', description: 'A powerful somatic experience designed to help you move stuck emotional energy.', duration: '2 Hours', price: '$85.00' },
+    { title: 'Mindful Leadership Intensive', sub: 'Executive Wellness', description: 'Focus on leading with empathy and maintaining peak performance without burnout.', duration: 'Full Day', price: '$1,200.00' },
+    { title: 'Emotional Detox Retreat', sub: 'Weekend Immersion', description: 'Step away from the digital noise with guided silence and restorative practices.', duration: '3 Days', price: '$899.00' },
+    { title: 'Conscious Communication', sub: 'Couples Workshop', description: 'Learn the art of listening beyond words to build a foundation of deep trust.', duration: '3 Hours', price: '$250.00' },
+    { title: 'Digital Zen & Focus Lab', sub: 'Online Workshop', description: 'Master your attention and protect your mental space in a world of distractions.', duration: '90 Minutes', price: '$45.00' },
+  ],
+  timeline: [
+    ['The Breaking Point', 'After years of 60-hour corporate weeks, I realized my \u201Csuccess\u201D came at the cost of my inner peace. I was exhausted and empty.'],
+    ['Seeking Stillness', 'I stepped away from the noise and traveled to Kyoto, immersing myself in meditation and learning to just be for the first time.'],
+    ['Deepening the Practice', 'I spent two years earning my certification in Somatic Healing, studying the connection between the nervous system and emotional clarity.'],
+    ['Founding My Practice', 'Today, I use these tools to help high-performers navigate their own stress and find the balance I fought so hard to discover.'],
+  ],
+};

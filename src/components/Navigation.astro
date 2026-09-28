@@ -1,127 +1,23 @@
 ---
-import ArrowRight from "./ArrowRight.astro";
-import LeafMark from "./LeafMark.astro";
-import { safeFetch } from "../lib/sanity";
-
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ navItems, title }`);
-const navItems = settings?.navItems ?? [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Resources", href: "/resources" },
+const currentPath = Astro.url.pathname;
+const links = [
+  { label: "Home", href: "/" }, { label: "About", href: "/about" },
+  { label: "Services", href: "/services" }, { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ];
-const siteTitle = settings?.title ?? "Jamie Counselling";
-const currentPath = Astro.url.pathname;
 ---
-
-<header class="sticky top-0 z-50 bg-bg/90 backdrop-blur-lg border-b border-border/50">
-  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href="/" class="group flex items-center gap-2.5">
-      <!-- Leaf mark -->
-      <div class="w-8 h-8 rounded-full bg-accent flex items-center justify-center group-hover:bg-accent-light transition-colors duration-300">
-        <LeafMark class="w-4 h-4 text-sage" />
-      </div>
-      <span class="font-heading text-lg text-text-primary font-medium tracking-tight">{siteTitle}</span>
-    </a>
-
-    <!-- Desktop links -->
-    <div class="hidden md:flex items-center gap-1">
-      {navItems.map((item: { label: string; href: string }) => (
-        <a
-          href={item.href}
-          class:list={[
-            "px-4 py-2 rounded-full font-label text-[13px] font-semibold tracking-wide transition-all duration-200",
-            currentPath === item.href
-              ? "bg-accent/8 text-accent"
-              : "text-text-muted hover:text-text-primary hover:bg-surface",
-          ]}
-        >
-          {item.label}
-        </a>
-      ))}
-    </div>
-
-    <!-- CTA + mobile button -->
-    <div class="flex items-center gap-3">
-      <a
-        href="/book"
-        class="hidden md:inline-flex items-center gap-1.5 bg-accent text-white pl-4 pr-3 py-2 pill font-label text-[12px] font-semibold uppercase tracking-wider hover:bg-accent-light transition-colors duration-200"
-      >
-        Book a call
-        <ArrowRight class="w-3.5 h-3.5" strokeWidth={2.5} />
-      </a>
-
-      <!-- Mobile hamburger -->
-      <button
-        id="mobile-menu-btn"
-        class="md:hidden w-9 h-9 rounded-full bg-surface flex items-center justify-center"
-        aria-label="Toggle menu"
-        aria-expanded="false"
-      >
-        <svg class="w-4 h-4 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7h16M4 12h10M4 17h14"/>
-        </svg>
-      </button>
-    </div>
+<header class="ds-nav"><div class="ds-nav__inner">
+  <a class="ds-brand" href="/">Jamie Sulek</a>
+  <button class="ds-menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-links">Menu</button>
+  <nav class="ds-nav__links" id="site-links" aria-label="Main navigation">
+    {links.map(link => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}
   </nav>
-</header>
-
-<!-- Mobile menu -->
-<div id="mobile-menu" class="hidden fixed inset-0 z-[60] bg-bg flex flex-col">
-  <div class="px-6 h-16 flex items-center justify-between border-b border-border/50">
-    <span class="font-heading text-lg text-text-primary font-medium">{siteTitle}</span>
-    <button id="mobile-menu-close" class="w-9 h-9 rounded-full bg-surface flex items-center justify-center">
-      <svg class="w-4 h-4 text-text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="flex-1 flex flex-col justify-center px-8 gap-2">
-    {navItems.map((item: { label: string; href: string }) => (
-      <a
-        href={item.href}
-        class:list={[
-          "font-heading text-3xl py-2 transition-colors",
-          currentPath === item.href ? "text-accent" : "text-text-primary"
-        ]}
-      >
-        {item.label}
-      </a>
-    ))}
-    <a
-      href="/book"
-      class="mt-6 inline-flex items-center justify-center gap-2 bg-accent text-white py-4 pill font-label text-sm font-semibold w-fit px-7"
-    >
-      Book a call
-      <ArrowRight strokeWidth={2.5} />
-    </a>
-  </div>
-</div>
-
+</div></header>
 <script>
-  function initMobileMenu() {
-    const btn = document.getElementById("mobile-menu-btn");
-    const close = document.getElementById("mobile-menu-close");
-    const menu = document.getElementById("mobile-menu");
-    const open = () => {
-      menu?.classList.remove("hidden");
-      menu?.classList.add("flex");
-      btn?.setAttribute("aria-expanded", "true");
-      document.body.style.overflow = "hidden";
-    };
-    const shut = () => {
-      menu?.classList.add("hidden");
-      menu?.classList.remove("flex");
-      btn?.setAttribute("aria-expanded", "false");
-      document.body.style.overflow = "";
-    };
-    btn?.addEventListener("click", open);
-    close?.addEventListener("click", shut);
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !menu?.classList.contains("hidden")) shut();
-    });
-  }
-  initMobileMenu();
-  document.addEventListener("astro:page-load", initMobileMenu);
+  const toggle = document.querySelector<HTMLButtonElement>('.ds-menu-toggle');
+  const links = document.querySelector('.ds-nav__links');
+  toggle?.addEventListener('click', () => {
+    const open = links?.classList.toggle('is-open') ?? false;
+    toggle.setAttribute('aria-expanded', String(open));
+  });
 </script>

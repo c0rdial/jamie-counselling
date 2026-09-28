@@ -1,0 +1,22 @@
+<!-- @dsCard group="Components" viewport="700x640" name="Content — story & cards" -->
+<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js"></script>
+<script src="../../assets/ds-loader.js"></script>
+<style>body{padding:24px;background:var(--bg-page)}</style></head><body><div id="root"></div>
+<script type="text/babel">
+getJamieDS().then((DS) => {
+  const { Button, IconButton, Icon, Tag, Em, ImagePlaceholder, ScrollSpinImage, Nav, Footer, SectionHeading, FeatureCard, Stat, TestimonialCard, FAQItem, CTABanner, ServiceCard, OfferingRow, TimelineItem, Timeline, Input } = DS;
+  function Demo() {
+    return (<div style={{ display: 'grid', gap: 20 }}>
+      <div style={{ background: 'var(--bg-inverse)', borderRadius: 'var(--radius-lg)', padding: '32px 40px' }}>
+        <Timeline itemHeight={80} anchor={1.4} items={[{ title: 'The Breaking Point', text: 'I was exhausted and empty.' }, { title: 'Seeking Stillness', text: 'I traveled to Kyoto.' }, { title: 'Founding My Practice', text: 'Today I help high-performers find balance.' }]} />
+      </div>
+      <TestimonialCard quote="After my sessions with Jamie, I felt a calm I hadn’t experienced in years." name="David K." role="Artist" style={{ minHeight: 0 }} />
+      <OfferingRow title="Digital Zen & Focus Lab" subtitle="Online Workshop" />
+    </div>);
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+});
+</script></body></html>
