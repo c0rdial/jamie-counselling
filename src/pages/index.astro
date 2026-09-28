@@ -26,23 +26,20 @@ const gallery = ['Ritual','Retreat','Morning','Tea','Nature','Stillness','Circle
   </div></section>
   <section class="ds-section"><div class="ds-container" style="display:grid;gap:40px;justify-items:center"><div class="ds-heading ds-heading--center"><h2>Your Journey, Your Moments</h2><p>Every path to wellness is unique. Use this space to showcase the experiences, environments, and rituals that have shaped your story.</p></div><DSButton href="/contact">Book Free Consultation</DSButton></div></section>
   <div class="ds-marquee-wrap"><div class="ds-marquee">{[0,1].map(() => gallery.map((label,i) => <DSMedia label={label} ratio="1100 / 1546" tone={i%3===1 ? "sage" : "sand"} />))}</div></div>
-  <section class="ds-section ds-section--subtle"><div class="ds-container"><div class="ds-testimonial-head"><div class="ds-heading"><h2>Words from the Heart</h2><p>Every story shared here is a reflection of connection, trust, and transformation. These kind words remind us that healing is real, and it’s happening.</p></div><div class="ds-carousel-controls"><button class="ds-icon-button" id="testimonial-prev" aria-label="Previous testimonial" disabled>←</button><button class="ds-icon-button" id="testimonial-next" aria-label="Next testimonial">→</button></div></div><div class="ds-testimonials" id="testimonial-cards">{data.testimonials.slice(0,2).map(t => <figure class="ds-testimonial"><blockquote>{t.quote}</blockquote><figcaption><span class="ds-testimonial__avatar"></span><div><span>{t.name}</span><small>{t.role}</small></div></figcaption></figure>)}</div></div></section>
+  <section class="ds-section ds-section--subtle"><div class="ds-container"><div class="ds-testimonial-head"><div class="ds-heading"><h2>Words from the Heart</h2><p>Every story shared here is a reflection of connection, trust, and transformation. These kind words remind us that healing is real, and it’s happening.</p></div><div class="ds-carousel-controls"><button class="ds-icon-button" id="testimonial-prev" aria-label="Previous testimonial" disabled>←</button><button class="ds-icon-button" id="testimonial-next" aria-label="Next testimonial">→</button></div></div><div class="ds-testimonials" id="testimonial-cards">{data.testimonials.map((t, i) => <figure class="ds-testimonial" hidden={i >= 2}><blockquote>{t.quote}</blockquote><figcaption><span class="ds-testimonial__avatar"></span><div><span>{t.name}</span><small>{t.role}</small></div></figcaption></figure>)}</div></div></section>
   <section class="ds-section"><div class="ds-container ds-faq"><div class="ds-heading"><h2>Questions? We’re Here to Help.</h2><p>Whether you’re new to wellness or exploring deeper support, we know you may have questions. Here are a few answers to help guide your next step.</p></div><div class="ds-faq-list">{data.faqs.map(([q,a]) => <details class="ds-faq-item"><summary><span>{q}</span><span aria-hidden="true">⊕</span></summary><p>{a}</p></details>)}</div><div class="ds-faq-bottom"><span>Still have questions? I’m just a message away.</span><DSButton href="/contact" size="lg">Get in touch with me</DSButton></div></div></section>
   <DSCTA title={settings?.ctaHeading ?? "Start Your Healing Journey Today"} text={settings?.ctaText ?? "Let’s take the first step together toward clarity, calm, and personal growth."} image={settings?.ogImage} />
   <script>
-    const testimonials = JSON.parse(document.getElementById('testimonial-data')?.textContent || '[]');
-    const cards = document.getElementById('testimonial-cards');
+    const cards = document.querySelectorAll<HTMLElement>('#testimonial-cards .ds-testimonial');
     const prev = document.getElementById('testimonial-prev') as HTMLButtonElement;
     const next = document.getElementById('testimonial-next') as HTMLButtonElement;
     let index = 0;
     function render() {
-      if (!cards) return;
-      cards.innerHTML = testimonials.slice(index,index+2).map((t: any) => `<figure class="ds-testimonial"><blockquote>${t.quote}</blockquote><figcaption><span class="ds-testimonial__avatar"></span><div><span>${t.name}</span><small>${t.role}</small></div></figcaption></figure>`).join('');
-      prev.disabled = index === 0; next.disabled = index >= testimonials.length - 2;
+      cards.forEach((card, i) => { card.hidden = i < index || i >= index + 2; });
+      prev.disabled = index === 0; next.disabled = index >= cards.length - 2;
     }
     prev?.addEventListener('click', () => { index--; render(); });
     next?.addEventListener('click', () => { index++; render(); });
     document.querySelectorAll('.ds-faq-item').forEach(item => item.addEventListener('toggle', () => { if ((item as HTMLDetailsElement).open) document.querySelectorAll('.ds-faq-item').forEach(other => { if (other !== item) (other as HTMLDetailsElement).open = false; }); }));
   </script>
-  <script type="application/json" id="testimonial-data" set:html={JSON.stringify(data.testimonials).replace(/</g,'\\u003c')} />
 </BaseLayout>

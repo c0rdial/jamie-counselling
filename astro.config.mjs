@@ -5,7 +5,6 @@ import sanity from "@sanity/astro";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
-import tailwindcss from "@tailwindcss/vite";
 
 const env = loadEnv(import.meta.env.MODE ?? "", process.cwd(), "PUBLIC_");
 
@@ -23,7 +22,4 @@ export default defineConfig({
     react(),
     sitemap(),
   ],
-  vite: {
-    plugins: [tailwindcss()],
-  },
 });
