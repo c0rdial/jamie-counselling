@@ -1,5 +1,5 @@
 export const data = {
-  featureIcons: ['flower', 'person-standing', 'heart', 'sprout', 'hand-heart', 'infinity'],
+  featureIcons: ['flower', 'person-standing', 'heart', 'sprout', 'hand-heart', 'infinity'] as const,
   features: [
     ['Mindfulness', 'Learn to reconnect with the present moment through calming breath.'],
     ['Wellness Coaching', 'One-on-one sessions tailored to your unique needs, helping you build.'],

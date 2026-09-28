@@ -6,7 +6,7 @@ export const client = sanityClient;
 
 export async function safeFetch<T = any>(query: string, params?: Record<string, unknown>): Promise<T | null> {
   try {
-    return await client.fetch<T>(query, params);
+    return params ? await client.fetch<T>(query, params) : await client.fetch<T>(query);
   } catch {
     return null;
   }

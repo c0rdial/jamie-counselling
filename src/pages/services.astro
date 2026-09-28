@@ -3,7 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
 import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
-import { data } from "../lib/designData.js";
+import { data } from "../lib/designData";
 import { safeFetch } from "../lib/sanity";
 import { PortableText } from "astro-portabletext";
 const cmsServices = await safeFetch(`*[_type == "service"] | order(order asc){ title, shortDescription, description, image }`) ?? [];

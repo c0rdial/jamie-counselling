@@ -4,7 +4,7 @@ import DSButton from "../components/DSButton.astro";
 import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
 import { Icon } from "../../design-system/components/core/Icon.jsx";
-import { data } from "../lib/designData.js";
+import { data } from "../lib/designData";
 import { safeFetch } from "../lib/sanity";
 const settings = await safeFetch(`*[_type == "siteSettings"][0]{ heroImage, aboutImage, ctaHeading, ctaText, ogImage }`);
 const gallery = ['Ritual','Retreat','Morning','Tea','Nature','Stillness','Circle','Journal'];
