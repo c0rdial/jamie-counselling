@@ -1,21 +1,14 @@
-# Jamie Counselling
+# Jamie Barbon Counselling
 
-Counselling practice website built with Astro 5, Sanity CMS, and Tailwind CSS.
+A small Astro website for Jamie Barbon Counselling. The public site has Home, About, and Contact pages and uses the design tokens in `design-system/`.
 
-## Setup
+## Local development
 
-1. Clone and install: `npm install`
-2. Copy `.env.example` to `.env` and fill in values
-3. Run dev server: `npm run dev`
-4. Access Sanity Studio at `/studio`
+```sh
+npm install
+npm run dev
+```
 
-## Sanity Setup
+Run `npm run check` and `npm run build` before deploying. The site deploys to Vercel.
 
-1. Create a project at [sanity.io](https://www.sanity.io/)
-2. Add the project ID to `.env`
-3. Create a "Site Settings" document in Studio
-4. Add services, resources, and an "About" page
-
-## Deploy
-
-Deployed via Vercel. Connect the repo and set environment variables.
+The contact email is set in `src/lib/contact.ts`. Replace it when Jamie's Hushmail account is ready. Update the `site` URL in `astro.config.mjs` when the chosen domain is connected.

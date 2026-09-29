@@ -1,34 +1,43 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
-import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
-import { data } from "../lib/designData";
-import jamieHeadshot from "../assets/jamie-headshot.jpg";
-import { safeFetch } from "../lib/sanity";
-import { PortableText } from "astro-portabletext";
-const page = await safeFetch(`*[_type == "page" && slug.current == "about"][0]{ body, seoTitle, seoDescription }`);
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ ogImage }`);
+
+const timeline = [
+  ["A background in finance", "I spent years working in financial and leadership roles, where I became interested in the people behind the work."],
+  ["A deeper curiosity", "I wanted to understand how our thoughts, emotions, and beliefs shape the way we meet life’s challenges."],
+  ["My counselling practice", "Today, I offer a warm, collaborative space to explore what matters most and find meaningful ways forward."],
+];
+
+const credentials = [
+  "Registered Clinical Counsellor (RCC #20966)",
+  "Canadian Certified Counsellor (CCC #11264375)",
+  "Master of Counselling, CityUniversity",
+  "Chartered Professional Accountant (CPA, CGA)",
+  "Master of Professional Accounting, University of Saskatchewan",
+  "Bachelor of Commerce, University of Victoria",
+];
 ---
-<BaseLayout title={page?.seoTitle ?? "About — Jamie Sulek"} description={page?.seoDescription ?? "Get to know Jamie and her approach to wellness coaching."}>
-  <section class="ds-section ds-page-hero"><div class="ds-container"><div class="ds-heading ds-heading--center"><h1>Hi, I’m Jamie, your wellness coach</h1><p>Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.</p><DSButton href="/contact" size="lg">Book Free Consultation</DSButton></div><DSMedia label="Video — yoga class" ratio="16 / 8" tone="sage" class="ds-page-hero__media" /></div></section>
-  <section class="ds-section"><div class="ds-container ds-heading ds-heading--center"><h2>My Approach to Healing</h2><p>I believe that true wellness starts from within. My work blends modern mindfulness practices with ancient breathwork techniques to support your mental, emotional, and physical wellbeing — gently and naturally.</p></div></section>
-  {page?.body && <section class="ds-container ds-heading ds-heading--center"><div class="ds-lead"><PortableText value={page.body} /></div></section>}
-  <div class="ds-curve"><svg viewBox="0 0 1690 620" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 C 380 160, 560 190, 845 210 C 1150 250, 1300 250, 1420 360 C 1560 480, 1640 590, 1560 590 C 1530 590, 1520 575, 1525 563" fill="none" stroke="var(--line-decor)" stroke-width="2" vector-effect="non-scaling-stroke" /></svg><div class="ds-spin"><DSMedia src={jamieHeadshot} label="Jamie looking directly at the camera" ratio="1 / 1" /></div></div>
-  <section class="ds-container"><div class="ds-timeline-panel"><div class="ds-timeline-intro"><h2>How I Got Here</h2><p>My own healing journey began after years of burnout and anxiety. I turned to breathwork as a last resort and it changed everything. Now I share the same tools that helped me find clarity, calm, and purpose.</p><DSButton href="/contact" variant="glass" size="sm">Book Free Consultation</DSButton></div><div class="ds-timeline">{data.timeline.map(([title,text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
-  <section class="ds-section"><div class="ds-container" style="display:grid;gap:48px"><div class="ds-heading ds-heading--center"><h2>Expertise &amp; Offerings</h2><p>Guided programs designed to move you from stress to purpose through authentic connection and intentional living.</p></div><div class="ds-offerings">{data.services.map(s => <a class="ds-offering" href="/services"><span><span class="ds-offering__title">{s.title}</span><span class="ds-offering__sub">{s.sub}</span></span><span class="ds-offering__arrow" aria-hidden="true">↗</span></a>)}</div></div></section>
-  <DSCTA image={settings?.ogImage} />
+<BaseLayout title="About Jamie | Jamie Barbon Counselling" description="Learn about Jamie Barbon’s background, counselling approach, and professional credentials.">
+  <section class="ds-section ds-page-hero"><div class="ds-container ds-heading ds-heading--center"><span class="ds-eyebrow">About Jamie</span><h1>A thoughtful space to work through what matters.</h1><p>I’m Jamie Barbon, a Registered Clinical Counsellor and Canadian Certified Counsellor. My approach is warm, collaborative, and grounded in curiosity.</p></div></section>
+
+  <section class="ds-section ds-section--subtle"><div class="ds-container ds-prose-section"><div class="ds-heading"><span class="ds-eyebrow">My story</span><h2>Why I came to counselling</h2></div><div class="ds-prose"><p>I came to counselling after years of working in financial and leadership roles. I found myself increasingly interested in the people behind the work: what motivates us, what holds us back, and how we find our way through challenges and discomfort.</p><p>I’m drawn to honest conversations that help us slow down and make sense of what’s happening. The beliefs we hold about ourselves, our relationships, and the world can sometimes keep us stuck. Exploring them can open space for insight and new possibilities.</p><p>I strive to create a counselling space that is warm, grounded, and practical. I listen closely, ask thoughtful questions, and work collaboratively with you to understand what you’re facing and what matters most to you.</p></div></div></section>
+
+  <section class="ds-section"><div class="ds-container ds-prose-section"><div class="ds-heading"><span class="ds-eyebrow">My approach</span><h2>Work that is tailored to you.</h2></div><div class="ds-prose"><p>My way of working is relational and collaborative. I draw from self-inquiry, cognitive behavioural therapy, acceptance and commitment therapy, mindfulness, narrative, solution-focused, and somatic practices.</p><p>Together, we’ll look at where you feel stuck and draw on useful tools to build self-understanding, clarity, compassion, and purposeful next steps. My background in finance and leadership also helps me appreciate the practical realities that can sit alongside emotional challenges.</p><DSButton href="/contact" variant="secondary">Get in touch</DSButton></div></div></section>
+
+  <section class="ds-section ds-section--sm"><div class="ds-container"><div class="ds-timeline-panel"><div class="ds-timeline-intro"><h2>How I got here</h2><p>My work grew from a curiosity about people, the pressures they carry, and the ways we can meet life’s challenges with more clarity and care.</p></div><div class="ds-timeline">{timeline.map(([title,text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div></div></div></section>
+
+  <section class="ds-section ds-section--subtle"><div class="ds-container ds-credentials"><div class="ds-heading"><span class="ds-eyebrow">Professional background</span><h2>Education &amp; credentials</h2><p>Professional member of the Canadian Counselling and Psychotherapy Association, BC Association of Clinical Counsellors, and Chartered Professional Accountants of BC.</p></div><ul>{credentials.map(credential => <li>{credential}</li>)}</ul></div></section>
+
+  <DSCTA title="Let’s talk about what’s going on." text="You can reach out with a question or to arrange a virtual counselling session." />
   <script>
-    const spin = document.querySelector<HTMLElement>('.ds-spin .ds-media');
     const timeline = document.querySelector<HTMLElement>('.ds-timeline');
     const items = Array.from(document.querySelectorAll<HTMLElement>('.ds-timeline article'));
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     function update() {
-      if (!reducedMotion && spin) spin.style.transform = `rotate(${(innerHeight-spin.getBoundingClientRect().top)*.12}deg)`;
       if (!timeline || !items.length) return;
-
-      const end = items[items.length - 1].offsetTop + 8;
+      const end = timeline.clientHeight;
       const progress = reducedMotion ? end : Math.max(0, Math.min(end, innerHeight * .6 - timeline.getBoundingClientRect().top));
       timeline.style.setProperty('--timeline-progress', `${progress}px`);
       items.forEach(item => item.classList.toggle('is-active', progress >= item.offsetTop + 8));

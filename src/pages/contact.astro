@@ -1,15 +1,10 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import DSMedia from "../components/DSMedia.astro";
-import DSCTA from "../components/DSCTA.astro";
-import ContactForm from "../components/ContactForm.tsx";
-import { safeFetch } from "../lib/sanity";
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ contactEmail, location, aboutImage, ogImage }`);
-const email = settings?.contactEmail ?? "jamiesulek008@gmail.com";
-const location = settings?.location ?? "Victoria, British Columbia, Canada";
-const formId = import.meta.env.PUBLIC_FORMSPREE_ID ?? "placeholder";
+import { contactEmail } from "../lib/contact";
 ---
-<BaseLayout title="Contact — Jamie Sulek" description="Get in touch with Jamie Sulek.">
-  <section class="ds-section ds-page-hero"><div class="ds-container ds-contact-grid"><div class="ds-contact-info"><div class="ds-heading"><h1>Contact me.</h1></div><div><div class="ds-info-row"><span class="ds-info-icon" aria-hidden="true">✉</span><div><strong>EMAIL</strong><a href={`mailto:${email}`}>{email}</a></div></div><div class="ds-info-row"><span class="ds-info-icon" aria-hidden="true">⌖</span><div><strong>LOCATION</strong><p>{location}</p></div></div></div><DSMedia label="Studio exterior" ratio="16 / 10" /></div><ContactForm client:load formId={formId} /></div></section>
-  <DSCTA image={settings?.ogImage} />
+<BaseLayout title="Contact | Jamie Barbon Counselling" description="Get in touch with Jamie Barbon about virtual counselling appointments.">
+  <section class="ds-section ds-page-hero"><div class="ds-container ds-contact-grid">
+    <div class="ds-contact-details"><div class="ds-heading"><span class="ds-eyebrow">Contact</span><h1>Let’s start with a conversation.</h1><p>Reach out with a question or to ask about a virtual counselling appointment. I offer weekday sessions, with 6:00 AM Pacific appointments two days a week.</p></div><div class="ds-crisis-note">If you need urgent support, call the <a href="tel:+18884943888">Vancouver Island Crisis Line at 1-888-494-3888</a> or visit the <a href="https://www.vicrisis.ca/crisis-lines/">Vancouver Island Crisis Society</a>. If there is immediate danger, call 911 or go to the nearest emergency department.</div></div>
+    <div class="ds-contact-card"><h2>Contact &amp; sessions</h2>{contactEmail ? <p>Email me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a> to arrange a time.</p> : <p>Jamie’s secure contact email is being set up. Please check back shortly for booking details.</p>}<ul class="ds-contact-list"><li><strong>Format</strong><span>Virtual</span></li><li><strong>50-minute session</strong><span>$150</span></li><li><strong>75-minute session</strong><span>$200</span></li><li><strong>Availability</strong><span>Weekdays</span></li></ul></div>
+  </div></section>
 </BaseLayout>

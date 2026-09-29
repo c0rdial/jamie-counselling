@@ -2,12 +2,11 @@
 const currentPath = Astro.url.pathname;
 const links = [
   { label: "Home", href: "/" }, { label: "About", href: "/about" },
-  { label: "Services", href: "/services" }, { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },
 ];
 ---
 <header class="ds-nav"><div class="ds-nav__inner">
-  <a class="ds-brand" href="/">Jamie Sulek</a>
+  <a class="ds-brand" href="/">Jamie Barbon <span>Counselling</span></a>
   <button class="ds-menu-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-links">Menu</button>
   <nav class="ds-nav__links" id="site-links" aria-label="Main navigation">
     {links.map(link => <a href={link.href} aria-current={currentPath === link.href ? "page" : undefined}>{link.label}</a>)}

@@ -1,16 +1,13 @@
 ---
-import { safeFetch } from "../lib/sanity";
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ contactEmail, socialLinks }`);
-const email = settings?.contactEmail ?? "jamiesulek008@gmail.com";
-const socialLinks = settings?.socialLinks ?? [];
+import { contactEmail } from "../lib/contact";
 ---
 <footer class="ds-footer"><div class="ds-footer__inner">
   <div class="ds-footer__main">
-    <div><div class="ds-footer__brand">Jamie Sulek</div><div class="ds-footer__tag">Peace of mind.</div></div>
+    <div><div class="ds-footer__brand">Jamie Barbon Counselling</div><div class="ds-footer__tag">Clarity, compassion, and care.</div></div>
     <div class="ds-footer__cols">
-      <nav class="ds-footer__col" aria-label="Footer navigation"><strong>Explore</strong><a href="/">Home</a><a href="/about">About</a><a href="/resources">Resources</a><a href="/services">Services</a><a href="/contact">Contact</a></nav>
-      <div class="ds-footer__col"><strong>Connect</strong><a href={`mailto:${email}`}>{email}</a>{socialLinks.map((link: any) => <a href={link.url} target="_blank" rel="noopener noreferrer">{link.platform}</a>)}</div>
+      <nav class="ds-footer__col" aria-label="Footer navigation"><strong>Explore</strong><a href="/">Home</a><a href="/about">About</a><a href="/contact">Contact</a></nav>
+      {contactEmail && <div class="ds-footer__col"><strong>Connect</strong><a href={`mailto:${contactEmail}`}>{contactEmail}</a></div>}
     </div>
   </div>
-  <div class="ds-footer__bottom"><span>© {new Date().getFullYear()} Jamie Sulek</span><span>Peace of mind.</span></div>
+  <div class="ds-footer__bottom"><span>© {new Date().getFullYear()} Jamie Barbon Counselling</span><span>Virtual counselling in British Columbia</span></div>
 </div></footer>

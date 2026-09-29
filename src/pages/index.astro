@@ -1,51 +1,51 @@
 ---
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
-import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
-import { Image } from "astro:assets";
 import jamieHero from "../assets/jamie-hero.jpg";
-import jamieStanding from "../assets/jamie-standing.jpg";
-import jamieSmiling from "../assets/jamie-smiling.jpg";
-import { Icon } from "../../design-system/components/core/Icon.jsx";
-import { data } from "../lib/designData";
-import { safeFetch } from "../lib/sanity";
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ ctaHeading, ctaText, ogImage }`);
-const gallery = ['Ritual','Retreat','Morning','Tea','Nature','Stillness','Circle','Journal'];
+
+const areas = [
+  "Anxiety, stress & burnout",
+  "Relationships & family dynamics",
+  "Life transitions, grief & loss",
+  "Perfectionism & self-doubt",
+  "Parenting & step-parenting",
+  "Work, performance & financial stress",
+];
 ---
-<BaseLayout title="Jamie Sulek — Wellness Coaching" description="Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.">
-  <section class="ds-section ds-section--sm"><div class="ds-container ds-hero">
-    <div class="ds-hero__copy"><h1 class="ds-display"><em>Embrace</em> Your Journey to <em>Inner Peace</em></h1><p class="ds-lead">Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.</p><DSButton href="/contact" size="lg">Book Free Consultation</DSButton></div>
-    <div class="ds-media ds-hero__portrait">
-      <Image src={jamieHero} alt="Jamie Sulek seated for a portrait" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" loading="eager" fetchpriority="high" />
+<BaseLayout title="Jamie Barbon Counselling | Virtual counselling" description="Warm, practical virtual counselling for adults navigating anxiety, relationships, loss, stress, and life transitions.">
+  <section class="ds-section ds-section--sm">
+    <div class="ds-container ds-hero">
+      <div class="ds-hero__copy">
+        <span class="ds-eyebrow">Jamie Barbon Counselling</span>
+        <h1 class="ds-display">Support to meet life’s challenges with <em>clarity, compassion, and care.</em></h1>
+        <p class="ds-lead">Welcome, I’m Jamie. I offer virtual counselling for adults navigating difficult feelings, relationships, work, and change. Together, we can make sense of what feels hard and find a way forward that fits you.</p>
+        <DSButton href="/contact" size="lg">Get in touch</DSButton>
+      </div>
+      <div class="ds-media ds-hero__portrait">
+        <Image src={jamieHero} alt="Jamie Barbon seated for a portrait" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" loading="eager" fetchpriority="high" />
+      </div>
     </div>
-  </div></section>
-  <section class="ds-section ds-section--sm"><div class="ds-container ds-features">
-    {data.features.map(([title,text],i) => <div class="ds-feature"><Icon name={data.featureIcons[i]} size={60} strokeWidth={1.25} /><h3>{title}</h3><p>{text}</p></div>)}
-  </div></section>
-  <section class="ds-section ds-section--sm"><div class="ds-container ds-stats">
-    {data.stats.map(([label,value,unit]) => <div class="ds-stat"><div class="ds-stat__label">{label}</div><div class="ds-stat__number"><strong>{value}</strong><em>{unit}</em></div></div>)}
-  </div></section>
-  <section class="ds-section ds-section--subtle"><div class="ds-container ds-split">
-    <div style="display:grid;gap:28px;justify-items:start"><div class="ds-heading"><h2>Your Safe Space for Calm &amp; Clarity</h2><p>We believe that true healing starts with presence. Whether you're new to mindfulness or looking to deepen your journey, our space is open to you — online or in person.</p></div><div class="ds-hours"><span><Icon name="clock" size={18} />Open daily from <strong>7:00 AM</strong> to <strong>6:00 PM</strong></span><span><Icon name="check" size={18} />Available during all open hours</span></div><DSButton href="/services" variant="secondary">Explore Services</DSButton></div>
-    <div class="ds-split__photos"><DSMedia src={jamieStanding} label="Jamie standing in a white top" ratio="1604 / 1830" /><DSMedia src={jamieSmiling} label="Jamie smiling in a light blazer" ratio="1638 / 1868" tone="sage" /></div>
-  </div></section>
-  <section class="ds-section"><div class="ds-container" style="display:grid;gap:40px;justify-items:center"><div class="ds-heading ds-heading--center"><h2>Your Journey, Your Moments</h2><p>Every path to wellness is unique. Use this space to showcase the experiences, environments, and rituals that have shaped your story.</p></div><DSButton href="/contact">Book Free Consultation</DSButton></div></section>
-  <div class="ds-marquee-wrap"><div class="ds-marquee">{[0,1].map(() => gallery.map((label,i) => <DSMedia label={label} ratio="1100 / 1546" tone={i%3===1 ? "sage" : "sand"} />))}</div></div>
-  <section class="ds-section ds-section--subtle"><div class="ds-container"><div class="ds-testimonial-head"><div class="ds-heading"><h2>Words from the Heart</h2><p>Every story shared here is a reflection of connection, trust, and transformation. These kind words remind us that healing is real, and it’s happening.</p></div><div class="ds-carousel-controls"><button class="ds-icon-button" id="testimonial-prev" aria-label="Previous testimonial" disabled>←</button><button class="ds-icon-button" id="testimonial-next" aria-label="Next testimonial">→</button></div></div><div class="ds-testimonials" id="testimonial-cards">{data.testimonials.map((t, i) => <figure class="ds-testimonial" hidden={i >= 2}><blockquote>{t.quote}</blockquote><figcaption><span class="ds-testimonial__avatar"></span><div><span>{t.name}</span><small>{t.role}</small></div></figcaption></figure>)}</div></div></section>
-  <section class="ds-section"><div class="ds-container ds-faq"><div class="ds-heading"><h2>Questions? We’re Here to Help.</h2><p>Whether you’re new to wellness or exploring deeper support, we know you may have questions. Here are a few answers to help guide your next step.</p></div><div class="ds-faq-list">{data.faqs.map(([q,a]) => <details class="ds-faq-item"><summary><span>{q}</span><span aria-hidden="true">⊕</span></summary><p>{a}</p></details>)}</div><div class="ds-faq-bottom"><span>Still have questions? I’m just a message away.</span><DSButton href="/contact" size="lg">Get in touch with me</DSButton></div></div></section>
-  <DSCTA title={settings?.ctaHeading ?? "Start Your Healing Journey Today"} text={settings?.ctaText ?? "Let’s take the first step together toward clarity, calm, and personal growth."} image={settings?.ogImage} />
-  <script>
-    const cards = document.querySelectorAll<HTMLElement>('#testimonial-cards .ds-testimonial');
-    const prev = document.getElementById('testimonial-prev') as HTMLButtonElement;
-    const next = document.getElementById('testimonial-next') as HTMLButtonElement;
-    let index = 0;
-    function render() {
-      cards.forEach((card, i) => { card.hidden = i < index || i >= index + 2; });
-      prev.disabled = index === 0; next.disabled = index >= cards.length - 2;
-    }
-    prev?.addEventListener('click', () => { index--; render(); });
-    next?.addEventListener('click', () => { index++; render(); });
-    document.querySelectorAll('.ds-faq-item').forEach(item => item.addEventListener('toggle', () => { if ((item as HTMLDetailsElement).open) document.querySelectorAll('.ds-faq-item').forEach(other => { if (other !== item) (other as HTMLDetailsElement).open = false; }); }));
-  </script>
+  </section>
+
+  <section class="ds-section ds-section--subtle" id="support">
+    <div class="ds-container ds-simple-section">
+      <div class="ds-heading"><span class="ds-eyebrow">Where counselling can help</span><h2>Whatever you’re carrying, you don’t have to sort through it alone.</h2><p>Life can look manageable on the outside while feeling heavy or unclear underneath. Counselling offers space to pause, reflect, and reconnect with what matters most to you.</p></div>
+      <ul class="ds-area-grid">{areas.map(area => <li>{area}</li>)}</ul>
+    </div>
+  </section>
+
+  <section class="ds-section">
+    <div class="ds-container ds-intro-panel">
+      <div class="ds-heading"><span class="ds-eyebrow">A bit about me</span><h2>Warm, grounded, practical counselling.</h2></div>
+      <div class="ds-intro-panel__copy"><p>I came to counselling after years in finance and leadership, where I became increasingly interested in the people behind the work. I listen closely, ask thoughtful questions, and work with you to understand what you’re facing.</p><p>Our conversations focus on your strengths, values, and the steps that feel meaningful and workable in your life.</p><DSButton href="/about" variant="secondary">More about my approach</DSButton></div>
+    </div>
+  </section>
+
+  <section class="ds-section ds-section--subtle">
+    <div class="ds-container ds-session-strip"><div><span class="ds-eyebrow">Sessions</span><h2>Virtual counselling on weekdays.</h2><p>Appointments include 6:00 AM Pacific sessions two days a week.</p></div><div class="ds-session-strip__fees"><p><strong>50 minutes</strong><span>$150</span></p><p><strong>75 minutes</strong><span>$200</span></p></div></div>
+  </section>
+
+  <DSCTA title="Ready to start a conversation?" text="Reach out to ask a question or find a time to meet." />
 </BaseLayout>
