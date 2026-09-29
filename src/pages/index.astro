@@ -3,16 +3,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
 import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
+import { Image } from "astro:assets";
+import jamieHero from "../assets/jamie-hero.jpg";
+import jamieStanding from "../assets/jamie-standing.jpg";
+import jamieSmiling from "../assets/jamie-smiling.jpg";
 import { Icon } from "../../design-system/components/core/Icon.jsx";
 import { data } from "../lib/designData";
 import { safeFetch } from "../lib/sanity";
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ heroImage, aboutImage, ctaHeading, ctaText, ogImage }`);
+const settings = await safeFetch(`*[_type == "siteSettings"][0]{ ctaHeading, ctaText, ogImage }`);
 const gallery = ['Ritual','Retreat','Morning','Tea','Nature','Stillness','Circle','Journal'];
 ---
 <BaseLayout title="Jamie Sulek — Wellness Coaching" description="Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.">
   <section class="ds-section ds-section--sm"><div class="ds-container ds-hero">
     <div class="ds-hero__copy"><h1 class="ds-display"><em>Embrace</em> Your Journey to <em>Inner Peace</em></h1><p class="ds-lead">Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.</p><DSButton href="/contact" size="lg">Book Free Consultation</DSButton></div>
-    <DSMedia image={settings?.heroImage} label="Hero portrait — coach" ratio="1710 / 2070" eager />
+    <div class="ds-media ds-hero__portrait">
+      <Image src={jamieHero} alt="Jamie Sulek seated for a portrait" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" loading="eager" fetchpriority="high" />
+    </div>
   </div></section>
   <section class="ds-section ds-section--sm"><div class="ds-container ds-features">
     {data.features.map(([title,text],i) => <div class="ds-feature"><Icon name={data.featureIcons[i]} size={60} strokeWidth={1.25} /><h3>{title}</h3><p>{text}</p></div>)}
@@ -22,7 +28,7 @@ const gallery = ['Ritual','Retreat','Morning','Tea','Nature','Stillness','Circle
   </div></section>
   <section class="ds-section ds-section--subtle"><div class="ds-container ds-split">
     <div style="display:grid;gap:28px;justify-items:start"><div class="ds-heading"><h2>Your Safe Space for Calm &amp; Clarity</h2><p>We believe that true healing starts with presence. Whether you're new to mindfulness or looking to deepen your journey, our space is open to you — online or in person.</p></div><div class="ds-hours"><span><Icon name="clock" size={18} />Open daily from <strong>7:00 AM</strong> to <strong>6:00 PM</strong></span><span><Icon name="check" size={18} />Available during all open hours</span></div><DSButton href="/services" variant="secondary">Explore Services</DSButton></div>
-    <div class="ds-split__photos"><DSMedia image={settings?.aboutImage} label="Studio interior" ratio="1604 / 1830" /><DSMedia label="Breathwork session" ratio="1638 / 1868" tone="sage" /></div>
+    <div class="ds-split__photos"><DSMedia src={jamieStanding} label="Jamie standing in a white top" ratio="1604 / 1830" /><DSMedia src={jamieSmiling} label="Jamie smiling in a light blazer" ratio="1638 / 1868" tone="sage" /></div>
   </div></section>
   <section class="ds-section"><div class="ds-container" style="display:grid;gap:40px;justify-items:center"><div class="ds-heading ds-heading--center"><h2>Your Journey, Your Moments</h2><p>Every path to wellness is unique. Use this space to showcase the experiences, environments, and rituals that have shaped your story.</p></div><DSButton href="/contact">Book Free Consultation</DSButton></div></section>
   <div class="ds-marquee-wrap"><div class="ds-marquee">{[0,1].map(() => gallery.map((label,i) => <DSMedia label={label} ratio="1100 / 1546" tone={i%3===1 ? "sage" : "sand"} />))}</div></div>

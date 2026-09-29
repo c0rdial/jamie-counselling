@@ -4,16 +4,17 @@ import DSButton from "../components/DSButton.astro";
 import DSMedia from "../components/DSMedia.astro";
 import DSCTA from "../components/DSCTA.astro";
 import { data } from "../lib/designData";
+import jamieHeadshot from "../assets/jamie-headshot.jpg";
 import { safeFetch } from "../lib/sanity";
 import { PortableText } from "astro-portabletext";
 const page = await safeFetch(`*[_type == "page" && slug.current == "about"][0]{ body, seoTitle, seoDescription }`);
-const settings = await safeFetch(`*[_type == "siteSettings"][0]{ aboutImage, ogImage }`);
+const settings = await safeFetch(`*[_type == "siteSettings"][0]{ ogImage }`);
 ---
 <BaseLayout title={page?.seoTitle ?? "About — Jamie Sulek"} description={page?.seoDescription ?? "Get to know Jamie and her approach to wellness coaching."}>
   <section class="ds-section ds-page-hero"><div class="ds-container"><div class="ds-heading ds-heading--center"><h1>Hi, I’m Jamie, your wellness coach</h1><p>Personalized wellness coaching to help you find balance, clarity, and vitality in everyday life.</p><DSButton href="/contact" size="lg">Book Free Consultation</DSButton></div><DSMedia label="Video — yoga class" ratio="16 / 8" tone="sage" class="ds-page-hero__media" /></div></section>
   <section class="ds-section"><div class="ds-container ds-heading ds-heading--center"><h2>My Approach to Healing</h2><p>I believe that true wellness starts from within. My work blends modern mindfulness practices with ancient breathwork techniques to support your mental, emotional, and physical wellbeing — gently and naturally.</p></div></section>
   {page?.body && <section class="ds-container ds-heading ds-heading--center"><div class="ds-lead"><PortableText value={page.body} /></div></section>}
-  <div class="ds-curve"><svg viewBox="0 0 1690 620" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 C 380 160, 560 190, 845 210 C 1150 250, 1300 250, 1420 360 C 1560 480, 1640 590, 1560 590 C 1530 590, 1520 575, 1525 563" fill="none" stroke="var(--line-decor)" stroke-width="2" vector-effect="non-scaling-stroke" /></svg><div class="ds-spin"><DSMedia image={settings?.aboutImage} label="Portrait — eyes closed, sunlight" ratio="1 / 1" /></div></div>
+  <div class="ds-curve"><svg viewBox="0 0 1690 620" preserveAspectRatio="none" aria-hidden="true"><path d="M300 0 C 380 160, 560 190, 845 210 C 1150 250, 1300 250, 1420 360 C 1560 480, 1640 590, 1560 590 C 1530 590, 1520 575, 1525 563" fill="none" stroke="var(--line-decor)" stroke-width="2" vector-effect="non-scaling-stroke" /></svg><div class="ds-spin"><DSMedia src={jamieHeadshot} label="Jamie looking directly at the camera" ratio="1 / 1" /></div></div>
   <section class="ds-container"><div class="ds-timeline-panel"><div class="ds-timeline-intro"><h2>How I Got Here</h2><p>My own healing journey began after years of burnout and anxiety. I turned to breathwork as a last resort and it changed everything. Now I share the same tools that helped me find clarity, calm, and purpose.</p><DSButton href="/contact" variant="glass" size="sm">Book Free Consultation</DSButton></div><div class="ds-timeline">{data.timeline.map(([title,text]) => <article><h3>{title}</h3><p>{text}</p></article>)}</div></div></section>
   <section class="ds-section"><div class="ds-container" style="display:grid;gap:48px"><div class="ds-heading ds-heading--center"><h2>Expertise &amp; Offerings</h2><p>Guided programs designed to move you from stress to purpose through authentic connection and intentional living.</p></div><div class="ds-offerings">{data.services.map(s => <a class="ds-offering" href="/services"><span><span class="ds-offering__title">{s.title}</span><span class="ds-offering__sub">{s.sub}</span></span><span class="ds-offering__arrow" aria-hidden="true">↗</span></a>)}</div></div></section>
   <DSCTA image={settings?.ogImage} />
