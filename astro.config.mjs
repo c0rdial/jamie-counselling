@@ -7,4 +7,8 @@ export default defineConfig({
   site: "https://www.jamiecounselling.ca",
   adapter: vercel(),
   integrations: [sitemap()],
+  redirects: {
+    "/services": "/",
+    "/resources": "/contact",
+  },
 });
