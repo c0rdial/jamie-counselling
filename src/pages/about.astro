@@ -19,16 +19,32 @@ const settings = await safeFetch(`*[_type == "siteSettings"][0]{ ogImage }`);
   <section class="ds-section"><div class="ds-container" style="display:grid;gap:48px"><div class="ds-heading ds-heading--center"><h2>Expertise &amp; Offerings</h2><p>Guided programs designed to move you from stress to purpose through authentic connection and intentional living.</p></div><div class="ds-offerings">{data.services.map(s => <a class="ds-offering" href="/services"><span><span class="ds-offering__title">{s.title}</span><span class="ds-offering__sub">{s.sub}</span></span><span class="ds-offering__arrow" aria-hidden="true">↗</span></a>)}</div></div></section>
   <DSCTA image={settings?.ogImage} />
   <script>
-    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const spin = document.querySelector<HTMLElement>('.ds-spin .ds-media');
-      const items = document.querySelectorAll('.ds-timeline article');
+    const spin = document.querySelector<HTMLElement>('.ds-spin .ds-media');
+    const timeline = document.querySelector<HTMLElement>('.ds-timeline');
+    const items = Array.from(document.querySelectorAll<HTMLElement>('.ds-timeline article'));
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function update() {
+      if (!reducedMotion && spin) spin.style.transform = `rotate(${(innerHeight-spin.getBoundingClientRect().top)*.12}deg)`;
+      if (!timeline || !items.length) return;
+
+      const end = items[items.length - 1].offsetTop + 8;
+      const progress = reducedMotion ? end : Math.max(0, Math.min(end, innerHeight * .6 - timeline.getBoundingClientRect().top));
+      timeline.style.setProperty('--timeline-progress', `${progress}px`);
+      items.forEach(item => item.classList.toggle('is-active', progress >= item.offsetTop + 8));
+    }
+
+    if (reducedMotion) {
+      update();
+    } else {
       let ticking = false;
-      function update() {
-        if (spin) spin.style.transform = `rotate(${(innerHeight-spin.getBoundingClientRect().top)*.12}deg)`;
-        items.forEach(item => item.classList.toggle('is-active', item.getBoundingClientRect().top < innerHeight*.6));
-        ticking = false;
-      }
-      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+      const scheduleUpdate = () => {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(() => { update(); ticking = false; });
+      };
+      addEventListener('scroll', scheduleUpdate, { passive: true });
+      addEventListener('resize', scheduleUpdate);
       update();
     }
   </script>
