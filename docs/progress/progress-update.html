@@ -1,0 +1,144 @@
+<!doctype html>
+<!--
+  Website progress update for Jamie.
+  To update: edit the text below, open this file in Chrome, then Print → Save as PDF
+  (Paper: A4, Margins: None, tick "Background graphics").
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Website progress update – Jamie Barbon Counselling</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root { --cream: #F8F5EA; --cream-2: #F1ECDC; --forest: #1B3129; --forest-7: #3E534B; --ink: #2B2A22; --ink-2: #45443B; --ink-3: #66655C; --line: rgba(43,42,34,.16); --sage: #DCE3CF; --sand: #EFE3C8; }
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: #e9e6dc; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font: 400 10.5pt/1.55 Inter, system-ui, sans-serif; color: var(--ink-2); }
+  .page { position: relative; width: 210mm; height: 297mm; margin: 0 auto 12mm; padding: 18mm 18mm 16mm; overflow: hidden; background: var(--cream); page-break-after: always; }
+  .page:last-child { page-break-after: auto; }
+  @media print { html, body { background: var(--cream); } .page { margin: 0; } }
+  h1, h2, h3 { font-family: Lora, Georgia, serif; font-weight: 400; color: var(--ink); margin: 0; }
+  h1 { font-size: 26pt; line-height: 1.1; }
+  h2 { font-size: 17pt; line-height: 1.2; margin-bottom: 4mm; }
+  h3 { font-size: 12pt; margin-bottom: 1.5mm; }
+  p { margin: 0 0 3mm; }
+  .meta { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 5mm; margin-bottom: 8mm; border-bottom: 1px solid var(--line); color: var(--ink-3); font-size: 9pt; }
+  .meta strong { font: 400 12pt Lora, serif; color: var(--forest); }
+  .intro { margin: 3mm 0 6mm; font-size: 10.5pt; color: var(--ink-2); }
+  figure { margin: 0; }
+  figure img { display: block; width: 100%; border-radius: 3mm; border: 1px solid var(--line); }
+  figcaption { margin-top: 2mm; color: var(--ink-3); font-size: 8.5pt; }
+  .hero-shot img { height: 60mm; object-fit: cover; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 2mm; }
+  th { text-align: left; font: 500 8.5pt Inter, sans-serif; color: var(--ink-3); padding: 0 3mm 2mm 0; border-bottom: 1px solid var(--line); }
+  td { vertical-align: top; padding: 1.9mm 3mm 1.9mm 0; border-bottom: 1px solid var(--line); font-size: 9pt; line-height: 1.45; }
+  td:first-child { width: 38mm; color: var(--ink); font-weight: 500; }
+  td:last-child { width: 30mm; padding-right: 0; text-align: right; }
+  .tag { display: inline-block; padding: .6mm 2.4mm; border-radius: 99px; font-size: 8pt; font-weight: 500; white-space: nowrap; }
+  .done { background: var(--sage); color: var(--forest); }
+  .input { background: var(--sand); color: #6B4E16; }
+  .same { background: var(--cream-2); color: var(--ink-3); }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+  .shot-row { display: grid; grid-template-columns: 1.55fr 1fr; gap: 6mm; align-items: start; margin-bottom: 6mm; }
+  .shot-row img { height: 48mm; object-fit: cover; object-position: top; }
+  .phones { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 6mm; align-items: start; }
+  .phones img { height: 66mm; object-fit: cover; object-position: top; border-radius: 4mm; }
+
+  ol.asks { margin: 0; padding: 0; list-style: none; counter-reset: ask; }
+  ol.asks li { counter-increment: ask; position: relative; padding: 3.2mm 0 3.2mm 10mm; border-bottom: 1px solid var(--line); }
+  ol.asks li:first-child { border-top: 1px solid var(--line); }
+  ol.asks li::before { content: counter(ask); position: absolute; left: 0; top: 3.2mm; width: 6mm; height: 6mm; border-radius: 50%; background: var(--forest); color: var(--cream); font: 500 8pt/6mm Inter, sans-serif; text-align: center; }
+  ol.asks strong { color: var(--ink); font-weight: 500; }
+  .steps { margin-top: 8mm; padding: 6mm 7mm; border-radius: 3mm; background: var(--forest); color: #D9DED6; }
+  .steps h2 { color: var(--cream); }
+  .steps ul { margin: 0; padding-left: 4.5mm; }
+  .steps li { margin-bottom: 1.4mm; }
+  .footer { position: absolute; left: 18mm; right: 18mm; bottom: 10mm; display: flex; justify-content: space-between; color: var(--ink-3); font-size: 8pt; }
+</style>
+</head>
+<body>
+
+<!-- Page 1 -->
+<section class="page">
+  <div class="meta"><strong>Jamie Barbon Counselling</strong><span>Website progress update, 19 October 2026</span></div>
+  <h1>Your website, after our meeting</h1>
+  <p class="intro">Hi Jamie, here’s where the website stands after our meeting. I’ve worked through the notes we agreed on, using Alex Harrison’s site as the style reference. The look is calmer and greener, it opens on plant photography, and your headshot is back in its circle. A few things need your input before launch; they’re listed on the last page.</p>
+  <figure class="hero-shot"><img src="img/home-hero.jpg" alt="New home page header"><figcaption>The new home page: a full-width plant photo, a centred header and the shorter tagline.</figcaption></figure>
+
+  <h2 style="margin-top:6mm">Meeting notes and status</h2>
+  <table>
+    <thead><tr><th>From the meeting</th><th>What changed</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Minimal, calm style</td><td>Simplified page tops and more breathing room, following Alex Harrison’s site.</td><td><span class="tag done">Done</span></td></tr>
+      <tr><td>Greenery stock photos, no people</td><td>Every page now opens with a plant photo. The seated portrait on the home page has been removed.</td><td><span class="tag done">Done</span></td></tr>
+      <tr><td>Circular headshot with divider line</td><td>Brought back on the Home and About pages. The line draws itself as you scroll.</td><td><span class="tag done">Done</span></td></tr>
+      <tr><td>Home, About, Contact, Resources/FAQ</td><td>New Resources &amp; FAQ page with six common questions and crisis support contacts.</td><td><span class="tag input">Please review</span></td></tr>
+      <tr><td>Shorter tagline, smaller font</td><td>Now reads “Meet life’s challenges” at a smaller size. A softer second line follows: “With clarity, compassion, and purpose.”</td><td><span class="tag input">Please confirm</span></td></tr>
+      <tr><td>Centred, floating header</td><td>The header sits centred at the top. When you scroll, it shrinks into a small floating bar. On phones it becomes a compact bar with a Menu button.</td><td><span class="tag done">Done</span></td></tr>
+      <tr><td>Fonts</td><td>The serif and sans-serif pairing is unchanged. We’ll revisit it once the logo is placed.</td><td><span class="tag same">Unchanged</span></td></tr>
+      <tr><td>Copy review</td><td>Waiting on your highlighted changes. No full rewrite, as agreed.</td><td><span class="tag input">Your turn</span></td></tr>
+    </tbody>
+  </table>
+  <div class="footer"><span>Prepared by Adam Wan</span><span>1 / 3</span></div>
+</section>
+
+<!-- Page 2 -->
+<section class="page">
+  <div class="meta"><strong>Jamie Barbon Counselling</strong><span>Website progress update, 19 October 2026</span></div>
+  <h2>A closer look</h2>
+
+  <div class="shot-row">
+    <figure><img src="img/home-headshot.jpg" alt="Headshot section on the home page"></figure>
+    <div><h3>Your headshot and welcome</h3><p>Just below the home page header, your headshot sits in a circle with a fine line flowing through the section. As soon as visitors scroll, the header turns into a small floating bar, so the menu is always within reach.</p></div>
+  </div>
+
+  <div class="shot-row">
+    <figure><img src="img/about-hero.jpg" alt="About page header"></figure>
+    <div><h3>About page</h3><p>Each page now opens the same way: a dark plant photo with the page title on top. The About page then leads straight into your headshot and introduction.</p></div>
+  </div>
+
+  <div class="shot-row">
+    <figure><img src="img/resources-faq.jpg" alt="Resources and FAQ page"></figure>
+    <div><h3>Resources &amp; FAQ</h3><p>Visitors can click a question to open its answer. Below the questions are 24-hour crisis lines (9-8-8, the Vancouver Island Crisis Line and 911), which work as tap-to-call links on phones.</p></div>
+  </div>
+
+  <div class="phones">
+    <figure><img src="img/mobile-hero.jpg" alt="Home page on a phone"></figure>
+    <figure><img src="img/mobile-menu.jpg" alt="Menu open on a phone"></figure>
+    <div><h3>On phones</h3><p>The same calm layout scales down to phones. Tapping Menu opens a simple list of pages, which closes again when you tap anywhere else.</p><p>I’ve tested every page on desktop and mobile. That covered the menu, the FAQ and the scroll effects, plus moving through the site with a keyboard.</p></div>
+  </div>
+  <div class="footer"><span>Prepared by Adam Wan</span><span>2 / 3</span></div>
+</section>
+
+<!-- Page 3 -->
+<section class="page">
+  <div class="meta"><strong>Jamie Barbon Counselling</strong><span>Website progress update, 19 October 2026</span></div>
+  <h2>What I need from you</h2>
+  <ol class="asks">
+    <li><strong>Copy changes, highlighted.</strong> Go through each page and highlight the specific words or sentences you’d like changed, with your preferred wording next to them.</li>
+    <li><strong>FAQ answers.</strong> I drafted these from what’s already on the site. Please check the insurance answer and the “first session” answer in particular, and let me know of any questions you’d like added.</li>
+    <li><strong>Tagline second line.</strong> Keep “With clarity, compassion, and purpose.” under “Meet life’s challenges”, change it, or remove it?</li>
+    <li><strong>Photos.</strong> Are you happy with the soft leaf direction? If any photo doesn’t feel right, tell me which page and I’ll swap it. Many images on your Pinterest board are paid prints, so I’d find properly licensed photos in the same style.</li>
+    <li><strong>Logo.</strong> Send it over when it’s ready. We’ll fine-tune the fonts once it’s on the page.</li>
+    <li><strong>Contact email.</strong> The Contact page says your email is being set up. Once your Hushmail address is ready, I’ll add it across the site.</li>
+  </ol>
+
+  <div class="steps">
+    <h2>Next steps</h2>
+    <ul>
+      <li>Apply your copy and FAQ changes.</li>
+      <li>Add the logo and review the fonts alongside it.</li>
+      <li>Connect your contact email.</li>
+      <li>Final review together, then launch.</li>
+    </ul>
+  </div>
+  <div class="footer"><span>Prepared by Adam Wan</span><span>3 / 3</span></div>
+</section>
+
+</body>
+</html>
