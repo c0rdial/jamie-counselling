@@ -1,10 +1,12 @@
 ---
 import DSButton from "./DSButton.astro";
+import { greenery, unsplashUrl } from "../lib/photos";
 interface Props { title: string; text: string }
 const { title, text } = Astro.props;
 ---
 <section class="ds-section ds-cta-section"><div class="ds-container">
   <div class="ds-cta">
+    <img src={unsplashUrl(greenery.cta, 1400)} alt="" loading="lazy" />
     <div class="ds-cta__content"><h2>{title}</h2><p>{text}</p><DSButton href="/contact" variant="light" size="lg">Get in touch</DSButton></div>
   </div>
 </div></section>

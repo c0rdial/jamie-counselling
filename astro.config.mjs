@@ -9,6 +9,5 @@ export default defineConfig({
   integrations: [sitemap()],
   redirects: {
     "/services": "/",
-    "/resources": "/contact",
   },
 });

@@ -2,6 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
 import DSCTA from "../components/DSCTA.astro";
+import DSHeadshot from "../components/DSHeadshot.astro";
+import PageHero from "../components/PageHero.astro";
+import { greenery } from "../lib/photos";
 
 const timeline = [
   ["A background in finance", "I spent years working in financial and leadership roles, where I became interested in the people behind the work."],
@@ -19,7 +22,9 @@ const credentials = [
 ];
 ---
 <BaseLayout title="About Jamie | Jamie Barbon Counselling" description="Learn about Jamie Barbon’s background, counselling approach, and professional credentials.">
-  <section class="ds-section ds-page-hero"><div class="ds-container ds-heading ds-heading--center"><span class="ds-eyebrow">About Jamie</span><h1>A thoughtful space to work through what matters.</h1><p>I’m Jamie Barbon, a Registered Clinical Counsellor and Canadian Certified Counsellor. My approach is warm, collaborative, and grounded in curiosity.</p></div></section>
+  <PageHero photo={greenery.about} title="A thoughtful space to work through what matters." />
+
+  <DSHeadshot><p>I’m Jamie Barbon, a Registered Clinical Counsellor and Canadian Certified Counsellor. My approach is warm, collaborative, and grounded in curiosity.</p></DSHeadshot>
 
   <section class="ds-section ds-section--subtle"><div class="ds-container ds-prose-section"><div class="ds-heading"><span class="ds-eyebrow">My story</span><h2>Why I came to counselling</h2></div><div class="ds-prose"><p>I came to counselling after years of working in financial and leadership roles. I found myself increasingly interested in the people behind the work: what motivates us, what holds us back, and how we find our way through challenges and discomfort.</p><p>I’m drawn to honest conversations that help us slow down and make sense of what’s happening. The beliefs we hold about ourselves, our relationships, and the world can sometimes keep us stuck. Exploring them can open space for insight and new possibilities.</p><p>I strive to create a counselling space that is warm, grounded, and practical. I listen closely, ask thoughtful questions, and work collaboratively with you to understand what you’re facing and what matters most to you.</p></div></div></section>
 

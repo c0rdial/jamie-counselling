@@ -2,7 +2,7 @@
 const currentPath = Astro.url.pathname;
 const links = [
   { label: "Home", href: "/" }, { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Resources", href: "/resources" }, { label: "Contact", href: "/contact" },
 ];
 ---
 <header class="ds-nav"><div class="ds-nav__inner">
@@ -13,10 +13,25 @@ const links = [
   </nav>
 </div></header>
 <script>
+  const nav = document.querySelector<HTMLElement>('.ds-nav');
   const toggle = document.querySelector<HTMLButtonElement>('.ds-menu-toggle');
   const links = document.querySelector('.ds-nav__links');
-  toggle?.addEventListener('click', () => {
-    const open = links?.classList.toggle('is-open') ?? false;
-    toggle.setAttribute('aria-expanded', String(open));
+  const setOpen = (open: boolean) => {
+    links?.classList.toggle('is-open', open);
+    toggle?.setAttribute('aria-expanded', String(open));
+  };
+  toggle?.addEventListener('click', () => setOpen(!links?.classList.contains('is-open')));
+  addEventListener('keydown', event => {
+    if (event.key !== 'Escape' || !links?.classList.contains('is-open')) return;
+    setOpen(false);
+    toggle?.focus();
   });
+  addEventListener('click', event => {
+    if (!nav?.contains(event.target as Node)) setOpen(false);
+  });
+
+  // Once the photo header scrolls away, the nav condenses into a floating island.
+  const updateFloating = () => nav?.classList.toggle('is-floating', scrollY > 80);
+  addEventListener('scroll', updateFloating, { passive: true });
+  updateFloating();
 </script>

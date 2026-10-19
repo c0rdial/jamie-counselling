@@ -1,9 +1,10 @@
 ---
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
 import DSCTA from "../components/DSCTA.astro";
-import jamieHero from "../assets/jamie-hero.jpg";
+import DSHeadshot from "../components/DSHeadshot.astro";
+import PageHero from "../components/PageHero.astro";
+import { greenery } from "../lib/photos";
 
 const areas = [
   "Anxiety, stress & burnout",
@@ -15,19 +16,15 @@ const areas = [
 ];
 ---
 <BaseLayout title="Jamie Barbon Counselling | Virtual counselling" description="Warm, practical virtual counselling for adults navigating anxiety, relationships, loss, stress, and life transitions.">
-  <section class="ds-section ds-section--sm">
-    <div class="ds-container ds-hero">
-      <div class="ds-hero__copy">
-        <span class="ds-eyebrow">Jamie Barbon Counselling</span>
-        <h1 class="ds-display">Support to meet life’s challenges with <em>clarity, compassion, and <strong>purpose</strong>.</em></h1>
-        <p class="ds-lead">Welcome, I’m Jamie. I offer virtual counselling for adults navigating difficult feelings, relationships, work, and change. Together, we can make sense of what feels hard and find a way forward that fits you.</p>
-        <DSButton href="/contact" size="lg">Get in touch</DSButton>
-      </div>
-      <div class="ds-media ds-hero__portrait">
-        <Image src={jamieHero} alt="Jamie Barbon seated for a portrait" widths={[480, 800, 1200]} sizes="(max-width: 900px) 100vw, 50vw" format="webp" loading="eager" fetchpriority="high" />
-      </div>
-    </div>
-  </section>
+  <PageHero photo={greenery.home} title="Meet life’s challenges" size="full">
+    <p>With clarity, compassion, and purpose.</p>
+    <DSButton href="/contact" variant="light" size="lg">Get in touch</DSButton>
+  </PageHero>
+
+  <DSHeadshot>
+    <h2>Welcome, I’m Jamie.</h2>
+    <p>I offer virtual counselling for adults navigating difficult feelings, relationships, work, and change. Together, we can make sense of what feels hard and find a way forward that fits you.</p>
+  </DSHeadshot>
 
   <section class="ds-section ds-section--subtle" id="support">
     <div class="ds-container ds-simple-section">

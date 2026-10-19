@@ -1,0 +1,9 @@
+---
+import { unsplashSrcset, unsplashUrl } from "../lib/photos";
+interface Props { photo: string; title: string; size?: "full" | "short"; position?: string }
+const { photo, title, size = "short", position = "center" } = Astro.props;
+---
+<section class:list={["ds-photo-hero", `ds-photo-hero--${size}`]}>
+  <img src={unsplashUrl(photo, 1400)} srcset={unsplashSrcset(photo)} sizes="100vw" alt="" loading="eager" fetchpriority="high" style={`object-position: ${position}`} />
+  <div class="ds-photo-hero__content"><h1>{title}</h1><slot /></div>
+</section>
