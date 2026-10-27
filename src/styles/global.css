@@ -6,8 +6,8 @@
 
 html { scroll-behavior: smooth; background: var(--bg-page); color: var(--fg-1); font-family: var(--font-sans); }
 body { margin: 0; background: var(--bg-page); color: var(--fg-1); }
-h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: var(--tracking-display); }
-p { margin-top: 0; }
+h1, h2, h3 { font-family: var(--font-display); font-weight: 400; letter-spacing: var(--tracking-display); text-wrap: balance; }
+p { margin-top: 0; text-wrap: pretty; }
 a { color: inherit; }
 :focus-visible { outline: 2px solid var(--forest-900); outline-offset: 3px; }
 .ds-nav:not(.is-floating) :focus-visible, .ds-photo-hero :focus-visible, .ds-cta :focus-visible, .ds-footer :focus-visible { outline-color: var(--cream-50); }
@@ -26,7 +26,7 @@ a { color: inherit; }
 .ds-heading--center { text-align: center; justify-items: center; margin-inline: auto; }
 
 .ds-button { display: inline-flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 52px; padding: 4px 4px 4px 24px; border-radius: 999px; border: 1px solid transparent; background: var(--forest-900); color: var(--cream-50); font: 400 15px/1.2 var(--font-sans); text-decoration: none; transition: background var(--dur-2) var(--ease-out), transform var(--dur-1); }
-.ds-button:hover { background: var(--forest-800); }
+.ds-button:hover { background: var(--forest-800); color: var(--cream-50); }
 .ds-button:active { transform: scale(.98); }
 .ds-button__circle { display: grid; place-items: center; width: 44px; height: 44px; flex: none; border-radius: 50%; background: var(--cream-50); color: var(--forest-900); }
 .ds-button__circle svg { width: 18px; height: 18px; transition: transform var(--dur-2) var(--ease-out); }
@@ -37,12 +37,13 @@ a { color: inherit; }
 .ds-button--secondary:hover { color: var(--cream-50); }
 .ds-button--secondary .ds-button__circle { background: var(--forest-900); color: var(--cream-50); }
 .ds-button--light { background: var(--cream-50); color: var(--forest-900); }
-.ds-button--light:hover { background: white; }
+.ds-button--light:hover { background: white; color: var(--forest-900); }
 .ds-button--light .ds-button__circle { background: var(--forest-900); color: var(--cream-50); }
 
 .ds-nav { position: fixed; inset: 0 0 auto; z-index: 50; padding: 30px var(--gutter) 0; color: var(--cream-50); pointer-events: none; }
 .ds-nav__inner { position: relative; width: fit-content; margin-inline: auto; display: grid; justify-items: center; gap: 16px; pointer-events: auto; animation: ds-nav-settle var(--dur-3) var(--ease-out); }
 .ds-brand { color: inherit; text-decoration: none; font: 400 28px/1 var(--font-display); letter-spacing: .01em; white-space: nowrap; }
+.ds-brand:hover { color: inherit; }
 .ds-brand span { opacity: .72; }
 .ds-nav__links { display: flex; gap: 32px; }
 .ds-nav__links a { position: relative; color: inherit; opacity: .78; text-decoration: none; font-size: 15px; transition: opacity var(--dur-2); }
@@ -81,13 +82,12 @@ a { color: inherit; }
 .ds-curve path { fill: none; stroke: var(--sand-400); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--curve-progress, 1)); }
 .ds-curve__portrait { position: relative; width: 292px; aspect-ratio: 1; padding: 16px; border: 1px solid var(--sand-300); border-radius: 50%; background: var(--bg-page); }
 .ds-curve__portrait .ds-media { height: 100%; border-radius: 50%; }
-.ds-curve__portrait img { object-position: 50% 24%; }
 .ds-curve__content { position: relative; display: grid; justify-items: center; gap: 18px; max-width: 620px; }
 .ds-curve__content h2 { margin: 0; font-size: clamp(34px, 3.6vw, 46px); line-height: 1.1; }
 .ds-curve__content p { margin: 0; color: var(--fg-2); font-size: 18px; line-height: 1.7; }
 
-.ds-simple-section { display: grid; gap: 44px; }
-.ds-area-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0 28px; padding: 0; margin: 0; list-style: none; }
+.ds-simple-section { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(40px, 7vw, 100px); align-items: start; }
+.ds-area-grid { padding: 0; margin: 0; list-style: none; border-bottom: 1px solid var(--border-2); }
 .ds-area-grid li { border-top: 1px solid var(--border-2); padding: 22px 0; font: 400 23px/1.3 var(--font-display); }
 .ds-intro-panel, .ds-prose-section { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: clamp(40px, 7vw, 100px); align-items: start; }
 .ds-intro-panel__copy, .ds-prose { display: grid; justify-items: start; gap: 20px; color: var(--fg-2); font-size: 17px; line-height: 1.7; }
@@ -117,6 +117,7 @@ a { color: inherit; }
 .ds-credentials li { padding: 15px 0; border-bottom: 1px solid var(--border-2); font-size: 15px; line-height: 1.5; }
 
 .ds-cta-section { padding-top: 0; }
+.ds-section--subtle + .ds-cta-section { padding-top: var(--section-y-sm); }
 .ds-cta { position: relative; overflow: hidden; min-height: 420px; border-radius: 40px; background: var(--forest-900); display: grid; place-items: center; }
 .ds-cta > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .38; }
 .ds-cta__content { position: relative; max-width: 720px; padding: 70px 32px; display: grid; justify-items: center; gap: 22px; text-align: center; }
@@ -162,8 +163,7 @@ a { color: inherit; }
 .ds-footer__bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--border-inverse); color: var(--fg-inverse-2); font-size: 13px; }
 
 @media (max-width: 900px) {
-  .ds-welcome, .ds-intro-panel, .ds-prose-section, .ds-session-strip, .ds-credentials, .ds-contact-grid, .ds-timeline-panel { grid-template-columns: 1fr; }
-  .ds-area-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ds-simple-section, .ds-welcome, .ds-intro-panel, .ds-prose-section, .ds-session-strip, .ds-credentials, .ds-contact-grid, .ds-timeline-panel { grid-template-columns: 1fr; }
   .ds-welcome__portrait { max-width: 420px; }
   .ds-timeline-intro { position: static; }
 }
@@ -183,7 +183,6 @@ a { color: inherit; }
   .ds-curve__portrait { width: 232px; padding: 12px; }
   .ds-curve svg { height: 320px; }
   .ds-faq-item summary { font-size: 19px; }
-  .ds-area-grid { grid-template-columns: 1fr; }
   .ds-area-grid li { padding: 16px 0; }
   .ds-timeline-panel, .ds-cta { border-radius: 28px; }
   .ds-cta { min-height: 360px; }
