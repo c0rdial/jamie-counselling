@@ -71,6 +71,11 @@ a { color: inherit; }
 .ds-media { position: relative; overflow: hidden; width: 100%; background: var(--sand-200); }
 .ds-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 
+.ds-welcome { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,420px); gap: clamp(48px, 8vw, 120px); align-items: center; }
+.ds-welcome .ds-heading h2 { font-size: clamp(38px, 4vw, 52px); line-height: 1.08; }
+.ds-welcome__portrait { aspect-ratio: 4 / 5; border-radius: var(--radius-xl); }
+.ds-welcome__portrait img { object-position: 50% 22%; }
+
 .ds-curve { position: relative; display: grid; justify-items: center; gap: 40px; padding: 72px var(--gutter) 120px; overflow: hidden; text-align: center; }
 .ds-curve svg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .ds-curve path { fill: none; stroke: var(--sand-400); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--curve-progress, 1)); }
@@ -136,8 +141,11 @@ a { color: inherit; }
 .ds-faq-item[open] summary::after { transform: rotate(45deg); }
 .ds-faq-item::details-content { block-size: 0; overflow: hidden; transition: block-size var(--dur-2) var(--ease-out), content-visibility var(--dur-2) allow-discrete; }
 .ds-faq-item[open]::details-content { block-size: auto; }
-.ds-faq-item p { margin: 0; padding: 0 48px 26px 0; color: var(--fg-2); font-size: 17px; line-height: 1.7; }
+.ds-faq-item p { margin: 0; padding: 0 48px 14px 0; color: var(--fg-2); font-size: 17px; line-height: 1.7; }
+.ds-faq-item p:last-child { padding-bottom: 26px; }
 .ds-contact-list a { color: var(--forest-900); text-underline-offset: 4px; }
+.ds-contact-details .ds-heading a { color: var(--forest-900); text-underline-offset: 4px; }
+.ds-contact-form { display: block; width: 100%; max-width: 760px; min-height: 720px; margin-inline: auto; border: 0; border-radius: var(--radius-lg); background: var(--cream-25); }
 .ds-crisis-note { padding: 24px 0; border-top: 1px solid var(--border-2); color: var(--fg-3); font-size: 14px; line-height: 1.6; }
 .ds-crisis-note a { color: var(--forest-900); }
 
@@ -154,8 +162,9 @@ a { color: inherit; }
 .ds-footer__bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-top: 24px; border-top: 1px solid var(--border-inverse); color: var(--fg-inverse-2); font-size: 13px; }
 
 @media (max-width: 900px) {
-  .ds-intro-panel, .ds-prose-section, .ds-session-strip, .ds-credentials, .ds-contact-grid, .ds-timeline-panel { grid-template-columns: 1fr; }
+  .ds-welcome, .ds-intro-panel, .ds-prose-section, .ds-session-strip, .ds-credentials, .ds-contact-grid, .ds-timeline-panel { grid-template-columns: 1fr; }
   .ds-area-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .ds-welcome__portrait { max-width: 420px; }
   .ds-timeline-intro { position: static; }
 }
 @media (max-width: 700px) {

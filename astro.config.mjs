@@ -4,7 +4,7 @@ import sitemap from "@astrojs/sitemap";
 import vercel from "@astrojs/vercel";
 
 export default defineConfig({
-  site: "https://www.jamiecounselling.ca",
+  site: "https://jamiebarboncounselling.ca",
   adapter: vercel(),
   integrations: [sitemap()],
   redirects: {

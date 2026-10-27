@@ -1,13 +1,14 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import PageHero from "../components/PageHero.astro";
-import { contactEmail } from "../lib/contact";
+import { contactEmail, contactFormUrl } from "../lib/contact";
 import { greenery } from "../lib/photos";
 ---
 <BaseLayout title="Contact | Jamie Barbon Counselling" description="Get in touch with Jamie Barbon about virtual counselling appointments.">
-  <PageHero photo={greenery.contact} title="Let’s start with a conversation." />
+  <PageHero photo={greenery.contact} title="Let’s start a conversation." />
   <section class="ds-section"><div class="ds-container ds-contact-grid">
-    <div class="ds-contact-details"><div class="ds-heading"><p>Reach out with a question or to ask about a virtual counselling appointment. I offer weekday sessions, with 6:00 AM Pacific appointments two days a week.</p></div><div class="ds-crisis-note">If you need urgent support, call the <a href="tel:+18884943888">Vancouver Island Crisis Line at 1-888-494-3888</a> or visit the <a href="https://www.vicrisis.ca/crisis-lines/">Vancouver Island Crisis Society</a>. If there is immediate danger, call 911 or go to the nearest emergency department.</div></div>
-    <div class="ds-contact-card"><h2>Contact &amp; sessions</h2>{contactEmail ? <p>Email me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a> to arrange a time.</p> : <p>Jamie’s secure contact email is being set up. Please check back shortly for booking details.</p>}<ul class="ds-contact-list"><li><strong>Format</strong><span>Virtual</span></li><li><strong>50-minute session</strong><span>$150</span></li><li><strong>75-minute session</strong><span>$200</span></li><li><strong>Availability</strong><span>Weekdays</span></li></ul></div>
+    <div class="ds-contact-details"><div class="ds-heading"><p>You can reach me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a>{contactFormUrl && " or use the form below"} with any questions, inquiries, or to arrange a time to connect.</p><p>Reaching out to a counsellor for the first time can feel a little nerve-racking. Please know you’re welcome to get in touch, even if you’re not quite sure where to start or whether you’re ready to begin.</p></div><div class="ds-crisis-note">If you need urgent support, call the <a href="tel:+18884943888">Vancouver Island Crisis Line at 1-888-494-3888</a> or visit the <a href="https://www.vicrisis.ca/crisis-lines/">Vancouver Island Crisis Society</a>. If there is immediate danger, call 911 or go to the nearest emergency department.</div></div>
+    <div class="ds-contact-card"><h2>Contact &amp; sessions</h2><p>Email me at <a href={`mailto:${contactEmail}`}>{contactEmail}</a> to arrange a time.</p><ul class="ds-contact-list"><li><strong>Format</strong><span>Virtual</span></li><li><strong>50-minute session</strong><span>$150</span></li><li><strong>75-minute session</strong><span>$225</span></li><li><strong>Availability</strong><span>Weekdays</span></li></ul></div>
   </div></section>
+  {contactFormUrl && <section class="ds-section ds-section--sm"><div class="ds-container"><iframe class="ds-contact-form" src={contactFormUrl} title="Contact form" loading="lazy"></iframe></div></section>}
 </BaseLayout>

@@ -2,9 +2,10 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSButton from "../components/DSButton.astro";
 import DSCTA from "../components/DSCTA.astro";
-import DSHeadshot from "../components/DSHeadshot.astro";
 import PageHero from "../components/PageHero.astro";
+import { Image } from "astro:assets";
 import { greenery } from "../lib/photos";
+import jamiePortrait from "../assets/jamie-portrait-dark.jpg";
 
 const areas = [
   "Anxiety, stress & burnout",
@@ -12,7 +13,8 @@ const areas = [
   "Life transitions, grief & loss",
   "Perfectionism & self-doubt",
   "Parenting & step-parenting",
-  "Work, performance & financial stress",
+  "Work and academic performance",
+  "Financial stress",
 ];
 ---
 <BaseLayout title="Jamie Barbon Counselling | Virtual counselling" description="Warm, practical virtual counselling for adults navigating anxiety, relationships, loss, stress, and life transitions.">
@@ -21,28 +23,32 @@ const areas = [
     <DSButton href="/contact" variant="light" size="lg">Get in touch</DSButton>
   </PageHero>
 
-  <DSHeadshot>
-    <h2>Welcome, I’m Jamie.</h2>
-    <p>I offer virtual counselling for adults navigating difficult feelings, relationships, work, and change. Together, we can make sense of what feels hard and find a way forward that fits you.</p>
-  </DSHeadshot>
+  <section class="ds-section">
+    <div class="ds-container ds-welcome">
+      <div class="ds-heading"><h2>Welcome, I’m Jamie.</h2><p>Whatever you’re navigating, counselling can offer an intentional space to pause, reflect, and reconnect with what matters most to you. From there, new possibilities and ways forward can emerge.</p></div>
+      <div class="ds-media ds-welcome__portrait">
+        <Image src={jamiePortrait} alt="Jamie Barbon seated in a dark blazer" widths={[400, 800]} sizes="(max-width: 900px) 80vw, 420px" format="webp" />
+      </div>
+    </div>
+  </section>
 
   <section class="ds-section ds-section--subtle" id="support">
     <div class="ds-container ds-simple-section">
-      <div class="ds-heading"><span class="ds-eyebrow">Where counselling can help</span><h2>Whatever you’re carrying, you don’t have to sort through it alone.</h2><p>Life can look manageable on the outside while feeling heavy or unclear underneath. Counselling offers space to pause, reflect, and reconnect with what matters most to you.</p></div>
+      <div class="ds-heading"><span class="ds-eyebrow">Where counselling can help</span><h2>Change begins with connection.</h2><p>Life doesn’t always feel the way it looks on the outside. You might be holding a lot—showing up, pushing forward, keeping things together—while something underneath feels off, heavy, or unclear.</p><p>At times, you may find yourself navigating anxiety, depression, grief and loss, or periods of growth and transition that feel both meaningful and overwhelming. You might be re-evaluating your path, facing shifts in work or relationships, or carrying stress—including financial stress—that quietly shapes how you move through your day-to-day life.</p><p>Sometimes, the first step toward change is simply being willing to talk about it.</p></div>
       <ul class="ds-area-grid">{areas.map(area => <li>{area}</li>)}</ul>
     </div>
   </section>
 
   <section class="ds-section">
     <div class="ds-container ds-intro-panel">
-      <div class="ds-heading"><span class="ds-eyebrow">A bit about me</span><h2>Warm, grounded, practical counselling.</h2></div>
-      <div class="ds-intro-panel__copy"><p>I came to counselling after years in finance and leadership, where I became increasingly interested in the people behind the work. I listen closely, ask thoughtful questions, and work with you to understand what you’re facing.</p><p>Our conversations focus on your strengths, values, and the steps that feel meaningful and workable in your life.</p><DSButton href="/about" variant="secondary">More about my approach</DSButton></div>
+      <div class="ds-heading"><span class="ds-eyebrow">A bit about me</span><h2>Warm, engaging, and real.</h2></div>
+      <div class="ds-intro-panel__copy"><p>Just honest conversation, useful tools, and a space to explore what matters. Together, we’ll deepen your understanding of yourself, explore what might be getting in the way of what you most want, and open up new possibilities. You don’t need to have it all figured out to begin—just come as you are, with a willingness to get curious about yourself and what matters most to you.</p><DSButton href="/about" variant="secondary">More about my approach</DSButton></div>
     </div>
   </section>
 
   <section class="ds-section ds-section--subtle">
-    <div class="ds-container ds-session-strip"><div><span class="ds-eyebrow">Sessions</span><h2>Virtual counselling on weekdays.</h2><p>Appointments include 6:00 AM Pacific sessions two days a week.</p></div><div class="ds-session-strip__fees"><p><strong>50 minutes</strong><span>$150</span></p><p><strong>75 minutes</strong><span>$200</span></p></div></div>
+    <div class="ds-container ds-session-strip"><div><span class="ds-eyebrow">Sessions</span><h2>Virtual counselling on weekdays.</h2></div><div class="ds-session-strip__fees"><p><strong>50 minutes</strong><span>$150</span></p><p><strong>75 minutes</strong><span>$225</span></p></div></div>
   </section>
 
-  <DSCTA title="Ready to start a conversation?" text="Reach out to ask a question or find a time to meet." />
+  <DSCTA title="Ready to start a conversation?" text="Reach out with any questions or if you’d like to find a time to connect." />
 </BaseLayout>

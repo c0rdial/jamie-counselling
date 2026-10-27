@@ -2,19 +2,19 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import DSCTA from "../components/DSCTA.astro";
 import PageHero from "../components/PageHero.astro";
+import { contactEmail } from "../lib/contact";
 import { greenery } from "../lib/photos";
 
 const faqs = [
-  ["Who do you work with?", "I work with adults navigating anxiety, stress and burnout, relationships and family dynamics, life transitions, grief and loss, perfectionism and self-doubt, parenting, and work or financial stress."],
-  ["How do virtual sessions work?", "All sessions happen online, so you can meet from home or any private space where you feel comfortable."],
-  ["When are appointments available?", "I offer sessions on weekdays, including 6:00 AM Pacific appointments two days a week."],
-  ["What are your fees?", "A 50-minute session is $150 and a 75-minute session is $200."],
-  ["Is counselling covered by my insurance?", "I’m a Registered Clinical Counsellor (RCC) and Canadian Certified Counsellor (CCC). Many extended health plans cover counselling with these credentials, so check with your provider about your coverage."],
-  ["What happens in the first session?", "We’ll talk about what brings you to counselling and what you’d like to change. You can ask anything about how I work, and together we’ll decide on next steps."],
-];
+  ["Who do you work with?", ["I work with adults navigating anxiety, stress and burnout, relationship and family dynamics, parenting and step-parenting, life transitions, grief and loss, perfectionism and self-doubt, academic and professional pressures, and financial stress."]],
+  ["How do virtual sessions work?", ["All sessions happen online, so you can meet from home or any private space where you feel comfortable."]],
+  ["When are appointments available?", ["Sessions are available on weekdays. Feel free to reach out to explore scheduling."]],
+  ["What are your fees?", ["A 50-minute session is $150 and a 75-minute session is $225.", `I accept payment by e-transfer. Please send payment to ${contactEmail} before our session.`]],
+  ["Is counselling covered by my insurance?", ["I’m a Registered Clinical Counsellor (RCC) and Canadian Certified Counsellor (CCC). Many extended health plans include coverage for counselling with these credentials. I encourage you to check with your provider to learn more about your coverage.", "A receipt will be provided upon payment for you to submit to your insurance provider for reimbursement. Please note that I do not bill insurance companies directly."]],
+  ["What happens in the first session?", ["Our first session is a chance to settle in, get to know each other, and begin exploring what brings you to counselling. We’ll go over confidentiality and informed consent together, making room for any questions so you can feel comfortable with how we’ll work together.", "From there, we’ll talk about what you’ve been navigating and what you hope might look or feel different through our work together. Or perhaps you simply need some intentional space to reflect on all that’s going on. There’s no need to have everything figured out before you arrive. We’ll start where you are and take things one step at a time."]],
+] as const;
 
 const crisisLines = [
-  { name: "9-8-8 Suicide Crisis Helpline", detail: "Call or text 988, any time", href: "tel:988" },
   { name: "Vancouver Island Crisis Line", detail: "1-888-494-3888", href: "tel:+18884943888" },
   { name: "Emergency services", detail: "Call 911 if there is immediate danger", href: "tel:911" },
 ];
@@ -24,13 +24,13 @@ const crisisLines = [
 
   <section class="ds-section"><div class="ds-container ds-prose-section">
     <div class="ds-heading"><h2>Common questions</h2><p>If you don’t see your question here, you’re welcome to get in touch.</p></div>
-    <div class="ds-faq-list">{faqs.map(([q, a]) => <details class="ds-faq-item"><summary>{q}</summary><p>{a}</p></details>)}</div>
+    <div class="ds-faq-list">{faqs.map(([q, a]) => <details class="ds-faq-item"><summary>{q}</summary>{a.map(text => <p>{text}</p>)}</details>)}</div>
   </div></section>
 
   <section class="ds-section ds-section--subtle"><div class="ds-container ds-prose-section">
-    <div class="ds-heading"><h2>If you need support right now</h2><p>Counselling isn’t an emergency service. If you’re in crisis, these lines are available around the clock.</p></div>
+    <div class="ds-heading"><h2>If you need support right now</h2><p>While counselling can offer support through difficult times, it isn’t an emergency service. If you need immediate support, the following resources are available around the clock.</p></div>
     <ul class="ds-contact-list">{crisisLines.map(line => <li><strong>{line.name}</strong><a href={line.href}>{line.detail}</a></li>)}</ul>
   </div></section>
 
-  <DSCTA title="Still have a question?" text="Reach out and I’ll get back to you." />
+  <DSCTA title="Curious about working together?" text="Reach out by email, and I’ll be in touch." />
 </BaseLayout>
